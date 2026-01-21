@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "FastAPI Backend",
+			"path": "server",
+		},
+		{
+			"name": "Vite Frontend",
+			"path": "client",
+		},
+		{
+			"name": "Root",
+			"path": ".",
+		},
+	],
+	"settings": {},
+}
