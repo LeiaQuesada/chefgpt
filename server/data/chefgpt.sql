@@ -16,7 +16,8 @@ CREATE TABLE recipes (
 	id SERIAL PRIMARY KEY ,
 	user_id INTEGER NOT NULL,
 	title VARCHAR(255) NOT NULL,
-    total_time INTEGER NOT NULL,
+	image_url TEXT,
+	total_time INTEGER NOT NULL,
 	created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
 	updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users(id)
