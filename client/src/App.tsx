@@ -29,13 +29,3 @@ function App() {
 }
 
 export default App;
-
-// /login
-// /register
-// /profile/edit
-// /dashboard
-// /cookbook
-// /recipe/:id
-// /recipe/edit/:id
-// /recipe/new
-// /logout
