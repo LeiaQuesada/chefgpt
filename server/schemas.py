@@ -85,7 +85,7 @@ class RecipeOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-# example json when user sends a request to create a recipe in frontend
+# RecipeCreate: example json when user sends a request to create a recipe in frontend
 # {
 #   "title": "Spaghetti Carbonara",
 #   "total_time": 30,
@@ -93,7 +93,7 @@ class RecipeOut(BaseModel):
 #   "instructions": [{"step_text": "Boil spaghetti", "step_number": 1}]
 # }
 
-# example json of what data frontend receives when fetching a recipe
+# RecipeOut: example json of what data frontend receives when fetching a recipe
 # # {
 #   "id": 12,
 #   "user_id": 3,
