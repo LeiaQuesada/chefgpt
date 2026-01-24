@@ -1,6 +1,7 @@
 // import "./App.css";
 import { Routes, Route } from 'react-router-dom'
 import Layout from './Layout.tsx'
+import Cookbook from './cookbook/Cookbook.tsx'
 
 function App() {
     return (
@@ -15,7 +16,7 @@ function App() {
                     {/* TODO set index route <Route index element={<Cookbook />} /> */}
                     <Route
                         path="/cookbook"
-                        element={<div>Cookbook Page</div>}
+                        element={<Cookbook />}
                     />
                     <Route path="/login" element={<div>Login Page</div>} />
                     <Route
