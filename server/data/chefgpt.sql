@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS ingredients;
 DROP TABLE IF EXISTS recipes;
 DROP TABLE IF EXISTS users;
 
+-- in psql, run the following to import this file:
+-- \i data/chefgpt.sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
