@@ -1,73 +1,84 @@
-import React, { useState } from 'react';
-import RecipeCard from './recipeCard';
+import { useEffect, useState } from 'react'
+import RecipeCard from './recipeCard'
 import '../App.css'
+import { useNavigate } from 'react-router'
 
 // Data model
-type RecipeSummary = {
-    id: number;
-    title: string;
-    totalTime: number;
-    imageUrl?: string | null;
-};
+type Recipe = {
+    id: number
+    title: string
+    totalTime: number
+    imageUrl?: string | null
+}
 
-const initialRecipes: RecipeSummary[] = [
-    {
-        id: 1,
-        title: 'Classic Lasagna',
-        totalTime: 90,
-        imageUrl: null,
-    },
-    {
-        id: 2,
-        title: 'Lemon Herb Chicken',
-        totalTime: 45,
-        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-    },
-    {
-        id: 3,
-        title: 'Vegetarian Chili',
-        totalTime: 60,
-        imageUrl: null,
-    },
-    {
-        id: 4,
-        title: 'Chocolate Chip Cookies',
-        totalTime: 30,
-        imageUrl: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c',
-    },
-];
+export default function Cookbook() {
+    const navigate = useNavigate() // Removed unused variable
+    const [recipes, setRecipes] = useState<Recipe[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<Error | null>(null)
 
-const Cookbook: React.FC = () => {
-    const [recipes, setRecipes] = useState<RecipeSummary[]>(initialRecipes);
+    // const handleView = (id: number) => {
+    //     navigate(`/recipe/${id}`)
+    // }
 
-    const handleView = (id: number) => {
-        console.log('view', id);
-    };
+    // const handleEdit = (id: number) => {
+    //     navigate(`/recipe/edit/${id}`)
+    // }
 
-    const handleEdit = (id: number) => {
-        console.log('edit', id);
-    };
+    // const handleDelete = (id: number) => {
+    //     setRecipes((recipes) => recipes.filter((r) => r.id !== id))
+    // }
 
-    const handleDelete = (id: number) => {
-        setRecipes(recipes => recipes.filter(r => r.id !== id));
-    };
+    // ======================
+
+    async function fetchRecipes() {
+        try {
+            const response = await fetch('http://localhost:8000/api/recipes')
+            const data = await response.json()
+            setRecipes(data)
+            console.log('Fetched recipes:', data)
+            setLoading(false)
+        } catch (error) {
+            setError(error as Error)
+            setLoading(false)
+            console.error('Error loading recipes:', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchRecipes()
+    }, [])
+
+    if (error) {
+        return <div>Something went wrong loading recipes, try again..</div>
+    }
+    if (loading) {
+        return <div>Loading...</div>
+    }
+
+    // =======================
 
     return (
         <div className="cookbook-container">
             <h1 className="cookbook-title">My Cookbook</h1>
             <div className="cookbook-list">
-                {recipes.map(recipe => (
+                {/* Render RecipeCard for each recipe */}
+                {recipes.map((recipe) => (
                     <RecipeCard
                         key={recipe.id}
                         recipe={recipe}
-                        onView={handleView}
-                        onEdit={handleEdit}
-                        onDelete={handleDelete}
+                        onView={(id) => {
+                            /* handle view */
+                        }}
+                        onEdit={(id) => {
+                            /* handle edit */
+                        }}
+                        onDelete={(id) => {
+                            /* handle delete */
+                        }}
                     />
                 ))}
             </div>
         </div>
-    );
-};
-
-export default Cookbook;
+    )
+}

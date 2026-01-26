@@ -1,27 +1,34 @@
-import React from "react";
+// ...existing code...
 
 // Data model
 export type RecipeSummary = {
-    id: number;
-    title: string;
-    totalTime: number; // minutes
-    imageUrl?: string | null;
-};
+    id: number
+    title: string
+    totalTime: number // minutes
+    imageUrl?: string | null
+}
 
 type RecipeCardProps = {
-    recipe: RecipeSummary;
-    onView: (id: number) => void;
-    onEdit: (id: number) => void;
-    onDelete: (id: number) => void;
-};
+    recipe: RecipeSummary
+    onView: (id: number) => void
+    onEdit: (id: number) => void
+    onDelete: (id: number) => void
+}
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onView, onEdit, onDelete }) => {
+export default function RecipeCard({
+    recipe,
+    onView,
+    onEdit,
+    onDelete,
+}: RecipeCardProps) {
     return (
         <div className="recipe-card">
             <div className="recipe-card-left">
                 <div>
                     <div className="recipe-card-title">{recipe.title}</div>
-                    <div className="recipe-card-time">Total time: {recipe.totalTime} min</div>
+                    <div className="recipe-card-time">
+                        Total time: {recipe.totalTime} min
+                    </div>
                 </div>
 
                 <div className="recipe-card-actions">
@@ -66,7 +73,5 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onView, onEdit, onDelet
                 )}
             </div>
         </div>
-    );
-};
-
-export default RecipeCard;
+    )
+}
