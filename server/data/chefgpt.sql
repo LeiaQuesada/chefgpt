@@ -8,8 +8,10 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    hashed_password VARCHAR(255) NOT NULL,
     image_url TEXT,
+    session_token TEXT,
+    session_expires_at TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );
@@ -45,10 +47,10 @@ CREATE TABLE instructions (
 );
 
 
-INSERT INTO users (username, password_hash, image_url) VALUES
-    ('leiaquesada143', 'hash1', 'https://example.com/leia.jpg'),
-    ('cosimaoctavia720', 'hash2', 'https://example.com/cosima.jpg'),
-    ('chelsealee98', 'hash3', NULL);
+INSERT INTO users (username, hashed_password, image_url) VALUES
+    ('leiaquesada143', '$2b$12$ZIYIBOy3u66cLJNF5cMbquGPnY1ZE4x4Zb6NRFr0yIGCmA5VdB9q.', 'https://example.com/leia.jpg'),
+    ('cosimaoctavia720', '$2b$12$1l1yZJlncGRg9t4h.MDfLe5KreHPNgwHtij8vsqiL3sW0LKuAu2SC', 'https://example.com/cosima.jpg'),
+    ('chelsealee98', '$2b$12$wZIdFtt5iNhtB/N.jV85ze7QWQ3Mk/uBW8i5m2B5v7gla42W91632', NULL);
 
 INSERT INTO recipes (user_id, title, total_time) VALUES
     (1, 'Spaghetti Bolognese', 45),
