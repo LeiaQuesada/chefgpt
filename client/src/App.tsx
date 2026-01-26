@@ -2,6 +2,8 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './Layout.tsx'
 import Cookbook from './cookbook/Cookbook.tsx'
+import Register from "./Register.tsx";
+import Login from "./login.tsx";
 
 function App() {
     return (
@@ -18,11 +20,9 @@ function App() {
                         path="/cookbook"
                         element={<Cookbook />}
                     />
-                    <Route path="/login" element={<div>Login Page</div>} />
-                    <Route
-                        path="/register"
-                        element={<div>Register Page</div>}
-                    />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+
                     <Route
                         path="/profile/edit"
                         element={<div>Edit Profile Page</div>}
