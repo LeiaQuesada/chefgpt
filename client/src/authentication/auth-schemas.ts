@@ -3,7 +3,6 @@ import { z } from 'zod'
 export const UserSchema = z.object({
     id: z.string(),
     name: z.string(),
-    email: z.string().email(),
 })
 export type User = z.infer<typeof UserSchema>
 
@@ -18,10 +17,8 @@ export type LoginCredentials = z.infer<typeof LoginCredentialsSchema>
 // Signup data schema
 export const SignupDataSchema = z.object({
     username: z.string().min(1, 'Username is required'),
-    email: z.email(),
     password: z.string().min(1, 'Password is required'),
-    bio: z.string().nullable().optional(),
-    avatar_url: z.url().or(z.literal('')).nullable().optional(),
+    image_url: z.url().or(z.literal('')).nullable().optional(),
 })
 
 export type SignupData = z.infer<typeof SignupDataSchema>
@@ -30,11 +27,9 @@ export type SignupData = z.infer<typeof SignupDataSchema>
 export const SignupFormSchema = z
     .object({
         username: z.string().min(1, 'Username is required'),
-        email: z.email(),
         password: z.string().min(1, 'Password is required'),
         confirmPassword: z.string().min(1, 'Please confirm your password'),
-        bio: z.string().optional(),
-        avatar_url: z.string().optional(),
+        image_url: z.string().optional(),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: 'Passwords do not match',
