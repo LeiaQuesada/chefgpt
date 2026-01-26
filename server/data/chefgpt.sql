@@ -10,8 +10,8 @@ CREATE TABLE users (
     username VARCHAR(255) UNIQUE NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
     image_url TEXT,
-    session_token TEXT,
-    session_expires_at TEXT,
+    session_token TEXT UNIQUE,
+    session_expires_at TIMESTAMP,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );
