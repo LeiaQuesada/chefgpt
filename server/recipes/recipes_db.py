@@ -14,7 +14,9 @@ def get_all_recipes(session: Session) -> list[RecipeOut]:
     stmt = select(DBRecipe).options(
         joinedload(DBRecipe.ingredients), joinedload(DBRecipe.instructions)
     )
-    recipe_objects = session.scalars(stmt).all()
+    result = session.execute(stmt)
+    result = result.unique()
+    recipe_objects = result.scalars().all()
     recipes: list[RecipeOut] = []
     for recipe in recipe_objects:
         # Validate and construct each property according to RecipeOut schema
