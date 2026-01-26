@@ -17,7 +17,8 @@ app = FastAPI(redirect_slashes=False)
 # TODO, add production-ready origins,
 # Get CORS origins from environment variable
 cors_origins_str = os.getenv(
-    "CORS_ORIGINS", "http://localhost:5173,http://localhost:4173"
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://localhost:5174,http://localhost:4173",
 )
 
 origins = [origin.strip() for origin in cors_origins_str.split(",")]
