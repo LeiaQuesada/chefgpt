@@ -1,4 +1,7 @@
 import defaultRecipeImage from '../assets/defaultimage.jpeg'
+import clockIcon from '../assets/clock.svg'
+import editIcon from '../assets/edit.svg'
+import deleteIcon from '../assets/delete.svg'
 import { useNavigate } from 'react-router-dom'
 
 type Recipe = {
@@ -21,39 +24,56 @@ export default function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
             className="recipe-card"
             onClick={() => navigate(`/recipe/${recipe.id}`)}
         >
-            <div className="recipe-card-left">
-                <div className="recipe-card-title">{recipe.title}</div>
-                <div className="recipe-card-time">
-                    Total time: {recipe.totalTime} min
-                </div>
-
-                <div className="recipe-card-actions">
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            navigate(`/recipe/edit/${recipe.id}`)
-                        }}
-                        className="recipe-card-btn edit"
-                    >
-                        Edit
-                    </button>
-                    <button
-                        className="recipe-card-btn delete"
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            onDelete(recipe.id)
-                        }}
-                    >
-                        Delete
-                    </button>
-                </div>
-            </div>
             <div className="recipe-card-image-box">
                 <img
                     src={recipe.imageUrl || defaultRecipeImage}
                     alt={`${recipe.title} recipe image`}
                     className="recipe-card-image"
                 />
+            </div>
+            <div className="recipe-card-content">
+                <div className="recipe-card-title">{recipe.title}</div>
+                <div className="recipe-card-time time-row">
+                    <img
+                        src={clockIcon}
+                        alt="clock"
+                        className="icon-clock"
+                    />
+                    <span className="total-time-label">Total time:</span>
+                    <span className="total-time-value">
+                        {recipe.totalTime} min
+                    </span>
+                </div>
+                <div className="recipe-card-actions btn-row">
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            navigate(`/recipe/edit/${recipe.id}`)
+                        }}
+                        className="recipe-card-btn edit btn-flex"
+                    >
+                        <img
+                            src={editIcon}
+                            alt="edit"
+                            className="icon-btn"
+                        />
+                        Edit
+                    </button>
+                    <button
+                        className="recipe-card-btn delete btn-flex"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            onDelete(recipe.id)
+                        }}
+                    >
+                        <img
+                            src={deleteIcon}
+                            alt="delete"
+                            className="icon-btn"
+                        />
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     )
