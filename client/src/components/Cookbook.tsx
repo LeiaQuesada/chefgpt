@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react'
 import '../App.css'
-import { useNavigate } from 'react-router-dom'
-import defaultRecipeImage from '../assets/defaultimage.jpeg'
+import RecipeCard from '../components/RecipeCard' // import new component
 
-// Data model
 type Recipe = {
     id: number
     title: string
-    total_time: number
-    image_url?: string | null
+    totalTime: number
+    imageUrl?: string | null
 }
 
 const Cookbook = () => {
-    const navigate = useNavigate()
     const [recipes, setRecipes] = useState<Recipe[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<Error | null>(null)
@@ -23,31 +20,31 @@ const Cookbook = () => {
 
             const response = await fetch(
                 `http://localhost:8000/api/recipes/${id}`,
-                {
-                    method: 'DELETE',
-                }
+                { method: 'DELETE' }
             )
-            if (!response.ok) {
-                throw new Error(`${response.status}`)
-            }
-            const newRecipeList = recipes.filter(
-                (recipe_item) => recipe_item.id !== id
-            )
-            setRecipes(newRecipeList)
-            // update state with this new list
+            if (!response.ok) throw new Error(`${response.status}`)
+
+            setRecipes((prev) => prev.filter((recipe) => recipe.id !== id))
         } catch (error) {
             console.error('Failed to delete recipe:', error)
         }
     }
+
     async function fetchRecipes() {
         try {
             const response = await fetch('http://localhost:8000/api/recipes')
             const data = await response.json()
-            if (!response.ok) {
+            if (!response.ok)
                 throw new Error(`Failed to fetch recipes: ${response.status}`)
-            }
-            setRecipes(data)
-            console.log('Fetched recipes:', data)
+
+            // Map snake_case API data to camelCase for RecipeCard
+            const camelData: Recipe[] = data.map((r: any) => ({
+                id: r.id,
+                title: r.title,
+                totalTime: r.total_time,
+                imageUrl: r.image_url ?? null,
+            }))
+            setRecipes(camelData)
             setLoading(false)
         } catch (error) {
             setError(error as Error)
@@ -60,12 +57,9 @@ const Cookbook = () => {
         fetchRecipes()
     }, [])
 
-    if (error) {
+    if (error)
         return <div>Something went wrong loading recipes, try again..</div>
-    }
-    if (loading) {
-        return <div>Loading...</div>
-    }
+    if (loading) return <div>Loading...</div>
 
     return (
         <div className="cookbook-container">
@@ -73,56 +67,13 @@ const Cookbook = () => {
             <div className="cookbook-list">
                 {recipes.length === 0 && (
                     <p>You don’t have any saved recipes yet.</p>
-                )}{' '}
+                )}
                 {recipes.map((recipe) => (
-                    <div
+                    <RecipeCard
                         key={recipe.id}
-                        className="recipe-card"
-                        onClick={() => navigate(`/recipe/${recipe.id}`)}
-                    >
-                        <div className="recipe-card-left">
-                            <div>
-                                <strong className="recipe-card-title">
-                                    {recipe.title}
-                                </strong>
-                            </div>
-                            <div className="recipe-card-time">
-                                Total time: {recipe.total_time} min
-                            </div>
-
-                            <div className="recipe-card-actions">
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                        navigate(`/recipe/edit/${recipe.id}`)
-                                    }}
-                                    className="recipe-card-btn edit"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="recipe-card-btn delete"
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                        handleDeleteButton(recipe.id)
-                                    }}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                        <div className="recipe-card-image-box">
-                            <img
-                                src={
-                                    recipe.image_url
-                                        ? recipe.image_url
-                                        : defaultRecipeImage
-                                }
-                                alt={`${recipe.title} recipe image`}
-                                className="recipe-card-image"
-                            />
-                        </div>
-                    </div>
+                        recipe={recipe}
+                        onDelete={handleDeleteButton}
+                    />
                 ))}
             </div>
         </div>
