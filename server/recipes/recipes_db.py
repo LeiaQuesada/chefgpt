@@ -109,3 +109,41 @@ def add_recipe(
         ingredients=ingredients_out,
         instructions=instructions_out,
     )
+
+def get_recipe_by_id(session: Session, recipe_id: int) -> RecipeOut | None:
+    stmt = (
+        select(DBRecipe)
+        .where(DBRecipe.id == recipe_id)
+        .options(joinedload(DBRecipe.ingredients), joinedload(DBRecipe.instructions))
+    )
+    recipe = session.scalars(stmt).unique().first()
+    if not recipe:
+        return None
+    ingredients = [
+        IngredientOut(id=ingredient.id, name=ingredient.name)
+        for ingredient in recipe.ingredients
+    ]
+
+    # We sort instructions by step_number to ensure they are returned in the correct order (step 1, step 2, ...).
+    # The database does not guarantee order of related objects unless explicitly sorted.
+    # The key argument is required to tell sorted() to use the step_number attribute of each instruction.
+    def get_step_number(instruction):
+        return instruction.step_number
+
+    instructions = [
+        InstructionOut(
+            id=instruction.id,
+            step_text=instruction.step_text,
+            step_number=instruction.step_number,
+        )
+        for instruction in sorted(recipe.instructions, key=get_step_number)
+    ]
+    return RecipeOut(
+        id=recipe.id,
+        user_id=recipe.user_id,
+        title=recipe.title,
+        image_url=recipe.image_url,
+        total_time=recipe.total_time,
+        ingredients=ingredients,
+        instructions=instructions,
+    )
