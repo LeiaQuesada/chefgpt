@@ -1,12 +1,32 @@
 # pydantic models
 from pydantic import BaseModel, ConfigDict, Field
 from typing import List, Optional
-from schemas import (
-    IngredientCreate,
-    InstructionCreate,
-    IngredientOut,
-    InstructionOut,
-)
+
+
+# help validate nested objects in recipes
+class IngredientCreate(BaseModel):
+    name: str
+
+
+class IngredientOut(BaseModel):
+    id: int
+    name: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# help validate nested objects in recipes
+class InstructionCreate(BaseModel):
+    step_text: str
+    step_number: int
+
+
+class InstructionOut(BaseModel):
+    id: int
+    step_text: str
+    step_number: int
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 # when user adds a new recipe

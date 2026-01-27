@@ -1,9 +1,9 @@
 // import "./App.css";
 import { Routes, Route } from 'react-router-dom'
 import Layout from './Layout.tsx'
-import Cookbook from './cookbook/Cookbook.tsx'
-import Register from "./Register.tsx";
-import Login from "./login.tsx";
+import Cookbook from './components/Cookbook.tsx'
+import Register from './Register.tsx'
+import Login from './Login.tsx'
 
 function App() {
     return (
@@ -16,12 +16,11 @@ function App() {
                         element={<div>Dashboard Page</div>}
                     />
                     {/* TODO set index route <Route index element={<Cookbook />} /> */}
-                    <Route
-                        path="/cookbook"
-                        element={<Cookbook />}
-                    />
+                    <Route path="/cookbook" element={<Cookbook />} />
+
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/logout" element={<div>Logout Page</div>} />
 
                     <Route
                         path="/profile/edit"
@@ -35,11 +34,6 @@ function App() {
                         path="/recipe/edit/:id"
                         element={<div>Edit Recipe Page</div>}
                     />
-                    <Route
-                        path="/recipe/new"
-                        element={<div>New Recipe Page</div>}
-                    />
-                    <Route path="/logout" element={<div>Logout Page</div>} />
                     <Route path="*" />
                 </Route>
             </Routes>

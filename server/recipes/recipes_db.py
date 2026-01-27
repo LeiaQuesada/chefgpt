@@ -1,22 +1,21 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
-from .recipes_schemas import RecipeOut, RecipeCreate
+from .recipes_schemas import (
+    RecipeOut,
+    RecipeCreate,
+    IngredientOut,
+    InstructionOut,
+)
 from .recipes_models import DBRecipe
-from schemas import IngredientOut, InstructionOut
-
-
-# TODO use this file to make database requests
-# some examples: get_recipe_by_id,
-#     get_all_recipes
 
 
 def get_all_recipes(session: Session) -> list[RecipeOut]:
     stmt = select(DBRecipe).options(
         joinedload(DBRecipe.ingredients), joinedload(DBRecipe.instructions)
     )
-    result = session.execute(stmt)
-    result = result.unique()
-    recipe_objects = result.scalars().all()
+    recipe_objects = session.scalars(stmt).unique().all()
+    # Without .unique(): You get duplicate parent objects, which causes an error.
+    # With .unique(): SQLAlchemy ensures each parent (recipe) is unique in the result, so your code works as expected.
     recipes: list[RecipeOut] = []
     for recipe in recipe_objects:
         # Validate and construct each property according to RecipeOut schema
