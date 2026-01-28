@@ -6,16 +6,13 @@ import Login from './components/Login.tsx'
 import RecipeDetails from './components/RecipeDetails'
 import RecipeEditPage from './components/RecipeEditPage.tsx'
 
-// Simple placeholder components for pages not yet implemented
+// TODO React Components still needed, these are simple placeholder components for pages not yet implemented
 function Dashboard() {
     return <div>Dashboard Page</div>
 }
 function EditProfile() {
     return <div>Edit Profile Page</div>
 }
-// function EditRecipe() {
-//     return <div>Edit Recipe Page</div>
-// }
 function Logout() {
     return <div>Logout Page</div>
 }
