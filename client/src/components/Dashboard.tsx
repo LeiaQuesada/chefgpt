@@ -20,7 +20,7 @@ const Dashboard = () => {
                     .filter(Boolean),
                 max_time: Number(maxTime),
             }
-            const res = await fetch('/api/ai/generate', {
+            const res = await fetch('http://localhost:8000/api/ai/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),

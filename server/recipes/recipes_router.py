@@ -23,8 +23,7 @@ from authentication.auth_schemas import AuthenticatedUser
 # Temporary test endpoint for hardcoded AI recipe generation
 ai_test_router = APIRouter(prefix="/api/ai", tags=["ai"])
 dotenv.load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-client = genai.Client(api_key=GOOGLE_API_KEY)
+client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 
 @ai_test_router.get("/generate-test", response_model=GenerateRecipesResponse)
@@ -38,10 +37,19 @@ You are a meal planning assistant.\n\nUser has these ingredients: {', '.join(ing
             model="gemini-3-flash-preview",
             contents=prompt,
         )
-        json_text = response.text
-        if not json_text:
-            raise ValueError("No text received from LLM")
-        recipes_data = json.loads(json_text)
+        print("[DEBUG] Gemini response object:", response)
+        json_text = getattr(response, "text", None)
+        print("[DEBUG] Gemini raw response:", json_text)
+        if not json_text or not json_text.strip().startswith("["):
+            raise ValueError(
+                f"No valid JSON received from LLM.\nRaw response: {json_text}\nFull response: {response}"
+            )
+        try:
+            recipes_data = json.loads(json_text)
+        except Exception as parse_err:
+            raise ValueError(
+                f"Failed to parse JSON.\nRaw response: {json_text}\nFull response: {response}"
+            ) from parse_err
         recipes = [GeneratedRecipe.model_validate(r) for r in recipes_data]
         return GenerateRecipesResponse(recipes=recipes)
     except Exception as e:
@@ -66,26 +74,72 @@ client = genai.Client(api_key=GOOGLE_API_KEY)
 @ai_router.post("/generate", response_model=GenerateRecipesResponse)
 async def generate_recipes(request: GenerateRecipesRequest):
     # Build prompt from user input
+    print(request.ingredients)
+    print(request.max_time)
     ingredients_str = ", ".join(request.ingredients)
-    prompt = f"""
-You are a meal planning assistant.\n\nUser has these ingredients: {ingredients_str}\nMaximum cooking total time per meal: {request.max_time} minutes\n"""
-    """
 
-Generate 3 simple recipes they can make using only these ingredients, with cooking total time <= {request.max_time} minutes, where time will be in minutes.\nReturn JSON in this format:\n\nOnly return JSON text, and no other text.\n\n[\n    {{\n      \"name\": \"Recipe Name\",\n      \"ingredients\": [\"ingredient1\", \"ingredient2\"],\n      \"instructions\": [\"Step one\", \"Step two\"],\n      \"total_time\": 20\n    }}\n]\n"""
+    prompt = f"""
+You are a meal planning assistant.
+
+User ingredients:
+{ingredients_str}
+
+Maximum total cooking time per recipe:
+{request.max_time} minutes.
+
+Generate exactly 3 recipes.
+
+IMPORTANT:
+- Use ONLY the provided ingredients
+- total_time must be <= {request.max_time}
+- Return ONLY valid JSON
+- Do NOT include markdown
+- Do NOT include explanation text
+
+Return JSON in this EXACT format:
+
+[
+  {{
+    "name": "Recipe name",
+    "ingredients": ["ingredient1", "ingredient2"],
+    "instructions": ["Step 1", "Step 2"],
+    "total_time": 10
+  }}
+]
+"""
 
     try:
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=prompt,
         )
-        json_text = response.text
-        if not json_text:
-            raise ValueError("No text received from LLM")
-        recipes_data = json.loads(json_text)
-        recipes = [GeneratedRecipe.model_validate(r) for r in recipes_data]
+
+        raw_text = (response.text or "").strip()
+
+        if not raw_text:
+            raise ValueError("LLM returned empty response")
+
+        # 🔒 SAFETY: strip markdown if Gemini adds it anyway
+        if raw_text.startswith("```"):
+            raw_text = raw_text.strip("`")
+            raw_text = raw_text.replace("json", "").strip()
+
+        try:
+            recipes_data = json.loads(raw_text)
+        except json.JSONDecodeError:
+            raise ValueError(f"LLM did not return valid JSON:\n{raw_text}")
+
+        recipes = [
+            GeneratedRecipe.model_validate(recipe) for recipe in recipes_data
+        ]
+
         return GenerateRecipesResponse(recipes=recipes)
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail=str(e),
+        )
 
 
 @recipes_router.get("")
