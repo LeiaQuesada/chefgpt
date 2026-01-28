@@ -39,8 +39,6 @@ function mapStringArray(
         .filter((s): s is string => typeof s === 'string')
 }
 
-
-
 function RecipeDetails() {
     const params = useParams<{ id?: string }>()
     const navigate = useNavigate()
@@ -71,7 +69,10 @@ function RecipeDetails() {
                     imageUrl: data.image_url ?? null,
                     totalTime: data.total_time,
                     ingredients: mapStringArray(data.ingredients, 'ingredient'),
-                    instructions: mapStringArray(data.instructions, 'instruction'),
+                    instructions: mapStringArray(
+                        data.instructions,
+                        'instruction'
+                    ),
                 }
                 setRecipe(mapped)
             } catch (err) {
@@ -94,7 +95,7 @@ function RecipeDetails() {
                 <img
                     src={recipe.imageUrl}
                     alt={recipe.title}
-                    className="recipe-image"
+                    className="image-container"
                 />
             )}
             <p>
@@ -112,7 +113,12 @@ function RecipeDetails() {
                     <li key={idx}>{step}</li>
                 ))}
             </ol>
-            <button onClick={() => navigate(`/recipe/edit/${recipe.id}`)}>Edit</button>
+            <button
+                className="recipe-card-btn edit"
+                onClick={() => navigate(`/recipe/edit/${recipe.id}`)}
+            >
+                Edit
+            </button>
         </>
     )
 }

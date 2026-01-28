@@ -34,11 +34,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 className="user-menu-btn"
                 onClick={() => setOpen((o) => !o)}
             >
-                <span role="img" aria-label="user" style={{ marginRight: 8 }}>
-                    👤
-                </span>
                 {userName || 'User'}
-                <span style={{ marginLeft: 6 }}>▼</span>
+                <span className="user-menu-arrow">▼</span>
             </button>
             {open && (
                 <div className="user-menu-dropdown">

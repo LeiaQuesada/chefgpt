@@ -304,7 +304,7 @@ nav {
     background: #efefec;
     border-radius: var(--radius-bubbly);
     margin: 16px auto 20px auto;
-    padding: 18px 19px;
+    padding: 2px 19px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -328,10 +328,11 @@ nav .active {
     text-decoration: none;
     color: #9f9f9f;
     font-weight: var(--font-nav);
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 10px 20px;
     border-radius: var(--radius-bubbly);
     transition: all 0.2s;
+    letter-spacing: 0.03em;
 }
 
 nav a:hover {
@@ -401,7 +402,7 @@ nav .active {
 .logo-chefgpt {
     font-family: var(--font-heading) !important;
     font-weight: 200 !important;
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     color: #9f9f9f;
     letter-spacing: -1px;
     margin-right: 10px;
@@ -413,11 +414,12 @@ nav .active {
     filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(0deg) saturate(0)
         opacity(1) drop-shadow(0 0 0 #9f9f9f);
     /* If SVG, use fill: #9f9f9f; */
+    margin-left: 2px;
 }
 
 .recipe-card-title {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
     margin-bottom: 8px;
     color: #525252 !important;
@@ -617,11 +619,11 @@ button,
     color: #b0b0b0;
     vertical-align: middle;
 }
-
+/* "Test User */
 .user-menu-btn {
     font-family: var(--font-heading) !important;
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #9f9f9f !important;
     background: none;
     border: none;
@@ -639,10 +641,10 @@ button,
     background: 0.2s;
     color: 0.2s;
 }
-
+/* "Edit Profile" and "Logout"  */
 .user-menu-item {
     font-family: var(--font-heading) !important;
-    font-size: 1rem;
+    font-size: 0.9rem !important;
     font-weight: 400;
     color: #9f9f9f !important;
     box-sizing: border-box;
@@ -678,9 +680,14 @@ button,
     padding: 8px 0;
 }
 
+.user-menu-arrow {
+    margin-left: 6px;
+}
+
 .cookbook-title {
     font-family: var(--font-heading) !important;
-    font-weight: 200 !important;
+    font-size: 1.4rem;
+    font-weight: 100 !important;
     text-align: center;
     margin-left: 0;
     color: #525252;

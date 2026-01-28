@@ -50,7 +50,7 @@ const Register: React.FC = () => {
                             htmlFor="register-username"
                             className="register-label"
                         >
-                            Username
+                            Username:
                         </label>
                         <input
                             id="register-username"
@@ -74,7 +74,7 @@ const Register: React.FC = () => {
                             htmlFor="register-password"
                             className="register-label"
                         >
-                            Password
+                            Password:
                         </label>
                         <input
                             id="register-password"
@@ -98,7 +98,7 @@ const Register: React.FC = () => {
                             htmlFor="register-confirm"
                             className="register-label"
                         >
-                            Confirm Password
+                            Confirm Password:
                         </label>
                         <input
                             id="register-confirm"
@@ -123,7 +123,7 @@ const Register: React.FC = () => {
                             className="register-label"
                             style={{ marginBottom: 0 }}
                         >
-                            Profile picture (optional)
+                            Profile Picture (optional):
                         </label>
                         <input
                             id="register-file"
@@ -149,7 +149,7 @@ const Register: React.FC = () => {
                             }
                             aria-label="Upload profile picture"
                         >
-                            Upload image
+                            Upload Image
                         </button>
                         {fileName && (
                             <span className="register-file-name">
@@ -175,9 +175,12 @@ const Register: React.FC = () => {
                 </form>
                 <div className="register-secondary">
                     Already have an account?
-                    <Link to="/login" className="register-link">
-                        Log In
-                    </Link>
+                    <span>
+                        {' '}
+                        <Link to="/login" className="register-link">
+                            Login Here.
+                        </Link>
+                    </span>
                 </div>
             </div>
         </div>
