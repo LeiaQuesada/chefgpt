@@ -55,7 +55,15 @@ async def endpoint_update_recipe(
     # Optionally, check if the recipe belongs to the user (not implemented here)
     # Convert Pydantic model to dict, skipping unset fields
     update_data = update.model_dump(exclude_unset=True)
-    updated_recipe = update_recipe(session, recipe_id, update_data)
-    if not updated_recipe:
-        raise HTTPException(status_code=404, detail="Recipe not found")
-    return updated_recipe
+    print("[DEBUG] update_data:", update_data)
+    try:
+        updated_recipe = update_recipe(session, recipe_id, update_data)
+        if not updated_recipe:
+            raise HTTPException(status_code=404, detail="Recipe not found")
+        return updated_recipe
+    except Exception as e:
+        import traceback
+
+        print("[ERROR] Exception in update_recipe endpoint:", e)
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))

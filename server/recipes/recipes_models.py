@@ -36,10 +36,10 @@ class DBRecipe(Base):
 
     user: Mapped["DBUser"] = relationship(back_populates="recipes")
     ingredients: Mapped[list["DBIngredient"]] = relationship(
-        back_populates="recipe"
+        back_populates="recipe", cascade="all, delete-orphan"
     )
     instructions: Mapped[list["DBInstruction"]] = relationship(
-        back_populates="recipe"
+        back_populates="recipe", cascade="all, delete-orphan"
     )
 
 
