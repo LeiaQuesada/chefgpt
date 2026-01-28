@@ -13,9 +13,9 @@ function Dashboard() {
 function EditProfile() {
     return <div>Edit Profile Page</div>
 }
-function EditRecipe() {
-    return <div>Edit Recipe Page</div>
-}
+// function EditRecipe() {
+//     return <div>Edit Recipe Page</div>
+// }
 function Logout() {
     return <div>Logout Page</div>
 }
