@@ -1,6 +1,6 @@
 from recipes.recipes_db import add_recipe
 from recipes.recipes_schemas import RecipeCreate
-from schemas import IngredientCreate, InstructionCreate
+from recipes.recipes_schemas import IngredientCreate, InstructionCreate
 from shared.database import SessionLocal
 
 # Replace with a valid user_id from your users table
