@@ -4,7 +4,7 @@ import os
 from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 from authentication.auth_router import auth_router
-from recipes.recipes_router import recipes_router, ai_router, ai_test_router
+from recipes.recipes_router import recipes_router, ai_router
 from rich import print
 
 # load environment variable from .env file
@@ -50,4 +50,3 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(recipes_router)
 app.include_router(ai_router)
-app.include_router(ai_test_router)

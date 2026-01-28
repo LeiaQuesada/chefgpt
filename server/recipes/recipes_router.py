@@ -1,7 +1,4 @@
-import os
-import json
-import dotenv
-import google.genai as genai
+# import json
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from shared.database import get_session
@@ -12,7 +9,7 @@ from .recipes_db import (
     update_recipe,
 )
 from .recipes_schemas import RecipeCreate, RecipeOut, RecipeUpdate
-from .recipes_generate_schemas import (
+from .ai_schemas import (
     GenerateRecipesResponse,
     GeneratedRecipe,
     GenerateRecipesRequest,
@@ -20,126 +17,30 @@ from .recipes_generate_schemas import (
 from shared.auth import require_auth
 from authentication.auth_schemas import AuthenticatedUser
 
-# Temporary test endpoint for hardcoded AI recipe generation
-ai_test_router = APIRouter(prefix="/api/ai", tags=["ai"])
-dotenv.load_dotenv()
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-
-
-@ai_test_router.get("/generate-test", response_model=GenerateRecipesResponse)
-async def generate_recipes_test():
-    ingredients = ["eggs", "rice", "broccoli", "chicken"]
-    max_time = 30
-    prompt = f"""
-You are a meal planning assistant.\n\nUser has these ingredients: {', '.join(ingredients)}\nMaximum cooking total time per meal: {max_time} minutes\n\nGenerate 3 simple recipes they can make using only these ingredients, with cooking total time <= {max_time} minutes, where time will be in minutes.\nReturn JSON in this format:\n\nOnly return JSON text, and no other text.\n\n[\n    {{\n      \"name\": \"Recipe Name\",\n      \"ingredients\": [\"ingredient1\", \"ingredient2\"],\n      \"instructions\": [\"Step one\", \"Step two\"],\n      \"total_time\": 20\n    }}\n]\n"""
-    try:
-        response = client.models.generate_content(
-            model="gemini-3-flash-preview",
-            contents=prompt,
-        )
-        print("[DEBUG] Gemini response object:", response)
-        json_text = getattr(response, "text", None)
-        print("[DEBUG] Gemini raw response:", json_text)
-        if not json_text or not json_text.strip().startswith("["):
-            raise ValueError(
-                f"No valid JSON received from LLM.\nRaw response: {json_text}\nFull response: {response}"
-            )
-        try:
-            recipes_data = json.loads(json_text)
-        except Exception as parse_err:
-            raise ValueError(
-                f"Failed to parse JSON.\nRaw response: {json_text}\nFull response: {response}"
-            ) from parse_err
-        recipes = [GeneratedRecipe.model_validate(r) for r in recipes_data]
-        return GenerateRecipesResponse(recipes=recipes)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+from recipes.ai_api import generate_recipes_with_gemini
 
 
 recipes_router = APIRouter(prefix="/api/recipes", tags=["recipes"])
 
-# AI router for /api/ai endpoints
-ai_router = APIRouter(prefix="/api/ai", tags=["ai"])
-dotenv.load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-client = genai.Client(api_key=GOOGLE_API_KEY)
-
-
-dotenv.load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-client = genai.Client(api_key=GOOGLE_API_KEY)
+# AI router for AI endpoints
+ai_router = APIRouter(prefix="/api", tags=["ai"])
 
 
 # POST /api/generate: Generate recipes using Gemini API
 @ai_router.post("/generate", response_model=GenerateRecipesResponse)
-async def generate_recipes(request: GenerateRecipesRequest):
-    # Build prompt from user input
+async def endpoint_generate_recipes(request: GenerateRecipesRequest):
     print(request.ingredients)
     print(request.max_time)
-    ingredients_str = ", ".join(request.ingredients)
-
-    prompt = f"""
-You are a meal planning assistant.
-
-User ingredients:
-{ingredients_str}
-
-Maximum total cooking time per recipe:
-{request.max_time} minutes.
-
-Generate exactly 3 recipes.
-
-IMPORTANT:
-- Use ONLY the provided ingredients
-- total_time must be <= {request.max_time}
-- Return ONLY valid JSON
-- Do NOT include markdown
-- Do NOT include explanation text
-
-Return JSON in this EXACT format:
-
-[
-  {{
-    "name": "Recipe name",
-    "ingredients": ["ingredient1", "ingredient2"],
-    "instructions": ["Step 1", "Step 2"],
-    "total_time": 10
-  }}
-]
-"""
-
     try:
-        response = client.models.generate_content(
-            model="gemini-3-flash-preview",
-            contents=prompt,
+        recipes_data = generate_recipes_with_gemini(
+            request.ingredients, request.max_time
         )
-
-        raw_text = (response.text or "").strip()
-
-        if not raw_text:
-            raise ValueError("LLM returned empty response")
-
-        # 🔒 SAFETY: strip markdown if Gemini adds it anyway
-        if raw_text.startswith("```"):
-            raw_text = raw_text.strip("`")
-            raw_text = raw_text.replace("json", "").strip()
-
-        try:
-            recipes_data = json.loads(raw_text)
-        except json.JSONDecodeError:
-            raise ValueError(f"LLM did not return valid JSON:\n{raw_text}")
-
         recipes = [
             GeneratedRecipe.model_validate(recipe) for recipe in recipes_data
         ]
-
         return GenerateRecipesResponse(recipes=recipes)
-
     except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=str(e),
-        )
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @recipes_router.get("")
