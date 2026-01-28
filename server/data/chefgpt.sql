@@ -33,7 +33,7 @@ CREATE TABLE ingredients (
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-    FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+    FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
 
 CREATE TABLE instructions (
@@ -43,7 +43,7 @@ CREATE TABLE instructions (
     step_number INTEGER NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-    FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+    FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
 
 
