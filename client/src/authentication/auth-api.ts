@@ -17,7 +17,7 @@ import type { User } from './UserContext'
 
 // Get current user info (session)
 export async function getCurrentUser(): Promise<User | null> {
-    const res = await fetch('/api/me', {
+    const res = await fetch('/api/auth/me', {
         method: 'GET',
         credentials: 'include',
         headers: { Accept: 'application/json' },
@@ -30,7 +30,7 @@ export async function getCurrentUser(): Promise<User | null> {
 
 // Login user
 export async function login(credentials: LoginCredentials): Promise<boolean> {
-    const res = await fetch('/api/login', {
+    const res = await fetch('/api/auth/login', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -43,7 +43,7 @@ export async function login(credentials: LoginCredentials): Promise<boolean> {
 
 // Logout user
 export async function logout(): Promise<boolean> {
-    const res = await fetch('/api/logout', {
+    const res = await fetch('/api/auth/logout', {
         method: 'GET',
         credentials: 'include',
     })
@@ -54,7 +54,7 @@ export async function logout(): Promise<boolean> {
 
 // Signup user
 export async function signup(signupData: SignupData): Promise<boolean> {
-    const res = await fetch('/api/signup', {
+    const res = await fetch('/api/auth/signup', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

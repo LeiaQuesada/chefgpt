@@ -17,7 +17,7 @@ from .auth_schemas import (
     AuthenticatedUser,
 )
 
-auth_router = APIRouter(prefix="/api", tags=["authentication"])
+auth_router = APIRouter(prefix="/api/auth", tags=["authentication"])
 
 
 @auth_router.post("/login", response_model=LoginResponse)
