@@ -1,0 +1,50 @@
+# GitLab CI/CD Configuration for FastAPI Books Application
+stages:
+  - test
+variables:
+  # Use Python 3.12+ for compatibility
+  PYTHON_VERSION: "3.12"
+  # Disable pip cache for clean builds
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+cache:
+  paths:
+    - .cache/pip/
+    - server/.venv/
+# Backend Tests
+test:backend:
+  stage: test
+  image: python:${PYTHON_VERSION}
+  before_script:
+    - cd server
+    - python -m venv .venv
+    - source .venv/bin/activate
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    # pytest already includes JUnit XML support
+  script:
+    - source .venv/bin/activate
+    - python -m pytest tests/ -v --junit-xml=test-results.xml
+  only:
+    changes:
+      - server/**/*
+      - .gitlab-ci.yml
+  artifacts:
+    reports:
+      junit: server/test-results.xml
+    when: always
+    expire_in: 1 week
+# Frontend tests
+test:frontend:
+  stage: test
+  image: node:24
+  before_script:
+    - cd client
+    - npm install -g pnpm
+    - pnpm install
+  script:
+    - pnpm build
+    # - pnpm test
+  only:
+    changes:
+      - client/**/*
+      - .gitlab-ci.yml
