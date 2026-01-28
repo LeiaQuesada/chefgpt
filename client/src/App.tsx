@@ -1,4 +1,3 @@
-// import "./App.css";
 import { Routes, Route } from 'react-router-dom'
 import Layout from './Layout.tsx'
 import Cookbook from './components/Cookbook.tsx'

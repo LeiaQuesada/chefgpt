@@ -37,6 +37,9 @@ const Cookbook = () => {
             if (!response.ok)
                 throw new Error(`Failed to fetch recipes: ${response.status}`)
 
+            // Debug: log backend response
+            console.log('API /recipes response:', data)
+
             // Map snake_case API data to camelCase for RecipeCard
             const camelData: Recipe[] = data.map((r: any) => ({
                 id: r.id,
@@ -44,6 +47,10 @@ const Cookbook = () => {
                 totalTime: r.total_time,
                 imageUrl: r.image_url ?? null,
             }))
+
+            // Debug: log mapped camelData
+            console.log('Mapped recipes:', camelData)
+
             setRecipes(camelData)
             setLoading(false)
         } catch (error) {
