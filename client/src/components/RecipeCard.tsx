@@ -34,11 +34,7 @@ export default function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
             <div className="recipe-card-content">
                 <div className="recipe-card-title">{recipe.title}</div>
                 <div className="recipe-card-time time-row">
-                    <img
-                        src={clockIcon}
-                        alt="clock"
-                        className="icon-clock"
-                    />
+                    <img src={clockIcon} alt="clock" className="icon-clock" />
                     <span className="total-time-label">Total time:</span>
                     <span className="total-time-value">
                         {recipe.totalTime} min
@@ -52,12 +48,7 @@ export default function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
                         }}
                         className="recipe-card-btn edit btn-flex"
                     >
-                        <img
-                            src={editIcon}
-                            alt="edit"
-                            className="icon-btn"
-                        />
-                        Edit
+                        <img src={editIcon} alt="edit" className="icon-btn" />
                     </button>
                     <button
                         className="recipe-card-btn delete btn-flex"
@@ -71,7 +62,6 @@ export default function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
                             alt="delete"
                             className="icon-btn"
                         />
-                        Delete
                     </button>
                 </div>
             </div>

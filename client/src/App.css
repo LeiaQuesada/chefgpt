@@ -1,3 +1,252 @@
+/* --- Register Card Background --- */
+.register-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 3px 39px #fcaa9f !important;
+    padding: 24px;
+    min-width: 340px;
+    max-width: 380px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+/* --- Smaller Edit/Delete Icons --- */
+.icon-btn {
+    width: 14px;
+    height: 14px;
+    display: block;
+    margin: auto;
+}
+
+.icon-btn:hover {
+    filter: brightness(0.8);
+}
+/* --- Register Upload Image Button --- */
+div.register-card .register-file-btn {
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+    background: #efefec !important;
+    color: #9f9f9f !important;
+    border: none !important;
+    border-radius: 999px;
+    padding: 8px 22px;
+    font-size: 0.85rem !important;
+    font-weight: 200;
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 0;
+    transition:
+        background 0.18s,
+        color 0.18s,
+        border 0.18s;
+    box-shadow: none;
+    width: fit-content;
+    min-width: 0;
+    display: inline-block;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+div.register-card .register-file-btn:active {
+    background: #ff8165 !important;
+    color: #9f9f9f;
+}
+.register-file-name {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 0.75rem;
+    color: #888;
+    vertical-align: middle;
+}
+/* --- Login & Register Page Styles --- */
+.login-page,
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f7f9;
+}
+
+.login-panel {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 3px 39px #fcaa9f !important;
+    padding: 24px;
+    min-width: 340px;
+    max-width: 380px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.login-title,
+.register-title {
+    font-family: var(--font-heading) !important;
+    font-size: 1.2rem;
+    font-weight: 400 !important;
+    color: #525252 !important;
+    margin-bottom: 24px;
+    text-align: center;
+    letter-spacing: 0.01em;
+}
+
+.login-form,
+.register-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.login-form-row,
+.register-form > div {
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 10px; */
+    gap: 6px;
+}
+
+.login-label,
+.register-label {
+    font-family: var(--font-heading) !important;
+    font-size: 1rem;
+    color: #525252 !important;
+    font-weight: 400 !important;
+    margin-bottom: 2px;
+}
+
+.login-input,
+.register-input {
+    font-family: var(--font-heading) !important;
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #e0e0e0;
+    background: #fafbfc;
+    color: #222;
+    outline: none;
+    transition:
+        border 0.2s,
+        box-shadow 0.2s;
+    margin-bottom: 10px;
+}
+
+.login-input:focus,
+.register-input:focus,
+.login-input-focus,
+.register-input-focus {
+    border-color: #ff9765;
+    box-shadow: 0 2px 8px rgba(255, 151, 101, 0.1);
+    background: #fff;
+}
+
+.login-form button,
+.register-form button {
+    font-family: var(--font-heading) !important;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    /* background: #ff8165 !important; */
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-bubbly);
+    padding: 14px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(155, 103, 228, 0.1);
+    transition:
+        background 0.2s,
+        transform 0.2s;
+    background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%) !important;
+}
+.login-form button:active,
+.register-form button:active {
+    background: #f12e11;
+    transform: scale(0.98);
+}
+
+.login-form a,
+.register-form a {
+    color: #f12e11;
+    text-decoration: underline;
+    font-size: 0.98rem;
+    margin-top: 8px;
+    text-align: right;
+    display: block;
+}
+
+.login-error,
+.register-error {
+    color: #525252 !important;
+    font-size: 0.98rem;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.register-secondary {
+    color: #9f9f9f !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.98rem;
+    margin-top: 18px;
+    text-align: center;
+}
+.register-secondary .register-link {
+    color: #9f9f9f !important;
+    text-decoration: none !important;
+    font-family: var(--font-heading) !important;
+}
+.register-link:hover {
+    color: #ff6163 !important;
+}
+
+.login-bottom {
+    color: #9f9f9f !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.98rem;
+    margin-top: 18px;
+    text-align: center;
+}
+.login-bottom .login-link {
+    color: #9f9f9f !important;
+    text-decoration: none !important;
+    font-family: var(--font-heading) !important;
+}
+.login-bottom .login-link:hover {
+    color: #ff6163 !important;
+}
+
+.login-secondary {
+    color: #9f9f9f !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.98rem;
+    margin-top: 18px;
+    text-align: center;
+}
+/* --- Recipe Card Image Box and Image --- */
+.recipe-card-image-box {
+    width: 100%;
+    height: 270px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 28px;
+    margin-bottom: 14px;
+}
+
+.recipe-card-image {
+    width: 220px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 28px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
+    display: block;
+    margin: 0 auto;
+}
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 /* Layout.tsx navigation and header styles */
 .main-nav {
     display: flex;
@@ -11,7 +260,7 @@
 }
 .logo-img {
     margin-left: 8px;
-    height: 32px;
+    height: 22px;
 }
 .nav-list {
     display: flex;
@@ -24,167 +273,16 @@
 .nav-link {
     /* Add any additional link styles if needed */
 }
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-/* --- User Menu Styles --- */
-.user-menu {
-    position: relative;
-    display: inline-block;
-    margin-left: 16px;
-}
-
-.user-menu-btn {
-    background: #ff9365;
-    color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    padding: 8px 18px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: background 0.2s;
-}
-.user-menu-btn:hover {
-    background: #ff9365;
-    color: #ff9365;
-}
-
-.user-menu-dropdown {
-    position: absolute;
-    right: 0;
-    top: 110%;
-    background: #ef2a17;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow:
-        0 8px 24px rgba(147, 98, 199, 0.13),
-        0 3px 12px rgba(0, 0, 0, 0.13);
-    min-width: 160px;
-    z-index: 100;
-    padding: 8px 0;
-}
-.user-menu-item {
-    background: none;
-    border: none;
-    color: var(--text-dark);
-    font-size: 1rem;
-    padding: 10px 24px;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.user-menu-item:hover {
-    background: #f59b2f;
-}
-/* --- Total Time Value --- */
-.total-time-value {
-    font-size: 1.2rem;
-    font-weight: 800;
-    margin-left: 0;
-}
-/* --- Total Time Label --- */
-.total-time-label {
-    font-size: 1.1rem;
-
-    color: #9b9b99;
-    font-weight: 600;
-    margin-right: 0;
-}
-/* --- Nav Indicator for Sliding Effect --- */
-.nav-indicator {
-    background: #424142;
-    border-radius: var(--radius-bubbly);
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 0;
-    transition:
-        left 0.3s cubic-bezier(0.4, 1.2, 0.4, 1),
-        width 0.3s cubic-bezier(0.4, 1.2, 0.4, 1);
-}
-
-nav ul li {
-    position: relative;
-    z-index: 1;
-}
-/* --- Recipe Card Actions --- */
-.recipe-card-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.recipe-card-btn.edit,
-.recipe-card-btn.delete {
-    padding: 6px 14px;
-    font-size: 0.95rem;
-    min-width: unset;
-    width: auto;
-    border-radius: 10px;
-    box-shadow: none;
-    background: #f8a435 !important;
-    color: #fff !important;
-    border: none;
-}
-/* --- Recipe Card Layout --- */
-.recipe-card {
-    width: 360px !important;
-    height: 360px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    background: #fff;
-    overflow: hidden;
-}
-
-.recipe-card-left {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.recipe-card-image-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px auto;
-    min-width: 300px;
-    max-width: 420px;
-}
-
-.recipe-card-image {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius-md);
-    object-fit: cover;
-    box-shadow: 0 8px 24px rgba(155, 103, 228, 0.1);
-}
 
 :root {
-    --light-purple: #f3ebff;
-    --primary-purple: #9b67e4; /* Updated to match screenshot button */
-    --primary-purple-hover: #824cd3;
-    --bg-soft-pink: #fee1e8;
-    --bg-main: #f7f7f9;
-    --text-dark: #111111;
-    --text-muted: #8e8e8e;
-    --white: #ffffff;
-
-    /* Typography - Updated to Plus Jakarta Sans */
-    --font-primary: 'Plus Jakarta Sans', sans-serif;
-    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-primary: 'Inter', 'Google Sans', Arial, sans-serif;
+    --font-heading: 'Inter', 'Google Sans', Arial, sans-serif;
     --font-h1: 800;
     --font-h2: 800;
     --font-title: 700;
     --font-nav: 600;
     --font-btn: 600;
-    --font-body: 500;
+    --font-body: 200;
     --letter-tight: -0.03em;
 
     /* Layout Constants */
@@ -195,8 +293,8 @@ nav ul li {
 }
 
 body {
-    font-family: var(--font-primary);
-    font-weight: var(--font-body);
+    font-family: var(--font-heading);
+    font-weight: 200;
     background-color: #f7f7f9;
     color: var(--text-dark);
     margin: 0;
@@ -206,13 +304,10 @@ body {
 
 /* --- Navigation Bar --- */
 nav {
-    background: linear-gradient(90deg, #ff9765 0%, #f12e11 100%);
-
-    box-shadow: 0 3px 12px #edbebb !important;
-
-    border-radius: 24px;
-    margin: 24px auto 32px auto;
-    padding: 12px 24px;
+    background: #efefec;
+    border-radius: var(--radius-bubbly);
+    margin: 16px auto 20px auto;
+    padding: 18px 19px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -230,8 +325,11 @@ nav ul {
 
 nav a,
 nav .active {
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+    font-weight: 400 !important;
     text-decoration: none;
-    color: #fff;
+    color: #9f9f9f;
     font-weight: var(--font-nav);
     font-size: 1rem;
     padding: 10px 20px;
@@ -240,17 +338,17 @@ nav .active {
 }
 
 nav a:hover {
-    background: #424142;
-    color: #fff;
+    background: #ff8165;
+    color: #fff !important;
 }
 
 nav .active {
     background: var(--text-dark);
-    color: #fff !important;
+    color: #9f9f9f !important;
 }
 
 /* --- Card Styles --- */
-.food-card {
+/* .food-card {
     background: #fff !important;
     border-radius: var(--radius-lg);
     padding: 24px;
@@ -259,28 +357,30 @@ nav .active {
         0 3px 12px rgba(0, 0, 0, 0.13);
     max-width: 350px;
     overflow: hidden;
-}
+} */
 
 /* --- Cookbook Card List Layout --- */
 .cookbook-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     justify-content: center;
     padding: 24px 0;
-    max-width: 900px;
+    max-width: 936px; /* 3*280px + 2*32px gap */
     margin: 0 auto;
 }
 
+/* --- Consolidated Styles --- */
+
 .recipe-card {
-    width: 280px;
+    width: 210px;
     height: 280px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     background: #fff;
     border-radius: var(--radius-lg);
-    box-shadow: 0 3px 12px #edbebb !important;
+    box-shadow: 0 8px 64px #fcaa9f !important;
     padding: 24px;
     margin-bottom: 0;
 }
@@ -301,27 +401,70 @@ nav .active {
     filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.1));
 }
 
+.logo-chefgpt {
+    font-family: var(--font-heading) !important;
+    font-weight: 200 !important;
+    font-size: 1.7rem;
+    color: #9f9f9f;
+    letter-spacing: -1px;
+    margin-right: 10px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+}
+.logo-chefgpt img {
+    filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(0deg) saturate(0)
+        opacity(1) drop-shadow(0 0 0 #9f9f9f);
+    /* If SVG, use fill: #9f9f9f; */
+}
+
+.recipe-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    color: #525252 !important;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    text-align: left !important;
+    letter-spacing: 0.01em;
+    padding-left: 8px;
+}
+
+.recipe-card-btn.edit,
+.recipe-card-btn.delete {
+    background: linear-gradient(90deg, #ff9765 0%, #ff6163 100%) !important;
+    color: #fff !important;
+    border-radius: 999px;
+    padding: 0;
+    font-family: var(--font-heading) !important;
+    font-weight: 100 !important;
+    font-size: 1.2rem;
+    min-width: unset;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.recipe-card-btn.edit:active,
+.recipe-card-btn.delete:active {
+    background: #1e1e1e !important;
+    color: #fff !important;
+}
+
 /* --- Typography Hierarchy --- */
 .recipe-card-title,
 .cookbook-title,
 .register-title,
 .login-title {
     font-family: var(--font-heading);
-    letter-spacing: var(--letter-tight);
     color: var(--text-dark);
     text-align: center;
-}
-
-.recipe-card-title {
-    font-size: 2.1rem;
-    font-weight: 900;
-    margin-bottom: 8px;
-    color: #f12e11;
-    background: none;
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: initial;
-    background-clip: initial;
-    text-align: left;
 }
 
 .description {
@@ -344,7 +487,7 @@ nav .active {
     background: #f0f0f5;
     padding: 8px 16px;
     border-radius: var(--radius-bubbly);
-    font-size: 0.85rem;
+    font-size: 0.75rem !important;
     font-weight: 600;
     color: var(--text-dark);
     display: flex;
@@ -402,6 +545,7 @@ button,
     border-radius: var(--radius-lg);
     padding: 24px;
     margin-bottom: 24px;
+    min-height: 370px;
     box-shadow: 0 3px 12px #edbebb !important;
 }
 
@@ -417,13 +561,35 @@ button,
     min-width: 0;
 }
 
+.time-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+    padding-left: 8px;
+}
+.icon-clock {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .recipe-card-btn.edit,
 .recipe-card-btn.delete {
     background: linear-gradient(90deg, #ff9765 0%, #ff6163 100%) !important;
     color: #fff !important;
-    border-radius: var(--radius-bubbly);
-    padding: 8px 20px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
     font-weight: var(--font-btn);
+    min-width: unset;
+    width: 23px;
+    height: 23px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .recipe-card-btn.edit:active,
@@ -432,45 +598,94 @@ button,
     color: #fff !important;
 }
 
-/* --- Logo Styles --- */
-.logo-chefgpt {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 900;
-    font-size: 1.7rem;
-    color: #fff;
-    letter-spacing: -1px;
-    margin-right: 18px;
-    user-select: none;
+.recipe-card-actions {
     display: flex;
-    align-items: center;
-}
-.logo-chefgpt img {
-    filter: brightness(0) invert(1);
+    gap: 4px;
+    margin-top: 18px;
+    justify-content: flex-start;
+    padding-left: 8px;
 }
 
-/* RecipeCard custom classes for layout and icons */
-.time-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.total-time-label {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    font-weight: 400;
+    vertical-align: middle;
 }
-.icon-clock {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
+
+.total-time-value {
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-left: -3px;
+    color: #b0b0b0;
+    vertical-align: middle;
 }
-.btn-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+
+.user-menu-btn {
+    font-family: var(--font-heading) !important;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #9f9f9f !important;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 10px 20px;
+    letter-spacing: 0.01em;
 }
-.btn-flex {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.user-menu-btn:hover {
+    background: #ff8165;
+    color: #fff !important;
+    border-radius: var(--radius-bubbly);
+    box-sizing: border-box;
+    padding: 10px 20px;
+    transition: all 0.2s;
+    background: 0.2s;
+    color: 0.2s;
 }
-.icon-btn {
-    margin-right: 4px;
-    width: 16px;
-    height: 16px;
+
+.user-menu-item {
+    font-family: var(--font-heading) !important;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #9f9f9f !important;
+    box-sizing: border-box;
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+
+.user-menu-item:hover {
+    background: #ff8165;
+    color: #fff !important;
+    box-sizing: border-box;
+}
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+    margin-left: 16px;
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    right: 0;
+    top: 110%;
+    background: #efefec;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow:
+        0 8px 24px rgba(147, 98, 199, 0.13),
+        0 3px 12px rgba(0, 0, 0, 0.13);
+    min-width: 160px;
+    z-index: 1000;
+    padding: 8px 0;
+}
+
+.cookbook-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 200 !important;
+    text-align: center;
+    margin-left: 0;
+    color: #525252;
+    margin-top: 48px;
 }
