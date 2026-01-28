@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './App.css';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import '../App.css'
 
 const Login: React.FC = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [focus, setFocus] = useState<{ [k: string]: boolean }>({});
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [focus, setFocus] = useState<{ [k: string]: boolean }>({})
+    const [error, setError] = useState('')
+    const navigate = useNavigate()
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError('');
+        e.preventDefault()
+        setError('')
         if (!username.trim() || !password.trim()) {
-            setError('Username and password are required.');
-            return;
+            setError('Username and password are required.')
+            return
         }
         // TODO: POST /api/auth/login and store token/user in auth context later
-        console.log({ username, password });
-        navigate('/cookbook');
-    };
+        console.log({ username, password })
+        navigate('/cookbook')
+    }
 
     return (
         <div className="login-page">
@@ -28,7 +28,12 @@ const Login: React.FC = () => {
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="login-col">
                         <div className="login-form-row">
-                            <label htmlFor="login-username" className="login-label">Username:</label>
+                            <label
+                                htmlFor="login-username"
+                                className="login-label"
+                            >
+                                Username:
+                            </label>
                             <input
                                 id="login-username"
                                 name="username"
@@ -36,15 +41,24 @@ const Login: React.FC = () => {
                                 placeholder="Enter your username"
                                 autoComplete="username"
                                 value={username}
-                                onChange={e => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}
                                 className={`login-input${focus.username ? ' login-input-focus' : ''}`}
-                                onFocus={() => setFocus(f => ({ ...f, username: true }))}
-                                onBlur={() => setFocus(f => ({ ...f, username: false }))}
+                                onFocus={() =>
+                                    setFocus((f) => ({ ...f, username: true }))
+                                }
+                                onBlur={() =>
+                                    setFocus((f) => ({ ...f, username: false }))
+                                }
                                 required
                             />
                         </div>
                         <div className="login-form-row">
-                            <label htmlFor="login-password" className="login-label">Password:</label>
+                            <label
+                                htmlFor="login-password"
+                                className="login-label"
+                            >
+                                Password:
+                            </label>
                             <input
                                 id="login-password"
                                 name="password"
@@ -52,10 +66,14 @@ const Login: React.FC = () => {
                                 placeholder="Enter your password"
                                 autoComplete="current-password"
                                 value={password}
-                                onChange={e => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className={`login-input${focus.password ? ' login-input-focus' : ''}`}
-                                onFocus={() => setFocus(f => ({ ...f, password: true }))}
-                                onBlur={() => setFocus(f => ({ ...f, password: false }))}
+                                onFocus={() =>
+                                    setFocus((f) => ({ ...f, password: true }))
+                                }
+                                onBlur={() =>
+                                    setFocus((f) => ({ ...f, password: false }))
+                                }
                                 required
                             />
                         </div>
@@ -65,8 +83,12 @@ const Login: React.FC = () => {
                         <button
                             type="submit"
                             className={`login-btn${focus.login ? ' login-btn-focus' : ''}`}
-                            onFocus={() => setFocus(f => ({ ...f, login: true }))}
-                            onBlur={() => setFocus(f => ({ ...f, login: false }))}
+                            onFocus={() =>
+                                setFocus((f) => ({ ...f, login: true }))
+                            }
+                            onBlur={() =>
+                                setFocus((f) => ({ ...f, login: false }))
+                            }
                         >
                             login
                         </button>
@@ -74,11 +96,13 @@ const Login: React.FC = () => {
                 </form>
                 <div className="login-bottom">
                     Don’t have an account?
-                    <Link to="/register" className="login-link">Sign Up Here</Link>
+                    <Link to="/register" className="login-link">
+                        Sign Up Here
+                    </Link>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

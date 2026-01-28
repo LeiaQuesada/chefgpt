@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
-import Layout from './Layout.tsx'
+import Layout from './components/Layout.tsx'
 import Cookbook from './components/Cookbook.tsx'
-import Register from './Register.tsx'
-import Login from './Login.tsx'
+import Register from './components/Register.tsx'
+import Login from './components/Login.tsx'
 
 function App() {
     return (

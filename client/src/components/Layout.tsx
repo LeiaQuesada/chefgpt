@@ -1,7 +1,7 @@
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
-import cookingImg from './assets/cooking.png'
-import UserMenu from './components/UserMenu'
-import { useUser } from './authentication/useUser'
+import cookingImg from '../assets/cooking.png'
+import UserMenu from './UserMenu'
+import { useUser } from '../authentication/useUser'
 
 export default function Layout() {
     const navigate = useNavigate()
