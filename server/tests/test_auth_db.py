@@ -78,7 +78,7 @@ def test_login_success(session):
     # Create a user
     username = "testuser"
     password = "testpass"
-    create_user_account(session, username, password)
+    create_user_account(session, username, password, None)
     # Validate login
     user = get_user_by_username(session, username)
     assert user is not None
@@ -91,7 +91,7 @@ def test_login_failure(session):
     username = "testuser2"
     password = "rightpass"
     wrong_password = "wrongpass"
-    create_user_account(session, username, password)
+    create_user_account(session, username, password, None)
     user = get_user_by_username(session, username)
     assert user is not None
     token = validate_username_password(session, user, wrong_password)

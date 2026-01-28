@@ -7,12 +7,14 @@ from dotenv import load_dotenv
 # Load environment variable from .env file
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL",
-    "postgresql+psycopg://postgres:postgres@localhost:5432/chefgpt"
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql+psycopg://postgres:postgres@localhost:5432/chefgpt",
 )
 
 engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 def get_session() -> Generator[Session, None, None]:
     """Dependency to get database session."""
