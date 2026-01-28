@@ -10,7 +10,7 @@ class Recipe(BaseModel):
     name: str
     ingredients: list[str]
     instructions: list[str]
-    cooking_time: int
+    total_time: int
 
 
 dotenv.load_dotenv()
@@ -37,7 +37,7 @@ try:
               "name": "Recipe Name",
               "ingredients": ["ingredient1", "ingredient2"],
               "instructions": ["Step one", "Step two"],
-              "cooking_time": 20
+              "total_time": 20
             }
         ]
         """,
@@ -52,7 +52,14 @@ try:
 
     for recipe_dict in recipes:
         recipe = Recipe.model_validate(recipe_dict)
-        print(recipe.name)
+        print(f"\nRecipe: {recipe.name}")
+        print(f"Total time: {recipe.total_time} minutes")
+        print("Ingredients:")
+        for ingredient in recipe.ingredients:
+            print(f"- {ingredient}")
+        print("Instructions:")
+        for i, instruction in enumerate(recipe.instructions, 1):
+            print(f"{i}. {instruction}")
 
 except Exception as e:
     print(e)

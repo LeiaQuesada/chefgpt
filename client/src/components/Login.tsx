@@ -90,15 +90,18 @@ const Login: React.FC = () => {
                                 setFocus((f) => ({ ...f, login: false }))
                             }
                         >
-                            login
+                            Login
                         </button>
                     </div>
                 </form>
                 <div className="login-bottom">
                     Don’t have an account?
-                    <Link to="/register" className="login-link">
-                        Sign Up Here
-                    </Link>
+                    <span>
+                        {' '}
+                        <Link to="/register" className="login-link">
+                            Sign Up Here.
+                        </Link>
+                    </span>
                 </div>
             </div>
         </div>

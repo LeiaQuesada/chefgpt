@@ -5,11 +5,10 @@ import Register from './components/Register.tsx'
 import Login from './components/Login.tsx'
 import RecipeDetails from './components/RecipeDetails'
 import RecipeEditPage from './components/RecipeEditPage.tsx'
+import Dashboard from './components/Dashboard.tsx'
 
-// TODO React Components still needed, these are simple placeholder components for pages not yet implemented
-function Dashboard() {
-    return <div>Dashboard Page</div>
-}
+// Simple placeholder components for pages not yet implemented
+
 function EditProfile() {
     return <div>Edit Profile Page</div>
 }
