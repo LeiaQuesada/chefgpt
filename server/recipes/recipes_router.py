@@ -28,17 +28,28 @@ async def endpoint_new_recipe(
     return add_recipe(session, recipe, auth_user.user_id)
 
     # TODO: Decision discussion:
-    # Using response_model in FastAPI is better than just using a type hint (-> RecipeOut) because:
-    # - response_model automatically serializes and validates the output to match the Pydantic model, ensuring the response is always in the correct format.
-    # - It filters out any extra fields not defined in the model, improving security and consistency.
-    # - It generates accurate OpenAPI (Swagger) docs for your API, making it easier for frontend and other consumers to understand your API.
-    # Type hints (-> RecipeOut) are helpful for editor autocompletion and static analysis, but do not enforce response validation or affect the OpenAPI docs.
-    # Best practice: Use both response_model and type hints together for clarity, validation, and documentation.
+    # Using response_model in FastAPI is better than just using a type hint
+    # (-> RecipeOut) because response_model automatically serializes and
+    # validates the output to match the Pydantic model. This ensures the
+    # response is always in the correct format.
+    # It filters out any extra fields not defined in the model, improving
+    # security and consistency. It generates accurate OpenAPI (Swagger) docs
+    # for your API, making it easier for frontend and other consumers to
+    # understand your API.
+    # Type hints (-> RecipeOut) are helpful for editor autocompletion and
+    # static analysis, but do not enforce response validation or affect the
+    # OpenAPI docs.
+    # Best practice: Use both response_model and type hints together for
+    # clarity, validation, and documentation.
+
+
 @recipes_router.get("/{recipe_id}", response_model=RecipeOut)
 def endpoint_get_recipe_by_id(
-    recipe_id: int, session: Session = Depends(get_session)
+    recipe_id: int,
+    session: Session = Depends(get_session),
+    auth_user: AuthenticatedUser = Depends(require_auth),
 ) -> RecipeOut:
-    recipe = get_recipe_by_id(session, recipe_id)
+    recipe = get_recipe_by_id(session, recipe_id, auth_user.user_id)
     if not recipe:
         raise HTTPException(status_code=404, detail="Recipe not found")
     return recipe
@@ -52,12 +63,15 @@ async def endpoint_update_recipe(
     session: Session = Depends(get_session),
     auth_user: AuthenticatedUser = Depends(require_auth),
 ) -> RecipeOut:
-    # Optionally, check if the recipe belongs to the user (not implemented here)
     # Convert Pydantic model to dict, skipping unset fields
     update_data = update.model_dump(exclude_unset=True)
     print("[DEBUG] update_data:", update_data)
     try:
-        updated_recipe = update_recipe(session, recipe_id, update_data)
+        # update_recipe expects only 3 arguments: session, recipe_id,
+        # update_data
+        updated_recipe = update_recipe(
+            session, recipe_id, update_data, auth_user.user_id
+        )
         if not updated_recipe:
             raise HTTPException(status_code=404, detail="Recipe not found")
         return updated_recipe
