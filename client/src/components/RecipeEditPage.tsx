@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps, RecipeEditPayload } from '../../types/recipe'
+import { useUser } from '../authentication/useUser'
 
 function mapStringArray(
     arr: unknown[],
@@ -69,6 +70,7 @@ async function updateRecipe(
 export default function RecipeEditPage() {
     const params = useParams<{ id?: string }>()
     const navigate = useNavigate()
+    const { user } = useUser()
     let recipeId: number | null = null
     if (typeof params.id === 'string' && /^\d+$/.test(params.id)) {
         recipeId = parseInt(params.id, 10)
@@ -142,13 +144,14 @@ export default function RecipeEditPage() {
     }
 
     async function handleSave() {
-        if (!form) return
+        if (!form || !user) return
         setLoading(true)
         setError(null)
         const payload = {
             title: form.title,
             image_url: form.imageUrl,
             total_time: form.totalTime,
+            user_id: user.id, // Pass user_id from context
             ingredients: Array.isArray(form.ingredients)
                 ? form.ingredients.map((name) => ({ name }))
                 : [],
