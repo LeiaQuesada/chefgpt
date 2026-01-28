@@ -1,9 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from shared.database import get_session
-from .recipes_db import get_all_recipes, add_recipe, get_recipe_by_id
-from .recipes_db import get_all_recipes, add_recipe
-from .recipes_schemas import RecipeCreate, RecipeOut
+from .recipes_db import (
+    get_all_recipes,
+    add_recipe,
+    get_recipe_by_id,
+    update_recipe,
+)
+from .recipes_schemas import RecipeCreate, RecipeOut, RecipeUpdate
 from shared.auth import require_auth
 from authentication.auth_schemas import AuthenticatedUser
 
@@ -38,3 +42,20 @@ def endpoint_get_recipe_by_id(
     if not recipe:
         raise HTTPException(status_code=404, detail="Recipe not found")
     return recipe
+
+
+# Update a recipe by ID
+@recipes_router.put("/{recipe_id}", response_model=RecipeOut)
+async def endpoint_update_recipe(
+    recipe_id: int,
+    update: RecipeUpdate,
+    session: Session = Depends(get_session),
+    auth_user: AuthenticatedUser = Depends(require_auth),
+) -> RecipeOut:
+    # Optionally, check if the recipe belongs to the user (not implemented here)
+    # Convert Pydantic model to dict, skipping unset fields
+    update_data = update.model_dump(exclude_unset=True)
+    updated_recipe = update_recipe(session, recipe_id, update_data)
+    if not updated_recipe:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    return updated_recipe
