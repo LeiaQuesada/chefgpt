@@ -1,5 +1,5 @@
 import '../App.css'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const Dashboard = () => {
     const [aiResult, setAiResult] = useState<string | null>(null)
