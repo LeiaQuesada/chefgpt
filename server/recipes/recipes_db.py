@@ -14,8 +14,9 @@ def get_all_recipes(session: Session) -> list[RecipeOut]:
         joinedload(DBRecipe.ingredients), joinedload(DBRecipe.instructions)
     )
     recipe_objects = session.scalars(stmt).unique().all()
-    # Without .unique(): You get duplicate parent objects, which causes an error.
-    # With .unique(): SQLAlchemy ensures each parent (recipe) is unique in the result, so your code works as expected.
+    # Without .unique(): You get dupl parent objects, which causes an error.
+    # With .unique(): SQLAlchemy ensures each parent (recipe)
+    # is unique in the result, so your code works as expected.
     recipes: list[RecipeOut] = []
     for recipe in recipe_objects:
         # Validate and construct each property according to RecipeOut schema
@@ -111,7 +112,9 @@ def add_recipe(
     )
 
 
-def get_recipe_by_id(session: Session, recipe_id: int) -> RecipeOut | None:
+def get_recipe_by_id(
+    session: Session, recipe_id: int, user_id: int
+) -> RecipeOut | None:
     stmt = (
         select(DBRecipe)
         .where(DBRecipe.id == recipe_id)
@@ -122,14 +125,19 @@ def get_recipe_by_id(session: Session, recipe_id: int) -> RecipeOut | None:
     recipe = session.scalars(stmt).unique().first()
     if not recipe:
         return None
+    if recipe.user_id != user_id:
+        return None
     ingredients = [
         IngredientOut(id=ingredient.id, name=ingredient.name)
         for ingredient in recipe.ingredients
     ]
 
-    # We sort instructions by step_number to ensure they are returned in the correct order (step 1, step 2, ...).
-    # The database does not guarantee order of related objects unless explicitly sorted.
-    # The key argument is required to tell sorted() to use the step_number attribute of each instruction.
+    # We sort instructions by step_number to ensure they are returned in the
+    # correct order (step 1, step 2, ...).
+    # The database does not guarantee order of related objects unless
+    # explicitly sorted.
+    # The key argument is required to tell sorted() to use the step_number
+    # attribute of each instruction.
     def get_step_number(instruction):
         return instruction.step_number
 
@@ -153,13 +161,18 @@ def get_recipe_by_id(session: Session, recipe_id: int) -> RecipeOut | None:
 
 
 def update_recipe(
-    session: Session, recipe_id: int, update_data: dict
+    session: Session, recipe_id: int, update_data: dict, user_id: int
 ) -> RecipeOut | None:
     from .recipes_models import DBIngredient, DBInstruction
 
     recipe = session.get(DBRecipe, recipe_id)
     if not recipe:
         return None
+
+    # Check if the user owns this book
+    if recipe.user_id != user_id:
+        return None
+
     # Update simple fields
     if "title" in update_data and update_data["title"] is not None:
         recipe.title = update_data["title"]
@@ -191,7 +204,8 @@ def update_recipe(
         # Remove old instructions
         recipe.instructions.clear()
         session.flush()
-        # Add new instructions (expecting list of dicts with 'step_text' and 'step_number')
+        # Add new instructions (expecting list of dicts with
+        # 'step_text' and 'step_number')
         for instruction in update_data["instructions"]:
             if isinstance(instruction, dict):
                 step_text = instruction.get("step_text", "")
