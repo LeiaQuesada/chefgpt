@@ -93,6 +93,7 @@ export default function RecipeEditPage() {
                 if (!res.ok) throw new Error('Failed to fetch recipe')
                 const data = await res.json()
                 const mapped = {
+                    user_id: data.user_id,
                     id: data.id,
                     title: data.title,
                     imageUrl: data.image_url ?? null,
@@ -151,7 +152,6 @@ export default function RecipeEditPage() {
             title: form.title,
             image_url: form.imageUrl,
             total_time: form.totalTime,
-            user_id: user.id, // Pass user_id from context
             ingredients: Array.isArray(form.ingredients)
                 ? form.ingredients.map((name) => ({ name }))
                 : [],
