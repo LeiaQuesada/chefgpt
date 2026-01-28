@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { login as loginApi } from '../authentication/auth-api'
+import { useUser } from '../authentication/useUser'
 import '../App.css'
 
-const Login: React.FC = () => {
+export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [focus, setFocus] = useState<{ [k: string]: boolean }>({})
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const { refreshUser } = useUser()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -16,9 +20,21 @@ const Login: React.FC = () => {
             setError('Username and password are required.')
             return
         }
-        // TODO: POST /api/auth/login and store token/user in auth context later
-        console.log({ username, password })
-        navigate('/cookbook')
+        setLoading(true)
+        try {
+            const ok = await loginApi({ username, password })
+            if (!ok) {
+                setError('Invalid username or password.')
+                setLoading(false)
+                return
+            }
+            await refreshUser()
+            navigate('/cookbook')
+        } catch {
+            setError('Login failed. Please try again.')
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -89,8 +105,9 @@ const Login: React.FC = () => {
                             onBlur={() =>
                                 setFocus((f) => ({ ...f, login: false }))
                             }
+                            disabled={loading}
                         >
-                            Login
+                            {loading ? 'Logging in...' : 'Login'}
                         </button>
                     </div>
                 </form>
@@ -107,5 +124,3 @@ const Login: React.FC = () => {
         </div>
     )
 }
-
-export default Login
