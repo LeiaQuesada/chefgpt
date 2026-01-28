@@ -1,13 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../App.css'
 import RecipeCard from '../components/RecipeCard' // import new component
-
-type Recipe = {
-    id: number
-    title: string
-    totalTime: number
-    imageUrl?: string | null
-}
+import type { Recipe } from '../../types/recipe'
 
 const Cookbook = () => {
     const [recipes, setRecipes] = useState<Recipe[]>([])

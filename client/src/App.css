@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 /* --- Register Card Background --- */
 .register-card {
     background: #fff;
@@ -246,7 +247,6 @@ div.register-card .register-file-btn:active {
     display: block;
     margin: 0 auto;
 }
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 /* Layout.tsx navigation and header styles */
 .main-nav {
     display: flex;
@@ -269,9 +269,6 @@ div.register-card .register-file-btn:active {
     margin: 0;
     padding: 0;
     list-style: none;
-}
-.nav-link {
-    /* Add any additional link styles if needed */
 }
 
 :root {

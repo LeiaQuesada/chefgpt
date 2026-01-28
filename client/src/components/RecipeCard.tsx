@@ -3,18 +3,7 @@ import clockIcon from '../assets/clock.svg'
 import editIcon from '../assets/edit.svg'
 import deleteIcon from '../assets/delete.svg'
 import { useNavigate } from 'react-router-dom'
-
-type Recipe = {
-    id: number
-    title: string
-    totalTime: number
-    imageUrl?: string | null
-}
-
-type RecipeCardProps = {
-    recipe: Recipe
-    onDelete: (id: number) => void
-}
+import type { RecipeCardProps } from '../../types/recipe'
 
 export default function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
     const navigate = useNavigate()
