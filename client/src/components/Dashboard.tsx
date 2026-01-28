@@ -55,6 +55,19 @@ const Dashboard = () => {
     return (
         <div>
             <h1>Dashboard Page</h1>
+            {error && (
+                <div
+                    style={{
+                        color: 'white',
+                        background: 'red',
+                        padding: 12,
+                        borderRadius: 6,
+                        marginBottom: 16,
+                    }}
+                >
+                    <strong>Error:</strong> {error}
+                </div>
+            )}
             <form onSubmit={fetchAI} style={{ marginBottom: 24 }}>
                 <div style={{ marginBottom: 12 }}>
                     <label>
