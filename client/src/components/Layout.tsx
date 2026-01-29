@@ -42,8 +42,8 @@ export default function Layout() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard" className="nav-link">
-                            Dashboard
+                        <NavLink to="/recipe-generator" className="nav-link">
+                            Recipe Generator
                         </NavLink>
                     </li>
                     <li>

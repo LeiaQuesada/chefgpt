@@ -5,7 +5,7 @@ import Register from './components/Register.tsx'
 import Login from './components/Login.tsx'
 import RecipeDetails from './components/RecipeDetails'
 import RecipeEditPage from './components/RecipeEditPage.tsx'
-import Dashboard from './components/Dashboard.tsx'
+import RecipeGenerator from './components/RecipeGenerator.tsx'
 
 // Simple placeholder components for pages not yet implemented
 
@@ -25,7 +25,7 @@ function App() {
             <Route element={<Layout />}>
                 <Route index element={<Cookbook />} />
                 <Route path="cookbook" element={<Cookbook />} />
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="recipe-generator" element={<RecipeGenerator />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="logout" element={<Logout />} />

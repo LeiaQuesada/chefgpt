@@ -48,7 +48,8 @@ def endpoint_get_all_recipes(session: Session = Depends(get_session)):
     return get_all_recipes(session)
 
 
-@recipes_router.post("")
+# Save recipe from AI results
+@recipes_router.post("", response_model=RecipeOut)
 async def endpoint_new_recipe(
     recipe: RecipeCreate,
     session: Session = Depends(get_session),
