@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
+
 /* Bullet and number list styles for RecipeGenerator results */
 .rg-recipe-list-bullets {
     list-style-type: disc !important;
@@ -98,7 +100,6 @@
     align-items: center;
     gap: 8px;
 }
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 /* --- Register Card Background --- */
 .register-card {
     background: #fff;
