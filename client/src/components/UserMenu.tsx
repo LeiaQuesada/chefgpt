@@ -1,18 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { logout as logoutApi } from '../authentication/auth-api'
+import { useUser } from '../authentication/useUser'
 
 interface UserMenuProps {
     onEditProfile: () => void
-    onLogout: () => void
     userName?: string
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({
-    onEditProfile,
-    onLogout,
-    userName,
-}) => {
+const UserMenu: React.FC<UserMenuProps> = ({ onEditProfile, userName }) => {
     const [open, setOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
+    const { refreshUser } = useUser()
+
+    // Handles logout: calls backend and refreshes user context
+    const handleLogout = async () => {
+        await logoutApi()
+        await refreshUser()
+    }
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -42,7 +46,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                     <button onClick={onEditProfile} className="user-menu-item">
                         Edit Profile
                     </button>
-                    <button onClick={onLogout} className="user-menu-item">
+                    <button onClick={handleLogout} className="user-menu-item">
                         Logout
                     </button>
                 </div>
