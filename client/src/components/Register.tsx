@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { signup } from '../authentication/auth-api'
+import type { SignupData } from '../authentication/auth-schemas'
 import '../App.css'
 
 const Register: React.FC = () => {
@@ -20,9 +22,15 @@ const Register: React.FC = () => {
         }
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    /**
+     * Handles the registration form submission.
+     * Validates input, then calls the signup API to register the user.
+     * On success, navigates to login page. On error, displays error message.
+     */
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
         setError('')
+        // Basic validation for required fields
         if (!username.trim() || !password.trim() || !confirm.trim()) {
             setError('Username, password, and confirm password are required.')
             return
@@ -31,9 +39,22 @@ const Register: React.FC = () => {
             setError('Passwords do not match.')
             return
         }
-        // TODO: Call POST /api/users with form data
-        console.log({ username, password, fileName })
-        navigate('/login')
+        // Prepare the signup data object for the API
+        const signupData: SignupData = {
+            username,
+            password,
+            // The backend expects image_url, but file upload is not implemented yet
+            image_url: '',
+        }
+        // Call the signup API (frontend -> backend)
+        const success = await signup(signupData)
+        if (success) {
+            // On successful signup, redirect to login page
+            navigate('/login')
+        } else {
+            // Show error if signup failed (e.g., username taken)
+            setError('Registration failed. Username may already exist.')
+        }
     }
 
     return (
