@@ -1,3 +1,4 @@
+import type { AIRecipe, RecipeCreatePayload } from '../../types/recipe'
 import '../App.css'
 import React, { useState } from 'react'
 
@@ -10,9 +11,9 @@ const RecipeGenerator = () => {
     const [maxTime, setMaxTime] = useState('')
     const [addStatus, setAddStatus] = useState<{ [key: number]: string }>({})
 
-    const handleAddToCookbook = async (recipe: any, idx: number) => {
+    const handleAddToCookbook = async (recipe: AIRecipe, idx: number) => {
         setAddStatus((prev) => ({ ...prev, [idx]: 'saving' }))
-        const payload = {
+        const payload: RecipeCreatePayload = {
             title: recipe.name, // title instead of name
             total_time: recipe.total_time, // ensure number
             ingredients: recipe.ingredients.map((i) => ({ name: i })), // wrap strings
@@ -81,12 +82,7 @@ const RecipeGenerator = () => {
         setAiResult(null)
     }
 
-    let recipes: Array<{
-        name: string
-        ingredients: string[]
-        instructions: string[]
-        total_time: number
-    }> = []
+    let recipes: AIRecipe[] = []
     if (aiResult) {
         try {
             const parsed =

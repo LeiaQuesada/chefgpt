@@ -16,6 +16,14 @@ export interface RecipeEditPayload {
     instructions: { step_text: string; step_number: number }[]
 }
 
+export interface RecipeCreatePayload {
+    title: string
+    image_url?: string
+    total_time: number
+    ingredients: { name: string }[]
+    instructions: { step_text: string; step_number: number }[]
+}
+
 export type RecipeCardProps = {
     recipe: Recipe
     onDelete: (id: number) => void
@@ -26,4 +34,11 @@ export type Recipe = {
     title: string
     totalTime: number
     imageUrl?: string | null
+}
+
+export interface AIRecipe {
+    name: string
+    ingredients: string[]
+    instructions: string[]
+    total_time: number
 }
