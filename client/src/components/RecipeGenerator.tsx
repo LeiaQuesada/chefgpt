@@ -1,4 +1,4 @@
-import type { AIRecipe, RecipeCreatePayload } from '../../types/recipe'
+import type { AIRecipe, RecipeCreatePayload } from '../../types/recipe.d'
 import '../App.css'
 import React, { useState } from 'react'
 
@@ -16,11 +16,13 @@ const RecipeGenerator = () => {
         const payload: RecipeCreatePayload = {
             title: recipe.name, // title instead of name
             total_time: recipe.total_time, // ensure number
-            ingredients: recipe.ingredients.map((i) => ({ name: i })), // wrap strings
-            instructions: recipe.instructions.map((step, idx) => ({
-                step_text: step,
-                step_number: idx + 1,
-            })),
+            ingredients: recipe.ingredients.map((i: string) => ({ name: i })), // wrap strings
+            instructions: recipe.instructions.map(
+                (step: string, idx: number) => ({
+                    step_text: step,
+                    step_number: idx + 1,
+                })
+            ),
         }
         try {
             console.log('Adding recipe to cookbook:', recipe)
@@ -210,7 +212,7 @@ const RecipeGenerator = () => {
                                         <strong>Ingredients:</strong>
                                         <ul className="rg-ai-ingredients">
                                             {recipe.ingredients.map(
-                                                (ing, i) => (
+                                                (ing: string, i: number) => (
                                                     <li key={i}>{ing}</li>
                                                 )
                                             )}
@@ -221,15 +223,9 @@ const RecipeGenerator = () => {
                                 recipe.instructions.length > 0 && (
                                     <div className="rg-recipe-instructions">
                                         <strong>Instructions:</strong>
-                                        <ol
-                                            className="rg-recipe-list"
-                                            style={{
-                                                listStyleType: 'decimal',
-                                                paddingLeft: 20,
-                                            }}
-                                        >
+                                        <ol className="rg-recipe-list rg-recipe-list-numbers">
                                             {recipe.instructions.map(
-                                                (step, i) => (
+                                                (step: string, i: number) => (
                                                     <li key={i}>{step}</li>
                                                 )
                                             )}
