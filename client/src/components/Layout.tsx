@@ -10,12 +10,9 @@ export default function Layout() {
     const handleEditProfile = () => {
         navigate('/profile/edit')
     }
-    const handleLogout = () => {
-        navigate('/logout')
-    }
 
     return (
-        <div>
+        <>
             <nav className="main-nav">
                 <div className="nav-left">
                     <span className="logo-chefgpt">
@@ -25,42 +22,57 @@ export default function Layout() {
                             alt="cooking"
                             className="logo-img"
                         />
+                        <Link to="/" className="nav-link">
+                            Home
+                        </Link>
                     </span>
-                    <Link to="/" className="nav-link">
-                        Home
-                    </Link>
+                    <ul className="nav-list">
+                        {!user ? (
+                            <>
+                                <li>
+                                    <NavLink to="/login" className="nav-link">
+                                        Login
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/register"
+                                        className="nav-link"
+                                    >
+                                        Register
+                                    </NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink
+                                        to="/recipe-generator"
+                                        className="nav-link"
+                                    >
+                                        Recipe Generator
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/cookbook"
+                                        className="nav-link"
+                                    >
+                                        Cookbook
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <UserMenu
+                                        onEditProfile={handleEditProfile}
+                                        userName={user?.username}
+                                    />
+                                </li>
+                            </>
+                        )}
+                    </ul>
                 </div>
-                <ul className="nav-list">
-                    <li>
-                        <NavLink to="/login" className="nav-link">
-                            Login
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/register" className="nav-link">
-                            Register
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/recipe-generator" className="nav-link">
-                            Recipe Generator
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/cookbook" className="nav-link">
-                            Cookbook
-                        </NavLink>
-                    </li>
-                    <li>
-                        <UserMenu
-                            onEditProfile={handleEditProfile}
-                            onLogout={handleLogout}
-                            userName={user?.username}
-                        />
-                    </li>
-                </ul>
             </nav>
             <Outlet />
-        </div>
+        </>
     )
 }

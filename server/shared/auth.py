@@ -18,7 +18,7 @@ def require_auth(
     user_id = request.session.get("user_id")
 
     if not username or not session_token or not user_id:
-        raise HTTPException(status_code=401, detail="Not authentication")
+        raise HTTPException(status_code=401, detail="Not authenticated")
 
     is_valid = validate_session(session, username, session_token)
 
