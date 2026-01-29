@@ -31,16 +31,21 @@ export default function Layout() {
                     </Link>
                 </div>
                 <ul className="nav-list">
-                    <li>
-                        <NavLink to="/login" className="nav-link">
-                            Login
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/register" className="nav-link">
-                            Register
-                        </NavLink>
-                    </li>
+                    {/* Only show Login/Register if user is NOT logged in */}
+                    {!user && (
+                        <>
+                            <li>
+                                <NavLink to="/login" className="nav-link">
+                                    Login
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/register" className="nav-link">
+                                    Register
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
                     <li>
                         <NavLink to="/recipe-generator" className="nav-link">
                             Recipe Generator
