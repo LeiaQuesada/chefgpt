@@ -6,7 +6,7 @@ from .recipes_schemas import (
     IngredientOut,
     InstructionOut,
 )
-from .recipes_models import DBRecipe
+from .recipes_models import DBRecipe, DBIngredient, DBInstruction
 
 
 def get_all_recipes(session: Session) -> list[RecipeOut]:
@@ -163,8 +163,6 @@ def get_recipe_by_id(
 def update_recipe(
     session: Session, recipe_id: int, update_data: dict, user_id: int
 ) -> RecipeOut | None:
-    from .recipes_models import DBIngredient, DBInstruction
-
     recipe = session.get(DBRecipe, recipe_id)
     if not recipe:
         return None
@@ -223,3 +221,22 @@ def update_recipe(
     session.commit()
     session.refresh(recipe)
     return get_recipe_by_id(session, recipe_id, user_id)
+
+
+# Delete a recipe by ID
+
+
+def delete_recipe(session: Session, recipe_id: int, user_id: int) -> None:
+
+    recipe = session.get(DBRecipe, recipe_id)
+    if not recipe:
+        raise ValueError("Recipe not found")
+    if recipe.user_id != user_id:
+        raise ValueError("Not authorized to delete this recipe")
+    # Delete related ingredients and instructions
+    for ingredient in list(recipe.ingredients):
+        session.delete(ingredient)
+    for instruction in list(recipe.instructions):
+        session.delete(instruction)
+    session.delete(recipe)
+    session.commit()

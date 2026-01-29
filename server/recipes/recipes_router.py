@@ -7,6 +7,7 @@ from .recipes_db import (
     add_recipe,
     get_recipe_by_id,
     update_recipe,
+    delete_recipe,
 )
 from .recipes_schemas import RecipeCreate, RecipeOut, RecipeUpdate
 from .ai_schemas import (
@@ -109,5 +110,27 @@ async def endpoint_update_recipe(
         import traceback
 
         print("[ERROR] Exception in update_recipe endpoint:", e)
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Delete a recipe by ID
+@recipes_router.delete("/{recipe_id}")
+async def endpoint_delete_recipe_by_id(
+    recipe_id: int,
+    session: Session = Depends(get_session),
+    auth_user: AuthenticatedUser = Depends(require_auth),
+):
+    recipe = get_recipe_by_id(session, recipe_id, auth_user.user_id)
+    if not recipe:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    try:
+
+        delete_recipe(session, recipe_id, auth_user.user_id)
+        return {"detail": "Recipe deleted successfully"}
+    except Exception as e:
+        import traceback
+
+        print("[ERROR] Exception in delete_recipe endpoint:", e)
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))

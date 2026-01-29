@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps } from '../../types/recipe'
 import { useUser } from '../authentication/useUser'
-
+import editIcon from '../assets/edit.svg'
+import deleteIcon from '../assets/delete.svg'
 function mapStringArray(
     arr: unknown[],
     type: 'ingredient' | 'instruction'
@@ -92,6 +93,21 @@ export default function RecipeDetails() {
     if (!recipe) return <div>Recipe not found</div>
     const isOwner = user && recipe.user_id === Number(user.id)
 
+    async function handleDelete() {
+        if (!recipeId) return
+        if (!window.confirm('Are you sure you want to delete this recipe?'))
+            return
+        try {
+            const res = await fetch(`/api/recipes/${recipeId}`, {
+                method: 'DELETE',
+            })
+            if (!res.ok) throw new Error('Failed to delete recipe')
+            navigate('/cookbook')
+        } catch (err) {
+            alert(err instanceof Error ? err.message : 'Error deleting recipe')
+        }
+    }
+
     return (
         <>
             <h2>{recipe.title}</h2>
@@ -118,12 +134,36 @@ export default function RecipeDetails() {
                 ))}
             </ol>
             {isOwner && (
-                <button
-                    className="recipe-card-btn edit"
-                    onClick={() => navigate(`/recipe/edit/${recipe.id}`)}
-                >
-                    Edit
-                </button>
+                <>
+                    <div className="recipe-card-actions btn-row">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                navigate(`/recipe/edit/${recipe.id}`)
+                            }}
+                            className="recipe-card-btn edit btn-flex"
+                        >
+                            <img
+                                src={editIcon}
+                                alt="edit"
+                                className="icon-btn"
+                            />
+                        </button>
+                        <button
+                            className="recipe-card-btn delete btn-flex"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleDelete()
+                            }}
+                        >
+                            <img
+                                src={deleteIcon}
+                                alt="delete"
+                                className="icon-btn"
+                            />
+                        </button>
+                    </div>
+                </>
             )}
         </>
     )
