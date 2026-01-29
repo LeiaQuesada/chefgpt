@@ -1,5 +1,6 @@
 // Types for recipe editing
 export interface RecipeDetailsProps {
+    user_id: number
     title: string
     imageUrl?: string
     totalTime: number

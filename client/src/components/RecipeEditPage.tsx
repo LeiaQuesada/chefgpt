@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps, RecipeEditPayload } from '../../types/recipe'
+import { useUser } from '../authentication/useUser'
 
 function mapStringArray(
     arr: unknown[],
@@ -69,6 +70,7 @@ async function updateRecipe(
 export default function RecipeEditPage() {
     const params = useParams<{ id?: string }>()
     const navigate = useNavigate()
+    const { user } = useUser()
     let recipeId: number | null = null
     if (typeof params.id === 'string' && /^\d+$/.test(params.id)) {
         recipeId = parseInt(params.id, 10)
@@ -91,6 +93,7 @@ export default function RecipeEditPage() {
                 if (!res.ok) throw new Error('Failed to fetch recipe')
                 const data = await res.json()
                 const mapped = {
+                    user_id: data.user_id,
                     id: data.id,
                     title: data.title,
                     imageUrl: data.image_url ?? null,
@@ -142,7 +145,7 @@ export default function RecipeEditPage() {
     }
 
     async function handleSave() {
-        if (!form) return
+        if (!form || !user) return
         setLoading(true)
         setError(null)
         const payload = {

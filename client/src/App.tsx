@@ -6,6 +6,7 @@ import Login from './components/Login.tsx'
 import RecipeDetails from './components/RecipeDetails'
 import RecipeEditPage from './components/RecipeEditPage.tsx'
 import RecipeGenerator from './components/RecipeGenerator.tsx'
+import ProtectedRoute from './authentication/ProtectedRoute'
 
 // Simple placeholder components for pages not yet implemented
 
@@ -19,23 +20,26 @@ function NotFound() {
     return <div>Page Not Found</div>
 }
 
-function App() {
+export default function App() {
     return (
         <Routes>
             <Route element={<Layout />}>
-                <Route index element={<Cookbook />} />
-                <Route path="cookbook" element={<Cookbook />} />
+                <Route index element={<div>Home Page</div>} />
                 <Route path="recipe-generator" element={<RecipeGenerator />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="logout" element={<Logout />} />
-                <Route path="profile/edit" element={<EditProfile />} />
-                <Route path="recipe/:id" element={<RecipeDetails />} />
-                <Route path="recipe/edit/:id" element={<RecipeEditPage />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="cookbook" element={<Cookbook />} />
+                    <Route path="profile/edit" element={<EditProfile />} />
+                    <Route path="recipe/:id" element={<RecipeDetails />} />
+                    <Route
+                        path="recipe/edit/:id"
+                        element={<RecipeEditPage />}
+                    />
+                </Route>
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
     )
 }
-
-export default App

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps } from '../../types/recipe'
+import { useUser } from '../authentication/useUser'
 
 function mapStringArray(
     arr: unknown[],
@@ -39,9 +40,10 @@ function mapStringArray(
         .filter((s): s is string => typeof s === 'string')
 }
 
-function RecipeDetails() {
+export default function RecipeDetails() {
     const params = useParams<{ id?: string }>()
     const navigate = useNavigate()
+    const { user } = useUser()
     let recipeId: number | null = null
     if (typeof params.id === 'string' && /^\d+$/.test(params.id)) {
         recipeId = parseInt(params.id, 10)
@@ -64,6 +66,7 @@ function RecipeDetails() {
                 if (!res.ok) throw new Error('Failed to fetch recipe')
                 const data = await res.json()
                 const mapped = {
+                    user_id: data.user_id,
                     id: data.id,
                     title: data.title,
                     imageUrl: data.image_url ?? null,
@@ -87,6 +90,7 @@ function RecipeDetails() {
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error}</div>
     if (!recipe) return <div>Recipe not found</div>
+    const isOwner = user && recipe.user_id === Number(user.id)
 
     return (
         <>
@@ -113,14 +117,14 @@ function RecipeDetails() {
                     <li key={idx}>{step}</li>
                 ))}
             </ol>
-            <button
-                className="recipe-card-btn edit"
-                onClick={() => navigate(`/recipe/edit/${recipe.id}`)}
-            >
-                Edit
-            </button>
+            {isOwner && (
+                <button
+                    className="recipe-card-btn edit"
+                    onClick={() => navigate(`/recipe/edit/${recipe.id}`)}
+                >
+                    Edit
+                </button>
+            )}
         </>
     )
 }
-
-export default RecipeDetails
