@@ -13,9 +13,6 @@ import ProtectedRoute from './authentication/ProtectedRoute'
 function EditProfile() {
     return <div>Edit Profile Page</div>
 }
-function Logout() {
-    return <div>Logout Page</div>
-}
 function NotFound() {
     return <div>Page Not Found</div>
 }
@@ -25,11 +22,13 @@ export default function App() {
         <Routes>
             <Route element={<Layout />}>
                 <Route index element={<div>Home Page</div>} />
-                <Route path="recipe-generator" element={<RecipeGenerator />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
-                <Route path="logout" element={<Logout />} />
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path="recipe-generator"
+                        element={<RecipeGenerator />}
+                    />
                     <Route path="cookbook" element={<Cookbook />} />
                     <Route path="profile/edit" element={<EditProfile />} />
                     <Route path="recipe/:id" element={<RecipeDetails />} />
