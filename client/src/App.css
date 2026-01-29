@@ -1,4 +1,105 @@
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
+
+/* Bullet and number list styles for RecipeGenerator results */
+.rg-recipe-list-bullets {
+    list-style-type: disc !important;
+    padding-left: 20px !important;
+}
+.rg-recipe-list-numbers {
+    list-style-type: decimal !important;
+    padding-left: 20px !important;
+}
+/* Ingredient label and input row for RecipeGenerator */
+.rg-ingredient-label {
+    margin-right: 0;
+}
+.rg-ingredient-input-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.rg-ai-ingredients {
+    list-style-type: disc;
+    padding-left: 20px;
+    display: block;
+}
+
+/* Error message for Add to Cookbook */
+.rg-add-cookbook-btn {
+    margin: 16px auto 0 auto;
+    width: auto;
+    background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+    color: #fff;
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        box-shadow 0.2s;
+    display: inline-block;
+    box-shadow:
+        0 2px 8px rgba(25, 118, 210, 0.1),
+        0 1px 3px rgba(66, 165, 245, 0.08);
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    text-align: center;
+
+    transition:
+        background 0.2s,
+        box-shadow 0.2s;
+    display: block;
+    letter-spacing: 0.03em;
+    box-shadow: none !important;
+}
+.rg-add-cookbook-btn:disabled {
+    background: #bdbdbd;
+    color: #fff;
+    border: 2px solid #bdbdbd;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.rg-add-cookbook-btn:hover:not(:disabled) {
+    background: #1251a3;
+    border-color: #1251a3;
+}
+/* Ensure RecipeGenerator uses app font */
+.rg-root-font {
+    font-family: 'Inter', 'Google Sans', Arial, sans-serif !important;
+    font-weight: 200;
+    color: #525252;
+}
+/* RecipeGenerator button row */
+.rg-btn-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Reset button style */
+/* Dedicated blue reset button */
+.rg-reset-btn {
+    background: #efefec !important;
+    color: #a4a4a4 !important;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5em 1.5em;
+    font-weight: 500;
+    transition: background 0.2s;
+    box-shadow: none;
+}
+.rg-reset-btn:hover {
+    background: #efefec;
+}
+
+/* Recipe ingredient item in results */
+.rg-recipe-ingredient-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 /* --- Register Card Background --- */
 .register-card {
     background: #fff;
@@ -692,4 +793,140 @@ button,
     margin-left: 0;
     color: #525252;
     margin-top: 48px;
+}
+
+/* Recipe Generator Styles */
+.rg-error {
+    color: white;
+    background: red;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.rg-form {
+    margin-bottom: 24px;
+}
+
+.rg-form-row {
+    margin-bottom: 12px;
+}
+
+.rg-input {
+    margin-left: 8px;
+    padding: 4px;
+}
+
+.rg-input-ingredients {
+    width: 250px;
+}
+
+.rg-input-time {
+    width: 100px;
+}
+
+.rg-btn {
+    margin-bottom: 16px;
+    padding: 8px 9px;
+    font-size: 16px;
+    background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.rg-btn:disabled {
+    cursor: not-allowed;
+}
+
+.rg-add-btn {
+    margin-left: -8px;
+    font-size: 15px;
+    background: #f7f7f9;
+    color: #f7f7f9;
+    border: none;
+    border-radius: 50%; /* circle */
+    width: 22px; /* fixed width */
+    height: 32px; /* same as width */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* center the + inside */
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: background 0.2s;
+    padding: 0; /* remove extra padding */
+    line-height: 1; /* prevents emoji/font stretching */
+    box-sizing: border-box; /* ensures border/padding included in width */
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-self: center;
+    box-shadow: none !important; /* remove box-shadow */
+}
+
+.rg-add-btn:disabled {
+    background: #f7f7f9;
+    cursor: not-allowed;
+}
+
+.rg-remove-btn {
+    order: -1; /* keep on left */
+    flex-shrink: 0; /* prevent shrinking */
+    flex-grow: 0; /* prevent stretching */
+    width: 30px; /* circle width */
+    height: 30px; /* circle height */
+    border-radius: 50%; /* perfect circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f9;
+    color: #525252;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0; /* remove extra padding */
+    box-sizing: border-box;
+}
+.rg-remove-btn:hover {
+    background: #f7f7f9;
+}
+/* .rg-remove-btn:active {
+    background: #d32f2f;
+} */
+
+/* Remove box-shadow from .rg-remove-btn */
+.rg-remove-btn {
+    box-shadow: none !important;
+}
+
+/* Make RecipeGenerator buttons narrower */
+.rg-btn,
+.rg-add-btn,
+.rg-remove-btn {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 60px;
+    width: auto;
+}
+
+/* Ingredient list as grid for column alignment */
+.rg-recipe-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.rg-ingredient-list-item {
+    display: flex; /* make each row a flex container */
+    align-items: center; /* vertically center button and text */
+    gap: 0.5rem; /* space between button and text */
+    margin-bottom: 0.2rem; /* row spacing */
+}
+
+.rg-remove-btn {
+    order: -1; /* move button to the left */
+    flex-shrink: 0; /* prevent button from shrinking */
+}
+
+.rg-ingredient-list-item span {
+    flex: 1; /* text takes remaining space */
 }
