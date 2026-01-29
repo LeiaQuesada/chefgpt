@@ -12,10 +12,9 @@ const Cookbook = () => {
         try {
             if (!window.confirm('Delete this recipe?')) return
 
-            const response = await fetch(
-                `http://localhost:8000/api/recipes/${id}`,
-                { method: 'DELETE' }
-            )
+            const response = await fetch(`/api/recipes/${id}`, {
+                method: 'DELETE',
+            })
             if (!response.ok) throw new Error(`${response.status}`)
 
             setRecipes((prev) => prev.filter((recipe) => recipe.id !== id))
