@@ -7,6 +7,7 @@ import RecipeDetails from './components/RecipeDetails'
 import RecipeEditPage from './components/RecipeEditPage.tsx'
 import RecipeGenerator from './components/RecipeGenerator.tsx'
 import ProtectedRoute from './authentication/ProtectedRoute'
+import HomePage from './components/HomePage.tsx'
 
 // Simple placeholder components for pages not yet implemented
 
@@ -20,8 +21,8 @@ function NotFound() {
 export default function App() {
     return (
         <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route element={<Layout />}>
-                <Route index element={<div>Home Page</div>} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route element={<ProtectedRoute />}>
