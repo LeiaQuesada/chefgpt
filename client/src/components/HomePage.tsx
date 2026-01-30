@@ -1,6 +1,4 @@
-import React from 'react'
 import styles from './HomePage.module.css'
-import carrotImg from '../assets/carrot.png'
 import avocadoImg from '../assets/avocado.png'
 import baguetteImg from '../assets/baguette.png'
 import tomatoImg from '../assets/tomato.png'
