@@ -243,7 +243,8 @@ div.register-card .register-file-btn:active {
     box-shadow: 0 2px 8px rgba(255, 151, 101, 0.1);
     background: #fff;
 }
-
+.home-register-btn,
+.home-login-btn,
 .login-form button,
 .register-form button {
     font-family: var(--font-heading) !important;
