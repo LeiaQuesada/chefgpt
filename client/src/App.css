@@ -355,15 +355,18 @@ div.register-card .register-file-btn:active {
     align-items: center;
     justify-content: space-between;
 }
+
+.nav-logo-img {
+    margin-left: 8px;
+    width: 122px;
+    height: auto;
+}
 .nav-left {
     display: flex;
     align-items: center;
     gap: 18px;
 }
-.logo-img {
-    margin-left: 8px;
-    height: 22px;
-}
+
 .nav-list {
     display: flex;
     align-items: center;
@@ -411,6 +414,9 @@ nav {
     align-items: center;
     justify-content: space-between;
     max-width: 900px;
+    height: 48px;
+    min-height: 0;
+    box-sizing: border-box;
 }
 
 nav ul {
@@ -930,4 +936,15 @@ button,
 
 .rg-ingredient-list-item span {
     flex: 1; /* text takes remaining space */
+}
+
+.nav-logo-img-fixed {
+    position: fixed;
+    top: -20px;
+    left: 16px;
+    width: 160px;
+    height: 160px;
+    z-index: 100;
+    object-fit: contain;
+    background: none;
 }
