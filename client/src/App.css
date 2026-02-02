@@ -558,6 +558,31 @@ nav .active {
     color: #fff !important;
 }
 
+/* --- Save and Cancel Buttons --- */
+.recipe-edit-btn-save,
+.recipe-edit-btn-cancel {
+    background: linear-gradient(90deg, #ff9765 0%, #ff6163 100%) !important;
+    color: #fff !important;
+    border-radius: 999px;
+    padding: 0;
+    font-family: var(--font-heading) !important;
+    font-weight: 100 !important;
+    font-size: 1.2rem;
+    min-width: unset;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.recipe-edit-btn-save:active,
+.recipe-edit-btn-cancel:active {
+    background: #1e1e1e !important;
+    color: #fff !important;
+}
+
 /* --- Typography Hierarchy --- */
 .recipe-card-title,
 .cookbook-title,
@@ -930,4 +955,129 @@ button,
 
 .rg-ingredient-list-item span {
     flex: 1; /* text takes remaining space */
+}
+
+.recipe-edit-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: var(--font-heading) !important;
+    font-size: 1.2rem;
+    font-weight: 400 !important;
+    color: #525252 !important;
+}
+
+.recipe-edit-icon {
+    filter: brightness(0) invert(1);
+    width: 18px;
+    height: 18px;
+}
+/* edit recipe input box */
+.recipe-edit-input {
+    border-radius: 18px;
+    font-size: 16px;
+    font-family: var(--font-heading) !important;
+    font-weight: 300 !important;
+    padding: 16px 18px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 3px;
+    border: 1.5px solid #f6cbca;
+    height: 36px;
+    background: #fafbfc;
+    color: #525252;
+    outline: none;
+    transition:
+        border 0.2s,
+        box-shadow 0.2s;
+    max-width: 700px;
+}
+.recipe-edit-input:focus {
+    border-color: #ff9765;
+    box-shadow: 0 2px 8px rgba(255, 151, 101, 0.1);
+    background: #fff;
+}
+
+.recipe-edit-input-title {
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-size: 1.1rem;
+    font-weight: 400 !important;
+    margin-bottom: 3px;
+    margin-top: 12px;
+    display: block;
+    text-align: left;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 700px;
+}
+.recipe-edit-input-title.instructions-title {
+    margin-bottom: 18px;
+}
+.recipe-edit-input-title-recipe {
+    margin-top: 0;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+}
+.recipe-edit-section {
+    width: 100%;
+    max-width: 700px;
+    align-self: center; /* keep section centered */
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.recipe-edit-section ol {
+    padding-left: 20px; /* Space for the numbers */
+    margin: 0;
+}
+
+.recipe-edit-section li {
+    display: list-item; /* Keeps the numbering working */
+    margin-bottom: 12px;
+    color: #525252;
+}
+.recipe-edit-section li::marker {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1rem;
+}
+.recipe-edit-input {
+    /* align-self: flex-start; */
+    text-align: left;
+}
+.recipe-edit-section textarea {
+    width: 100%;
+    max-width: 700px;
+    resize: none;
+    overflow: hidden;
+    padding-top: 9px;
+    padding-bottom: 14px;
+    line-height: 1.4;
+
+    height: 36px !important; /* Forces it to match your .recipe-edit-input height */
+    white-space: nowrap;
+}
+
+.recipe-edit-section li textarea,
+.recipe-edit-section li input {
+    vertical-align: top; /* Aligns the top of the box with the top of the number line */
+    display: inline-block;
+    width: calc(100% - 10px); /* Leave a tiny gap between number and box */
+}
+
+/* Specific fix for textareas being taller */
+.recipe-edit-section li textarea {
+    margin-top: -8px; /* Pulls the box up slightly if it feels 'heavy' at the bottom */
+}
+.recipe-edit-section ul li::marker {
+    content: '🌱 '; /* Uses an emoji instead of a dot */
+    font-size: 0.9rem;
+}
+
+.recipe-edit-section ul {
+    padding-left: 25px;
 }
