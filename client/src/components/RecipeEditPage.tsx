@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps, RecipeEditPayload } from '../../types/recipe'
 import { useUser } from '../authentication/useUser'
+import saveIcon from '../assets/save.png'
+import cancelIcon from '../assets/cancelbutton.png'
 
 function mapStringArray(
     arr: unknown[],
@@ -177,67 +179,112 @@ export default function RecipeEditPage() {
     if (!form) return <div>Recipe not found</div>
 
     return (
-        <>
-            <h2>{form.title}</h2>
-            <label>
-                Recipe Title
-                <input
-                    id={form.title}
-                    value={form.title}
-                    onChange={(e) => handleChange(e, 'title')}
-                    placeholder="Title"
-                />
-            </label>
-            <label>
-                Image:
-                <input
-                    value={form.imageUrl || ''}
-                    onChange={(e) => handleChange(e, 'imageUrl')}
-                    placeholder="Image URL"
-                />
-            </label>
-            <label>
-                Total Time (min):
-                <input
-                    type="number"
-                    value={form.totalTime}
-                    onChange={(e) => handleChange(e, 'totalTime')}
-                    placeholder="Total Time (min)"
-                />
-            </label>
-            <h3>Ingredients</h3>
-            <ul>
-                {(form.ingredients || []).map((ingredient, idx) => (
-                    <li key={idx}>
-                        <input
-                            value={ingredient}
-                            onChange={(e) =>
-                                handleIngredientChange(idx, e.target.value)
-                            }
-                        />
-                    </li>
-                ))}
-            </ul>
-            <h3>Instructions</h3>
-            <ol>
-                {(form.instructions || []).map((step, idx) => (
-                    <li key={idx}>
-                        <textarea
-                            value={step}
-                            onChange={(e) =>
-                                handleInstructionChange(idx, e.target.value)
-                            }
-                        />
-                    </li>
-                ))}
-            </ol>
-            <button onClick={handleSave} disabled={loading}>
-                Save
-            </button>
-            <button onClick={() => navigate(-1)} disabled={loading}>
-                Cancel
-            </button>
+        <div className="recipe-edit-wrapper">
+            <h2 className="recipe-edit-input-title-recipe">{form.title}</h2>
+
+            <div className="recipe-edit-section">
+                <label>
+                    <h3 className="recipe-edit-input-title">Recipe Title:</h3>
+                    <input
+                        id="title"
+                        type="text"
+                        value={form.title}
+                        onChange={(e) => handleChange(e, 'title')}
+                        className="recipe-edit-input"
+                        placeholder="Title"
+                    />
+                </label>
+            </div>
+
+            <div className="recipe-edit-section">
+                <label>
+                    <h3 className="recipe-edit-input-title">Image:</h3>
+                    <input
+                        id="image"
+                        type="text"
+                        value={form.imageUrl}
+                        onChange={(e) => handleChange(e, 'imageUrl')}
+                        className="recipe-edit-input"
+                        placeholder="Image URL"
+                    />
+                </label>
+            </div>
+
+            <div className="recipe-edit-section">
+                <label>
+                    <h3 className="recipe-edit-input-title">
+                        Total Time (min):
+                    </h3>
+                    <input
+                        id="totalTime"
+                        type="number"
+                        value={form.totalTime}
+                        onChange={(e) => handleChange(e, 'totalTime')}
+                        className="recipe-edit-input"
+                        placeholder="Total Time (min)"
+                    />
+                </label>{' '}
+            </div>
+
+            <div className="recipe-edit-section">
+                <h3 className="recipe-edit-input-title">Ingredients:</h3>
+                <ul>
+                    {(form.ingredients || []).map((ingredient, idx) => (
+                        <li key={idx}>
+                            <input
+                                value={ingredient}
+                                onChange={(e) =>
+                                    handleIngredientChange(idx, e.target.value)
+                                }
+                                className="recipe-edit-input"
+                            />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="recipe-edit-section">
+                <h3 className="recipe-edit-input-title instructions-title">
+                    Instructions:
+                </h3>
+                <ol>
+                    {(form.instructions || []).map((step, idx) => (
+                        <li key={idx}>
+                            <textarea
+                                value={step}
+                                onChange={(e) =>
+                                    handleInstructionChange(idx, e.target.value)
+                                }
+                                className="recipe-edit-input"
+                            />
+                        </li>
+                    ))}
+                </ol>
+            </div>
+            <div className="recipe-card-actions btn-row">
+                <button
+                    onClick={handleSave}
+                    disabled={loading}
+                    className="recipe-edit-btn-save btn-flex"
+                >
+                    <img
+                        src={saveIcon}
+                        alt="save"
+                        className="icon-btn recipe-edit-icon"
+                    />
+                </button>
+                <button
+                    onClick={() => navigate(-1)}
+                    disabled={loading}
+                    className="recipe-edit-btn-cancel btn-flex"
+                >
+                    <img
+                        src={cancelIcon}
+                        alt="cancel"
+                        className="icon-btn recipe-edit-icon"
+                    />
+                </button>
+            </div>
             {error && <div className="error">{error}</div>}
-        </>
+        </div>
     )
 }
