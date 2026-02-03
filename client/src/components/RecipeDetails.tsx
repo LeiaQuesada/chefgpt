@@ -1,3 +1,4 @@
+import clockIcon from '../assets/clock.svg';
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps } from '../../types/recipe'
@@ -109,62 +110,72 @@ export default function RecipeDetails() {
     }
 
     return (
-        <>
-            <h2>{recipe.title}</h2>
-            {recipe.imageUrl && (
-                <img
-                    src={recipe.imageUrl}
-                    alt={recipe.title}
-                    className="image-container"
-                />
-            )}
-            <p>
-                <strong>Total Time:</strong> {recipe.totalTime} min
-            </p>
-            <h3>Ingredients</h3>
-            <ul>
-                {(recipe.ingredients || []).map((ingredient, idx) => (
-                    <li key={idx}>{ingredient}</li>
-                ))}
-            </ul>
-            <h3>Instructions</h3>
-            <ol>
-                {(recipe.instructions || []).map((step, idx) => (
-                    <li key={idx}>{step}</li>
-                ))}
-            </ol>
-            {isOwner && (
-                <>
-                    <div className="recipe-card-actions btn-row">
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                navigate(`/recipe/edit/${recipe.id}`)
-                            }}
-                            className="recipe-card-btn edit btn-flex"
-                        >
-                            <img
-                                src={editIcon}
-                                alt="edit"
-                                className="icon-btn"
-                            />
-                        </button>
-                        <button
-                            className="recipe-card-btn delete btn-flex"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                handleDelete()
-                            }}
-                        >
-                            <img
-                                src={deleteIcon}
-                                alt="delete"
-                                className="icon-btn"
-                            />
-                        </button>
+        <div className="recipe-details-centered">
+            <div className="recipe-details-flex-row">
+                <div className="recipe-details-header-left">
+                    <h2>{recipe.title}</h2>
+                    {recipe.imageUrl && (
+                        <img
+                            src={recipe.imageUrl}
+                            alt={recipe.title}
+                            className="image-container"
+                        />
+                    )}
+                </div>
+                <div className="recipe-details-content-col">
+                    <p className="total-time-text">
+                        <img src={clockIcon} alt="clock" className="clock-icon" /> {recipe.totalTime} min
+                    </p>
+                    <h3>Ingredients</h3>
+                    <div className="ingredients-section">
+                        <ul>
+                            {(recipe.ingredients || []).map((ingredient, idx) => (
+                                <li key={idx}>{ingredient}</li>
+                            ))}
+                        </ul>
                     </div>
-                </>
-            )}
-        </>
+                    <h3>Instructions</h3>
+                    <div className="ingredients-section">
+                        <ol>
+                            {(recipe.instructions || []).map((step, idx) => (
+                                <li key={idx}>{step}</li>
+                            ))}
+                        </ol>
+                    </div>
+                    {isOwner && (
+                        <>
+                            <div className="recipe-card-actions btn-row">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        navigate(`/recipe/edit/${recipe.id}`)
+                                    }}
+                                    className="recipe-card-btn edit btn-flex"
+                                >
+                                    <img
+                                        src={editIcon}
+                                        alt="edit"
+                                        className="icon-btn"
+                                    />
+                                </button>
+                                <button
+                                    className="recipe-card-btn delete btn-flex"
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleDelete()
+                                    }}
+                                >
+                                    <img
+                                        src={deleteIcon}
+                                        alt="delete"
+                                        className="icon-btn"
+                                    />
+                                </button>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
     )
 }
