@@ -7,13 +7,11 @@ import RecipeDetails from './components/RecipeDetails'
 import RecipeEditPage from './components/RecipeEditPage.tsx'
 import RecipeGenerator from './components/RecipeGenerator.tsx'
 import ProtectedRoute from './authentication/ProtectedRoute'
+import EditProfile from './components/EditProfile.tsx'
 import HomePage from './components/HomePage.tsx'
 
-// Simple placeholder components for pages not yet implemented
 
-function EditProfile() {
-    return <div>Edit Profile Page</div>
-}
+
 function NotFound() {
     return <div>Page Not Found</div>
 }
