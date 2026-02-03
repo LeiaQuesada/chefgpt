@@ -1,6 +1,6 @@
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
-import cookingImg from '../assets/cooking.png'
 import UserMenu from './UserMenu'
+import logoImg from '../assets/logo.svg'
 import { useUser } from '../authentication/useUser'
 
 export default function Layout() {
@@ -13,19 +13,16 @@ export default function Layout() {
 
     return (
         <>
+            <img
+                src={logoImg}
+                alt="ChefGPT Logo"
+                className="nav-logo-img-fixed"
+            />
             <nav className="main-nav">
                 <div className="nav-left">
-                    <span className="logo-chefgpt">
-                        ChefGPT
-                        <img
-                            src={cookingImg}
-                            alt="cooking"
-                            className="logo-img"
-                        />
-                        <Link to="/" className="nav-link">
-                            Home
-                        </Link>
-                    </span>
+                    <Link to="/" className="nav-link">
+                        Home
+                    </Link>
                     <ul className="nav-list">
                         {!user ? (
                             <>

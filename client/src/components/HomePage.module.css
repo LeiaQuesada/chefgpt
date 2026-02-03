@@ -1,5 +1,5 @@
 .heroContainer {
-    transform: translateY(150px);
+    transform: translateY(180px);
     width: 100%;
     height: 100vh;
     display: flex;
@@ -18,6 +18,14 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 0;
+}
+
+.homeNavLogoImgFixed {
+    position: absolute;
+    top: -250px;
+    left: 0px;
+    height: 240px;
+    z-index: 10;
 }
 
 /* Typography Styles */
