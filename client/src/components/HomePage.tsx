@@ -3,7 +3,7 @@ import avocadoImg from '../assets/avocado.png'
 import baguetteImg from '../assets/baguette.png'
 import tomatoImg from '../assets/tomato.png'
 import steakImg from '../assets/steak.png'
-import cookingImg from '../assets/cooking.png'
+import logoImg from '../assets/logo.svg'
 import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
@@ -11,17 +11,13 @@ const HomePage = () => {
     return (
         <section className={styles.heroContainer}>
             <div className={styles.contentWrapper}>
-                {/* Left Side: Typography */}
-                <div className={styles.textSide}>
-                    <div className="logo-chefgpt">
-                        ChefGPT{' '}
-                        <span>
-                            <img
-                                src={cookingImg}
-                                alt="cooking"
-                                className="logo-img"
-                            />
-                        </span>
+                <div>
+                    <div>
+                        <img
+                            src={logoImg}
+                            alt="ChefGPT Logo"
+                            className={styles.homeNavLogoImgFixed}
+                        />
                     </div>
 
                     <h1 className={styles.title}>
