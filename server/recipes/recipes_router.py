@@ -76,11 +76,9 @@ async def endpoint_new_recipe(
 
 @recipes_router.get("/{recipe_id}", response_model=RecipeOut)
 def endpoint_get_recipe_by_id(
-    recipe_id: int,
-    session: Session = Depends(get_session),
-    auth_user: AuthenticatedUser = Depends(require_auth),
+    recipe_id: int, session: Session = Depends(get_session)
 ) -> RecipeOut:
-    recipe = get_recipe_by_id(session, recipe_id, auth_user.user_id)
+    recipe = get_recipe_by_id(session, recipe_id)
     if not recipe:
         raise HTTPException(status_code=404, detail="Recipe not found")
     return recipe

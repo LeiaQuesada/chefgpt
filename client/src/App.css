@@ -4,12 +4,14 @@
 .ingredients-section ol li {
     line-height: 1.4;
 }
+
 /* Style for Ingredients and Instructions headers in RecipeDetails */
 .recipe-details-content-col h3 {
     color: #525252;
     font-family: var(--font-heading) !important;
     font-weight: 200 !important;
 }
+
 /* Left-aligned header and image for RecipeDetails */
 .recipe-details-header-left {
     display: flex;
@@ -29,6 +31,7 @@
     font-family: var(--font-heading) !important;
     font-weight: 100 !important;
 }
+
 /* Reduce space under recipe title */
 .recipe-details-header h2 {
     margin-bottom: -2px;
@@ -36,6 +39,7 @@
     font-family: var(--font-heading) !important;
     font-weight: 100 !important;
 }
+
 /* Clock icon for total time */
 .clock-icon {
     width: 20px;
@@ -45,11 +49,13 @@
     position: relative;
     top: 2px;
 }
+
 /* Total time text  for RecipeDetails */
 .total-time-text {
     margin-bottom: 4px;
     color: #9b9b99;
 }
+
 /* Header for RecipeDetails */
 .recipe-details-header {
     display: flex;
@@ -57,6 +63,7 @@
     align-items: center;
     margin-bottom: 10px;
 }
+
 /* Flex row for RecipeDetails main layout */
 .recipe-details-flex-row {
     display: flex;
@@ -65,9 +72,11 @@
     justify-content: center;
     gap: 20px;
     width: 100%;
-    max-width: 800px; /* Adjust this to fit your content's total width */
+    max-width: 800px;
+    /* Adjust this to fit your content's total width */
     margin: 0 auto;
 }
+
 .image-container {
     width: 220px;
     height: 250px;
@@ -84,7 +93,8 @@
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    max-width: 600px; /* Limits text width so it doesn't drift too far right */
+    max-width: 600px;
+    /* Limits text width so it doesn't drift too far right */
     text-align: left;
     color: #525252;
     font-family: var(--font-heading) !important;
@@ -96,19 +106,23 @@
     list-style-type: disc !important;
     padding-left: 20px !important;
 }
+
 .rg-recipe-list-numbers {
     list-style-type: decimal !important;
     padding-left: 20px !important;
 }
+
 /* Ingredient label and input row for RecipeGenerator */
 .rg-ingredient-label {
     margin-right: 0;
 }
+
 .rg-ingredient-input-row {
     display: inline-flex;
     align-items: center;
     gap: 8px;
 }
+
 .rg-ai-ingredients {
     list-style-type: disc;
     padding-left: 20px;
@@ -145,6 +159,7 @@
     letter-spacing: 0.03em;
     box-shadow: none !important;
 }
+
 .rg-add-cookbook-btn:disabled {
     background: #bdbdbd;
     color: #fff;
@@ -152,16 +167,19 @@
     cursor: not-allowed;
     box-shadow: none;
 }
+
 .rg-add-cookbook-btn:hover:not(:disabled) {
     background: #1251a3;
     border-color: #1251a3;
 }
+
 /* Ensure RecipeGenerator uses app font */
 .rg-root-font {
     font-family: 'Inter', 'Google Sans', Arial, sans-serif !important;
     font-weight: 200 !important;
     color: #525252;
 }
+
 /* RecipeGenerator button row */
 .rg-btn-row {
     display: flex;
@@ -181,6 +199,7 @@
     transition: background 0.2s;
     box-shadow: none;
 }
+
 .rg-reset-btn:hover {
     background: #efefec;
 }
@@ -191,6 +210,7 @@
     align-items: center;
     gap: 8px;
 }
+
 /* --- Register Card Background --- */
 .register-card {
     background: #fff;
@@ -204,6 +224,7 @@
     flex-direction: column;
     align-items: stretch;
 }
+
 /* --- Smaller Edit/Delete Icons --- */
 .icon-btn {
     width: 14px;
@@ -215,6 +236,7 @@
 .icon-btn:hover {
     filter: brightness(0.8);
 }
+
 /* --- Register Upload Image Button --- */
 div.register-card .register-file-btn {
     font-family: var(--font-heading) !important;
@@ -240,10 +262,12 @@ div.register-card .register-file-btn {
     line-height: 1.2;
     letter-spacing: 0.01em;
 }
+
 div.register-card .register-file-btn:active {
     background: #ff8165 !important;
     color: #9f9f9f;
 }
+
 .register-file-name {
     display: inline-block;
     margin-left: 10px;
@@ -251,6 +275,7 @@ div.register-card .register-file-btn:active {
     color: #888;
     vertical-align: middle;
 }
+
 /* --- Login & Register Page Styles --- */
 .login-page,
 .register-page {
@@ -294,11 +319,18 @@ div.register-card .register-file-btn:active {
 }
 
 .login-form-row,
-.register-form > div {
+.register-form>div {
     display: flex;
     flex-direction: column;
     /* margin-bottom: 10px; */
     gap: 6px;
+}
+
+.register-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
 }
 
 .login-label,
@@ -334,6 +366,7 @@ div.register-card .register-file-btn:active {
     box-shadow: 0 2px 8px rgba(255, 151, 101, 0.1);
     background: #fff;
 }
+
 .home-register-btn,
 .home-login-btn,
 .login-form button,
@@ -355,6 +388,7 @@ div.register-card .register-file-btn:active {
         transform 0.2s;
     background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%) !important;
 }
+
 .login-form button:active,
 .register-form button:active {
     background: #f12e11;
@@ -386,11 +420,13 @@ div.register-card .register-file-btn:active {
     margin-top: 18px;
     text-align: center;
 }
+
 .register-secondary .register-link {
     color: #9f9f9f !important;
     text-decoration: none !important;
     font-family: var(--font-heading) !important;
 }
+
 .register-link:hover {
     color: #ff6163 !important;
 }
@@ -402,11 +438,13 @@ div.register-card .register-file-btn:active {
     margin-top: 18px;
     text-align: center;
 }
+
 .login-bottom .login-link {
     color: #9f9f9f !important;
     text-decoration: none !important;
     font-family: var(--font-heading) !important;
 }
+
 .login-bottom .login-link:hover {
     color: #ff6163 !important;
 }
@@ -418,6 +456,7 @@ div.register-card .register-file-btn:active {
     margin-top: 18px;
     text-align: center;
 }
+
 /* --- Recipe Card Image Box and Image --- */
 .recipe-card-image-box {
     width: 100%;
@@ -440,6 +479,7 @@ div.register-card .register-file-btn:active {
     display: block;
     margin: 0 auto;
 }
+
 /* Layout.tsx navigation and header styles */
 .main-nav {
     display: flex;
@@ -452,6 +492,7 @@ div.register-card .register-file-btn:active {
     width: 122px;
     height: auto;
 }
+
 .nav-left {
     display: flex;
     align-items: center;
@@ -563,7 +604,8 @@ nav .active {
     gap: 32px;
     justify-content: center;
     padding: 24px 0;
-    max-width: 936px; /* 3*280px + 2*32px gap */
+    max-width: 936px;
+    /* 3*280px + 2*32px gap */
     margin: 0 auto;
 }
 
@@ -580,6 +622,7 @@ nav .active {
     box-shadow: 0 8px 64px #fcaa9f !important;
     padding: 24px;
     margin-bottom: 0;
+    min-height: 370px;
 }
 
 .image-container {
@@ -619,9 +662,9 @@ nav .active {
     display: flex;
     align-items: center;
 }
+
 .logo-chefgpt img {
-    filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(0deg) saturate(0)
-        opacity(1) drop-shadow(0 0 0 #9f9f9f);
+    filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(0deg) saturate(0) opacity(1) drop-shadow(0 0 0 #9f9f9f);
     /* If SVG, use fill: #9f9f9f; */
     margin-left: 2px;
 }
@@ -735,7 +778,8 @@ button,
     background-color: var(--primary-purple);
     color: #fff !important;
     border: none;
-    border-radius: 20px; /* Matching the specific corner roundness of the purple button */
+    border-radius: 20px;
+    /* Matching the specific corner roundness of the purple button */
     padding: 18px;
     width: 100%;
     font-size: 1.1rem;
@@ -801,6 +845,7 @@ button,
     line-height: 1;
     padding-left: 8px;
 }
+
 .icon-clock {
     flex-shrink: 0;
     width: 16px;
@@ -853,6 +898,7 @@ button,
     color: #b0b0b0;
     vertical-align: middle;
 }
+
 /* "Test User */
 .user-menu-btn {
     font-family: var(--font-heading) !important;
@@ -865,6 +911,7 @@ button,
     padding: 10px 20px;
     letter-spacing: 0.01em;
 }
+
 .user-menu-btn:hover {
     background: #ff8165;
     color: #fff !important;
@@ -875,6 +922,7 @@ button,
     background: 0.2s;
     color: 0.2s;
 }
+
 /* "Edit Profile" and "Logout"  */
 .user-menu-item {
     font-family: var(--font-heading) !important;
@@ -968,6 +1016,7 @@ button,
     border-radius: 4px;
     cursor: pointer;
 }
+
 .rg-btn:disabled {
     cursor: not-allowed;
 }
@@ -978,22 +1027,30 @@ button,
     background: #f7f7f9;
     color: #f7f7f9;
     border: none;
-    border-radius: 50%; /* circle */
-    width: 22px; /* fixed width */
-    height: 32px; /* same as width */
+    border-radius: 50%;
+    /* circle */
+    width: 22px;
+    /* fixed width */
+    height: 32px;
+    /* same as width */
     display: flex;
     align-items: center;
-    justify-content: center; /* center the + inside */
+    justify-content: center;
+    /* center the + inside */
     cursor: pointer;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
     transition: background 0.2s;
-    padding: 0; /* remove extra padding */
-    line-height: 1; /* prevents emoji/font stretching */
-    box-sizing: border-box; /* ensures border/padding included in width */
+    padding: 0;
+    /* remove extra padding */
+    line-height: 1;
+    /* prevents emoji/font stretching */
+    box-sizing: border-box;
+    /* ensures border/padding included in width */
     flex-shrink: 0;
     flex-grow: 0;
     align-self: center;
-    box-shadow: none !important; /* remove box-shadow */
+    box-shadow: none !important;
+    /* remove box-shadow */
 }
 
 .rg-add-btn:disabled {
@@ -1002,12 +1059,18 @@ button,
 }
 
 .rg-remove-btn {
-    order: -1; /* keep on left */
-    flex-shrink: 0; /* prevent shrinking */
-    flex-grow: 0; /* prevent stretching */
-    width: 30px; /* circle width */
-    height: 30px; /* circle height */
-    border-radius: 50%; /* perfect circle */
+    order: -1;
+    /* keep on left */
+    flex-shrink: 0;
+    /* prevent shrinking */
+    flex-grow: 0;
+    /* prevent stretching */
+    width: 30px;
+    /* circle width */
+    height: 30px;
+    /* circle height */
+    border-radius: 50%;
+    /* perfect circle */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1016,12 +1079,15 @@ button,
     border: none;
     cursor: pointer;
     font-size: 12px;
-    padding: 0; /* remove extra padding */
+    padding: 0;
+    /* remove extra padding */
     box-sizing: border-box;
 }
+
 .rg-remove-btn:hover {
     background: #f7f7f9;
 }
+
 /* .rg-remove-btn:active {
     background: #d32f2f;
 } */
@@ -1049,19 +1115,73 @@ button,
 }
 
 .rg-ingredient-list-item {
-    display: flex; /* make each row a flex container */
-    align-items: center; /* vertically center button and text */
-    gap: 0.5rem; /* space between button and text */
-    margin-bottom: 0.2rem; /* row spacing */
+    display: flex;
+    /* make each row a flex container */
+    align-items: center;
+    /* vertically center button and text */
+    gap: 0.5rem;
+    /* space between button and text */
+    margin-bottom: 0.2rem;
+    /* row spacing */
 }
 
 .rg-remove-btn {
-    order: -1; /* move button to the left */
-    flex-shrink: 0; /* prevent button from shrinking */
+    order: -1;
+    /* move button to the left */
+    flex-shrink: 0;
+    /* prevent button from shrinking */
 }
 
 .rg-ingredient-list-item span {
-    flex: 1; /* text takes remaining space */
+    flex: 1;
+    /* text takes remaining space */
+}
+
+/* --- Edit Profile Page Styles (reuses register-* classes) --- */
+/*
+  Note: The Edit Profile page uses the following existing classes for styling:
+  - .register-card (container)
+  - .register-title (title)
+  - .register-form (form)
+  - .register-form-row (form row)
+  - .register-label (label)
+  - .register-input (input)
+  - .register-error (error message)
+  - .register-secondary (success message)
+  - .rg-btn, .rg-reset-btn (buttons)
+  These are reused for consistency with the design system. No new CSS classes are needed for Edit Profile.
+*/
+.edit-profile-btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.edit-profile-btn-row .rg-btn {
+    background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%) !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    min-width: 90px;
+    cursor: pointer;
+}
+
+.edit-profile-btn-row .rg-reset-btn {
+    background: #efefec !important;
+    color: #a4a4a4 !important;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    min-width: 90px;
+    cursor: pointer;
+}
+
+.edit-profile-btn-row .rg-btn:disabled,
+.edit-profile-btn-row .rg-reset-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .nav-logo-img-fixed {
@@ -1074,6 +1194,7 @@ button,
     object-fit: contain;
     background: none;
 }
+
 .scroll-to-top-btn {
     position: fixed;
     bottom: 32px;
@@ -1105,6 +1226,7 @@ button,
     pointer-events: auto;
     transform: translateY(0);
 }
+
 .recipe-edit-wrapper {
     display: flex;
     flex-direction: column;
@@ -1142,7 +1264,7 @@ button,
 }
 
 /* Reduce space between h3 and ingredients-section */
-h3 + .ingredients-section {
+h3+.ingredients-section {
     margin-top: 1px;
     margin-bottom: 1px;
 }
@@ -1161,7 +1283,8 @@ h3 + .ingredients-section {
 }
 
 .ingredients-section ul li::before {
-    content: '\25E6'; /* Unicode for ◦ */
+    content: '\25E6';
+    /* Unicode for ◦ */
     color: #ff6560;
     font-size: 1.2em;
     margin-right: 0.7em;
@@ -1178,6 +1301,7 @@ h3 + .ingredients-section {
     width: 18px;
     height: 18px;
 }
+
 /* edit recipe input box */
 .recipe-edit-input {
     border-radius: 18px;
@@ -1198,6 +1322,7 @@ h3 + .ingredients-section {
         box-shadow 0.2s;
     max-width: 700px;
 }
+
 .recipe-edit-input:focus {
     border-color: #ff9765;
     box-shadow: 0 2px 8px rgba(255, 151, 101, 0.1);
@@ -1217,42 +1342,51 @@ h3 + .ingredients-section {
     width: 100%;
     max-width: 700px;
 }
+
 .recipe-edit-input-title.instructions-title {
     margin-bottom: 18px;
 }
+
 .recipe-edit-input-title-recipe {
     margin-top: 0;
     font-family: var(--font-heading) !important;
     font-weight: 400 !important;
 }
+
 .recipe-edit-section {
     width: 100%;
     max-width: 700px;
-    align-self: center; /* keep section centered */
+    align-self: center;
+    /* keep section centered */
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 12px;
 }
 
 .recipe-edit-section ol {
-    padding-left: 20px; /* Space for the numbers */
+    padding-left: 20px;
+    /* Space for the numbers */
     margin: 0;
 }
 
 .recipe-edit-section li {
-    display: list-item; /* Keeps the numbering working */
+    display: list-item;
+    /* Keeps the numbering working */
     margin-bottom: 12px;
     color: #525252;
 }
+
 .recipe-edit-section li::marker {
     font-family: var(--font-heading);
     font-weight: 400;
     font-size: 1rem;
 }
+
 .recipe-edit-input {
     /* align-self: flex-start; */
     text-align: left;
 }
+
 .recipe-edit-section textarea {
     width: 100%;
     max-width: 700px;
@@ -1262,23 +1396,29 @@ h3 + .ingredients-section {
     padding-bottom: 14px;
     line-height: 1.4;
 
-    height: 36px !important; /* Forces it to match your .recipe-edit-input height */
+    height: 36px !important;
+    /* Forces it to match your .recipe-edit-input height */
     white-space: nowrap;
 }
 
 .recipe-edit-section li textarea,
 .recipe-edit-section li input {
-    vertical-align: top; /* Aligns the top of the box with the top of the number line */
+    vertical-align: top;
+    /* Aligns the top of the box with the top of the number line */
     display: inline-block;
-    width: calc(100% - 10px); /* Leave a tiny gap between number and box */
+    width: calc(100% - 10px);
+    /* Leave a tiny gap between number and box */
 }
 
 /* Specific fix for textareas being taller */
 .recipe-edit-section li textarea {
-    margin-top: -8px; /* Pulls the box up slightly if it feels 'heavy' at the bottom */
+    margin-top: -8px;
+    /* Pulls the box up slightly if it feels 'heavy' at the bottom */
 }
+
 .recipe-edit-section ul li::marker {
-    content: '🌱 '; /* Uses an emoji instead of a dot */
+    content: '🌱 ';
+    /* Uses an emoji instead of a dot */
     font-size: 0.9rem;
 }
 

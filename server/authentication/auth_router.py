@@ -15,7 +15,9 @@ from .auth_schemas import (
     UserPublicDetailsResponse,
     SignUpRequest,
     AuthenticatedUser,
+    UpdateUserRequest,
 )
+import bcrypt
 
 auth_router = APIRouter(prefix="/api/auth", tags=["authentication"])
 
@@ -121,3 +123,26 @@ async def get_me(
     if not user_details:
         raise HTTPException(status_code=404, detail="User not found")
     return user_details
+
+
+@auth_router.put("/me", response_model=UserPublicDetailsResponse)
+async def update_me(
+    req: UpdateUserRequest,
+    session: Session = Depends(get_session),
+    auth_user: AuthenticatedUser = Depends(require_auth),
+):
+    """
+    Update the current user's username and/or password.
+    """
+    user = get_user_by_username(session, auth_user.username)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    if not req.username or not req.username.strip():
+        raise HTTPException(status_code=400, detail="Username is required")
+    user.username = req.username.strip()
+    if req.password:
+        user.hashed_password = bcrypt.hashpw(
+            req.password.encode(), bcrypt.gensalt()
+        ).decode()
+    session.commit()
+    return get_user_public_details(session, user.username)

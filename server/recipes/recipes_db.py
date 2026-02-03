@@ -112,9 +112,7 @@ def add_recipe(
     )
 
 
-def get_recipe_by_id(
-    session: Session, recipe_id: int, user_id: int
-) -> RecipeOut | None:
+def get_recipe_by_id(session: Session, recipe_id: int) -> RecipeOut | None:
     stmt = (
         select(DBRecipe)
         .where(DBRecipe.id == recipe_id)
@@ -124,8 +122,6 @@ def get_recipe_by_id(
     )
     recipe = session.scalars(stmt).unique().first()
     if not recipe:
-        return None
-    if recipe.user_id != user_id:
         return None
     ingredients = [
         IngredientOut(id=ingredient.id, name=ingredient.name)

@@ -25,3 +25,8 @@ class UserPublicDetailsResponse(BaseModel):
 class AuthenticatedUser(BaseModel):
     username: str
     user_id: int
+
+
+class UpdateUserRequest(BaseModel):
+    username: str
+    password: str | None = None
