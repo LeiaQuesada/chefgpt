@@ -1,5 +1,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 
+/* Increase line spacing in instructions list */
+.ingredients-section ol li {
+    line-height: 1.4;
+}
+
+/* Style for Ingredients and Instructions headers in RecipeDetails */
+.recipe-details-content-col h3 {
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-weight: 200 !important;
+}
+
+/* Left-aligned header and image for RecipeDetails */
+.recipe-details-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 220px;
+    margin-right: 20px;
+}
+
+/* recipe title */
+.recipe-details-header-left h2 {
+    margin-bottom: -30px;
+    text-align: left;
+    margin-left: 24px;
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-weight: 100 !important;
+}
+
+/* Reduce space under recipe title */
+.recipe-details-header h2 {
+    margin-bottom: -2px;
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-weight: 100 !important;
+}
+
+/* Clock icon for total time */
+.clock-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+    position: relative;
+    top: 2px;
+}
+
+/* Total time text  for RecipeDetails */
+.total-time-text {
+    margin-bottom: 4px;
+    color: #9b9b99;
+}
+
+/* Header for RecipeDetails */
+.recipe-details-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Flex row for RecipeDetails main layout */
+.recipe-details-flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    /* Adjust this to fit your content's total width */
+    margin: 0 auto;
+}
+
+.image-container {
+    width: 220px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 38px;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* Flex column for RecipeDetails content */
+.recipe-details-content-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    max-width: 600px;
+    /* Limits text width so it doesn't drift too far right */
+    text-align: left;
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-weight: 200 !important;
+}
+
 /* Bullet and number list styles for RecipeGenerator results */
 .rg-recipe-list-bullets {
     list-style-type: disc !important;
@@ -75,7 +176,7 @@
 /* Ensure RecipeGenerator uses app font */
 .rg-root-font {
     font-family: 'Inter', 'Google Sans', Arial, sans-serif !important;
-    font-weight: 200;
+    font-weight: 200 !important;
     color: #525252;
 }
 
@@ -94,7 +195,7 @@
     border: none;
     border-radius: 4px;
     padding: 0.5em 1.5em;
-    font-weight: 500;
+    font-weight: 500 !important;
     transition: background 0.2s;
     box-shadow: none;
 }
@@ -266,6 +367,8 @@ div.register-card .register-file-btn:active {
     background: #fff;
 }
 
+.home-register-btn,
+.home-login-btn,
 .login-form button,
 .register-form button {
     font-family: var(--font-heading) !important;
@@ -384,15 +487,16 @@ div.register-card .register-file-btn:active {
     justify-content: space-between;
 }
 
+.nav-logo-img {
+    margin-left: 8px;
+    width: 122px;
+    height: auto;
+}
+
 .nav-left {
     display: flex;
     align-items: center;
     gap: 18px;
-}
-
-.logo-img {
-    margin-left: 8px;
-    height: 22px;
 }
 
 .nav-list {
@@ -442,6 +546,9 @@ nav {
     align-items: center;
     justify-content: space-between;
     max-width: 900px;
+    height: 48px;
+    min-height: 0;
+    box-sizing: border-box;
 }
 
 nav ul {
@@ -524,14 +631,24 @@ nav .active {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    width: 320px;
+    height: 420px;
+    max-width: 100%;
+    padding: 16px;
+    margin-top: 32px;
     margin-bottom: 15px;
+    max-width: 320px;
+    max-height: 640px;
+    overflow: hidden;
 }
 
 .image-container img {
     width: 100%;
     height: auto;
+    max-width: 280px;
+    max-height: 200px;
     filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.1));
+    object-fit: contain;
 }
 
 .logo-chefgpt {
@@ -587,6 +704,31 @@ nav .active {
 
 .recipe-card-btn.edit:active,
 .recipe-card-btn.delete:active {
+    background: #1e1e1e !important;
+    color: #fff !important;
+}
+
+/* --- Save and Cancel Buttons --- */
+.recipe-edit-btn-save,
+.recipe-edit-btn-cancel {
+    background: linear-gradient(90deg, #ff9765 0%, #ff6163 100%) !important;
+    color: #fff !important;
+    border-radius: 999px;
+    padding: 0;
+    font-family: var(--font-heading) !important;
+    font-weight: 100 !important;
+    font-size: 1.2rem;
+    min-width: unset;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.recipe-edit-btn-save:active,
+.recipe-edit-btn-cancel:active {
     background: #1e1e1e !important;
     color: #fff !important;
 }
@@ -1040,4 +1182,246 @@ button,
 .edit-profile-btn-row .rg-reset-btn:disabled {
     cursor: not-allowed;
     opacity: 0.7;
+}
+
+.nav-logo-img-fixed {
+    position: fixed;
+    top: -20px;
+    left: 16px;
+    width: 160px;
+    height: 160px;
+    z-index: 100;
+    object-fit: contain;
+    background: none;
+}
+
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 999;
+    background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 2rem;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    /* fade behavior */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease;
+}
+
+.scroll-to-top-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.recipe-edit-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+}
+
+.image-container {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 56px;
+    object-fit: cover;
+}
+
+.ingredients-section {
+    background: #f7f7f7;
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin: 10px 0 24px 0;
+    box-shadow: 0 1px 9px #fcaa9f;
+    max-width: 320px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+}
+
+/* Reduce space between h3 and ingredients-section */
+h3+.ingredients-section {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.ingredients-section ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: left;
+    align-self: flex-start;
+}
+
+.ingredients-section ol {
+    text-align: left;
+    padding-left: 1.2em;
+    align-self: flex-start;
+}
+
+.ingredients-section ul li::before {
+    content: '\25E6';
+    /* Unicode for ◦ */
+    color: #ff6560;
+    font-size: 1.2em;
+    margin-right: 0.7em;
+    vertical-align: middle;
+    min-height: 100vh;
+    font-family: var(--font-heading) !important;
+    font-size: 1.2rem;
+    font-weight: 400 !important;
+    color: #525252 !important;
+}
+
+.recipe-edit-icon {
+    filter: brightness(0) invert(1);
+    width: 18px;
+    height: 18px;
+}
+
+/* edit recipe input box */
+.recipe-edit-input {
+    border-radius: 18px;
+    font-size: 16px;
+    font-family: var(--font-heading) !important;
+    font-weight: 300 !important;
+    padding: 16px 18px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 3px;
+    border: 1.5px solid #f6cbca;
+    height: 36px;
+    background: #fafbfc;
+    color: #525252;
+    outline: none;
+    transition:
+        border 0.2s,
+        box-shadow 0.2s;
+    max-width: 700px;
+}
+
+.recipe-edit-input:focus {
+    border-color: #ff9765;
+    box-shadow: 0 2px 8px rgba(255, 151, 101, 0.1);
+    background: #fff;
+}
+
+.recipe-edit-input-title {
+    color: #525252;
+    font-family: var(--font-heading) !important;
+    font-size: 1.1rem;
+    font-weight: 400 !important;
+    margin-bottom: 3px;
+    margin-top: 12px;
+    display: block;
+    text-align: left;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 700px;
+}
+
+.recipe-edit-input-title.instructions-title {
+    margin-bottom: 18px;
+}
+
+.recipe-edit-input-title-recipe {
+    margin-top: 0;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+}
+
+.recipe-edit-section {
+    width: 100%;
+    max-width: 700px;
+    align-self: center;
+    /* keep section centered */
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.recipe-edit-section ol {
+    padding-left: 20px;
+    /* Space for the numbers */
+    margin: 0;
+}
+
+.recipe-edit-section li {
+    display: list-item;
+    /* Keeps the numbering working */
+    margin-bottom: 12px;
+    color: #525252;
+}
+
+.recipe-edit-section li::marker {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.recipe-edit-input {
+    /* align-self: flex-start; */
+    text-align: left;
+}
+
+.recipe-edit-section textarea {
+    width: 100%;
+    max-width: 700px;
+    resize: none;
+    overflow: hidden;
+    padding-top: 9px;
+    padding-bottom: 14px;
+    line-height: 1.4;
+
+    height: 36px !important;
+    /* Forces it to match your .recipe-edit-input height */
+    white-space: nowrap;
+}
+
+.recipe-edit-section li textarea,
+.recipe-edit-section li input {
+    vertical-align: top;
+    /* Aligns the top of the box with the top of the number line */
+    display: inline-block;
+    width: calc(100% - 10px);
+    /* Leave a tiny gap between number and box */
+}
+
+/* Specific fix for textareas being taller */
+.recipe-edit-section li textarea {
+    margin-top: -8px;
+    /* Pulls the box up slightly if it feels 'heavy' at the bottom */
+}
+
+.recipe-edit-section ul li::marker {
+    content: '🌱 ';
+    /* Uses an emoji instead of a dot */
+    font-size: 0.9rem;
+}
+
+.recipe-edit-section ul {
+    padding-left: 25px;
 }

@@ -101,7 +101,7 @@ const RecipeGenerator = () => {
 
     return (
         <div className="rg-root-font">
-            <h1>“Hungry? Let’s Find a Recipe!”</h1>
+            <h1>Hungry? Let’s Find a Recipe!</h1>
             {error && (
                 <div className="rg-error">
                     <strong>Error:</strong> {error}

@@ -7,6 +7,19 @@ const Cookbook = () => {
     const [recipes, setRecipes] = useState<Recipe[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<Error | null>(null)
+    const [showScrollTop, setShowScrollTop] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollTop(window.scrollY > 20)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+    function handleScrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
 
     async function handleDeleteButton(id: number) {
         try {
@@ -76,6 +89,14 @@ const Cookbook = () => {
                     />
                 ))}
             </div>
+            <button
+                className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
+                aria-label="Scroll to top"
+                onClick={handleScrollToTop}
+                aria-hidden={!showScrollTop}
+            >
+                ↑
+            </button>
         </div>
     )
 }
