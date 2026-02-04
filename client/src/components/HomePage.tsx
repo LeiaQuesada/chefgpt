@@ -3,22 +3,22 @@ import avocadoImg from '../assets/avocado.png'
 import baguetteImg from '../assets/baguette.png'
 import tomatoImg from '../assets/tomato.png'
 import steakImg from '../assets/steak.png'
-import logoImg from '../assets/logo.svg'
-import { useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { useUser } from '../authentication/useUser'
 
 const HomePage = () => {
-    const navigate = useNavigate()
+    const { user } = useUser()
     return (
         <section className={styles.heroContainer}>
             <div className={styles.contentWrapper}>
                 <div>
-                    <div>
+                    {/* <div>
                         <img
                             src={logoImg}
                             alt="ChefGPT Logo"
                             className={styles.homeNavLogoImgFixed}
                         />
-                    </div>
+                    </div> */}
 
                     <h1 className={styles.title}>
                         LESS THINKING, <br /> MORE EATING.
@@ -26,21 +26,20 @@ const HomePage = () => {
                     <p className={styles.subtitle}>
                         AI-powered meals, fit for you.
                     </p>
-
-                    <div className={styles.buttonGroup}>
-                        <button
-                            className={styles.btnPrimary}
-                            onClick={() => navigate('/login')}
-                        >
-                            Login
-                        </button>
-                        <button
-                            className={styles.btnSecondary}
-                            onClick={() => navigate('/register')}
-                        >
-                            Sign Up
-                        </button>
-                    </div>
+                    {/* this button section should only show if a user is not logged in.  */}
+                    {!user && (
+                        <div className={styles.buttonGroup}>
+                            <NavLink to="/login" className={styles.btnPrimary}>
+                                Login
+                            </NavLink>
+                            <NavLink
+                                to="/register"
+                                className={styles.btnSecondary}
+                            >
+                                Sign Up
+                            </NavLink>
+                        </div>
+                    )}
                 </div>
                 {/* <div className={styles.annotation}>
                     <span className={styles.arrow}>⤴</span>

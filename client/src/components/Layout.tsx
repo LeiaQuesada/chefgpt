@@ -1,4 +1,4 @@
-import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom'
+import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import UserMenu from './UserMenu'
 import logoImg from '../assets/logo.svg'
 import { useUser } from '../authentication/useUser'
@@ -20,9 +20,9 @@ export default function Layout() {
             />
             <nav className="main-nav">
                 <div className="nav-left">
-                    <Link to="/" className="nav-link">
+                    <NavLink to="/" className="nav-link">
                         Home
-                    </Link>
+                    </NavLink>
                     <ul className="nav-list">
                         {!user ? (
                             <>

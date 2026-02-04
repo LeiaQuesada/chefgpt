@@ -19,8 +19,8 @@ function NotFound() {
 export default function App() {
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
             <Route element={<Layout />}>
+                <Route path="/" element={<HomePage />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route element={<ProtectedRoute />}>
@@ -28,6 +28,7 @@ export default function App() {
                         path="recipe-generator"
                         element={<RecipeGenerator />}
                     />
+
                     <Route path="cookbook" element={<Cookbook />} />
                     <Route path="profile/edit" element={<EditProfile />} />
                     <Route path="recipe/:id" element={<RecipeDetails />} />
