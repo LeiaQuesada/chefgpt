@@ -1,6 +1,7 @@
 import type { AIRecipe, RecipeCreatePayload } from '../../types/recipe.d'
 import '../App.css'
 import React, { useState } from 'react'
+import clockIcon from '../assets/clock.svg'
 
 const RecipeGenerator = () => {
     const [aiResult, setAiResult] = useState<string | null>(null)
@@ -53,7 +54,7 @@ const RecipeGenerator = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-            if (!res.ok) throw new Error('Failed to fetch AI result')
+            if (!res.ok) throw new Error('Chef is busy! Please try again.')
             const data = await res.json()
             setAiResult(data.result || JSON.stringify(data))
             setAddStatus({})
@@ -100,161 +101,195 @@ const RecipeGenerator = () => {
     }
 
     return (
-        <div className="rg-root-font">
-            <h1>Hungry? Let’s Find a Recipe!</h1>
-            {error && (
-                <div className="rg-error">
-                    <strong>Error:</strong> {error}
-                </div>
-            )}
-            <form onSubmit={fetchAI} className="rg-form">
-                <div className="rg-form-row">
-                    <label style={{ marginRight: 0 }}>
-                        Add your ingredients:
-                        <span
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                            }}
-                        >
-                            <input
-                                type="text"
-                                value={ingredientInput}
-                                onChange={(e) =>
-                                    setIngredientInput(e.target.value)
-                                }
-                                className="rg-input rg-input-ingredients"
-                                placeholder="e.g. chicken"
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault()
-                                        handleAddIngredient(e)
-                                    }
-                                }}
-                            />
-                            <button
-                                onClick={handleAddIngredient}
-                                className="rg-add-btn"
-                                type="button"
-                                disabled={!ingredientInput.trim()}
-                            >
-                                ➕
-                            </button>
-                        </span>
-                    </label>
-                </div>
-                {ingredients.length > 0 && (
-                    <div className="rg-form-row">
-                        {/* <strong>Ingredients List:</strong> */}
-                        <ul className="rg-recipe-list">
-                            {ingredients.map((ing, idx) => (
-                                <li
-                                    key={idx}
-                                    className="rg-ingredient-list-item"
-                                >
-                                    <span>{ing}</span>
-                                    <button
-                                        type="button"
-                                        className="rg-remove-btn"
-                                        onClick={() =>
-                                            handleRemoveIngredient(idx)
-                                        }
-                                    >
-                                        ❌
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
+        <div className="rg-root-font rg-generator-center">
+            <div className="rg-glass-card">
+                <h1 className="recipe-generator-hook">
+                    Hungry? Your AI chef is ready!
+                </h1>
+                {error && (
+                    <div className="rg-error">
+                        <strong>Error:</strong> {error}
                     </div>
                 )}
-                <div className="rg-form-row">
-                    <label>
-                        Total time (minutes):
-                        <input
-                            type="number"
-                            value={maxTime}
-                            onChange={(e) => setMaxTime(e.target.value)}
-                            className="rg-input rg-input-time"
-                            min="1"
-                        />
-                    </label>
-                </div>
-                <div className="rg-btn-row">
-                    <button
-                        type="submit"
-                        disabled={loading || ingredients.length === 0}
-                        className="rg-btn"
-                    >
-                        {loading ? 'Loading...' : 'Generate Recipes'}
-                    </button>
-                    <button
-                        type="button"
-                        className="rg-btn rg-reset-btn"
-                        onClick={handleReset}
-                    >
-                        Reset
-                    </button>
-                </div>
-            </form>
-            {recipes.length > 0 && (
-                <div>
-                    {recipes.map((recipe, idx) => (
-                        <div key={idx} className="rg-recipe-card">
-                            <h2 className="rg-recipe-title">{recipe.name}</h2>
-                            <div className="rg-form-row">
-                                <strong>Total Time:</strong> {recipe.total_time}{' '}
-                                minutes
-                            </div>
-                            {recipe.ingredients &&
-                                recipe.ingredients.length > 0 && (
-                                    <div className="rg-form-row">
-                                        <strong>Ingredients:</strong>
-                                        <ul className="rg-ai-ingredients">
-                                            {recipe.ingredients.map(
-                                                (ing: string, i: number) => (
-                                                    <li key={i}>{ing}</li>
-                                                )
-                                            )}
-                                        </ul>
-                                    </div>
-                                )}
-                            {recipe.instructions &&
-                                recipe.instructions.length > 0 && (
-                                    <div className="rg-recipe-instructions">
-                                        <strong>Instructions:</strong>
-                                        <ol className="rg-recipe-list rg-recipe-list-numbers">
-                                            {recipe.instructions.map(
-                                                (step: string, i: number) => (
-                                                    <li key={i}>{step}</li>
-                                                )
-                                            )}
-                                        </ol>
-                                    </div>
-                                )}
-
-                            <button
-                                className="rg-add-cookbook-btn"
-                                onClick={() => handleAddToCookbook(recipe, idx)}
-                                disabled={
-                                    addStatus[idx] === 'saving' ||
-                                    addStatus[idx] === 'saved'
-                                }
-                            >
-                                {' '}
-                                {addStatus[idx] === 'saved'
-                                    ? 'Added!'
-                                    : addStatus[idx] === 'saving'
-                                      ? 'Adding...'
-                                      : 'Add to Cookbook'}
-                            </button>
-                            {addStatus[idx] === 'error' && (
-                                <div style={{ color: 'red', marginTop: 4 }}>
-                                    Error adding recipe.
-                                </div>
-                            )}
+                <form onSubmit={fetchAI} className="rg-form">
+                    <div className="rg-form-row">
+                        <label className="ingredient-question">
+                            What’s in your fridge?
+                            <span className="rg-add-ingredient-row">
+                                <input
+                                    type="text"
+                                    value={ingredientInput}
+                                    onChange={(e) =>
+                                        setIngredientInput(e.target.value)
+                                    }
+                                    className="rg-input rg-input-ingredients"
+                                    placeholder=" e.g. chicken"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault()
+                                            handleAddIngredient(e)
+                                        }
+                                    }}
+                                />
+                                <button
+                                    onClick={handleAddIngredient}
+                                    className="rg-add-btn"
+                                    type="button"
+                                    disabled={!ingredientInput.trim()}
+                                >
+                                    ➕
+                                </button>
+                            </span>
+                        </label>
+                    </div>
+                    {ingredients.length > 0 && (
+                        <div className="rg-form-row">
+                            {/* <strong>Ingredients List:</strong> */}
+                            <ul className="rg-recipe-list">
+                                {ingredients.map((ing, idx) => (
+                                    <li
+                                        key={idx}
+                                        className="rg-ingredient-list-item"
+                                    >
+                                        <span>{ing}</span>
+                                        <button
+                                            type="button"
+                                            className="rg-remove-btn"
+                                            onClick={() =>
+                                                handleRemoveIngredient(idx)
+                                            }
+                                        >
+                                            ❌
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    ))}
+                    )}
+                    <div className="rg-form-row">
+                        <label className="time-question">
+                            How much time do we have?
+                            <span
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 4,
+                                }}
+                            >
+                                <input
+                                    type="number"
+                                    value={maxTime}
+                                    onChange={(e) => setMaxTime(e.target.value)}
+                                    className="rg-input rg-input-time"
+                                    min="1"
+                                    placeholder=" e.g. 30"
+                                />
+                                <span className="rg-minutes-label">min</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div className="rg-btn-row">
+                        <button
+                            type="submit"
+                            disabled={
+                                loading || ingredients.length === 0 || !maxTime
+                            }
+                            className={`rg-generate-btn${loading ? ' loading' : ''}`}
+                        >
+                            {loading ? (
+                                <>
+                                    Whisking…{' '}
+                                    <span className="rotating-emoji">🥄</span>
+                                </>
+                            ) : (
+                                <>Let’s Cook! 👩‍🍳</>
+                            )}
+                        </button>
+                        <button
+                            type="button"
+                            className="rg-btn rg-reset-btn"
+                            onClick={handleReset}
+                        >
+                            Reset 🤖
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {recipes.length > 0 && (
+                <div className="rg-results-container">
+                    <h2 className="rg-chefs-picks-title">Chef's Picks:</h2>
+                    <div className="rg-recipe-grid">
+                        {recipes.map((recipe, idx) => (
+                            <div key={idx} className="rg-recipe-card">
+                                <h2 className="rg-recipe-title">
+                                    {recipe.name}
+                                </h2>
+                                <div className="rg-form-row rg-time-row">
+                                    <img
+                                        src={clockIcon}
+                                        alt="Clock"
+                                        className="clock-icon"
+                                    />
+                                    <span>{recipe.total_time} min</span>
+                                </div>
+                                {recipe.ingredients &&
+                                    recipe.ingredients.length > 0 && (
+                                        <div className="rg-form-row">
+                                            <strong>Ingredients:</strong>
+                                            <ul className="rg-ai-ingredients">
+                                                {recipe.ingredients.map(
+                                                    (
+                                                        ing: string,
+                                                        i: number
+                                                    ) => (
+                                                        <li key={i}>{ing}</li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </div>
+                                    )}
+                                {recipe.instructions &&
+                                    recipe.instructions.length > 0 && (
+                                        <div className="rg-recipe-instructions">
+                                            <strong>Instructions:</strong>
+                                            <ol className="rg-recipe-list rg-recipe-list-numbers">
+                                                {recipe.instructions.map(
+                                                    (
+                                                        step: string,
+                                                        i: number
+                                                    ) => (
+                                                        <li key={i}>{step}</li>
+                                                    )
+                                                )}
+                                            </ol>
+                                        </div>
+                                    )}
+
+                                <button
+                                    className={`rg-add-cookbook-btn${addStatus[idx] === 'saved' ? ' added' : ''}`}
+                                    onClick={() =>
+                                        handleAddToCookbook(recipe, idx)
+                                    }
+                                    disabled={
+                                        addStatus[idx] === 'saving' ||
+                                        addStatus[idx] === 'saved'
+                                    }
+                                >
+                                    {' '}
+                                    {addStatus[idx] === 'saved'
+                                        ? 'Saved! ✅'
+                                        : addStatus[idx] === 'saving'
+                                          ? 'Adding...'
+                                          : 'Add to Cookbook'}
+                                </button>
+                                {addStatus[idx] === 'error' && (
+                                    <div style={{ color: 'red', marginTop: 4 }}>
+                                        Error adding recipe.
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>{' '}
                 </div>
             )}
             {aiResult && recipes.length === 0 && !loading && (
