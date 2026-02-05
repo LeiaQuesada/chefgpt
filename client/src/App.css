@@ -1,5 +1,213 @@
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 
+:root {
+    --font-primary: 'Inter', 'Google Sans', Arial, sans-serif;
+    --font-heading: 'Inter', 'Google Sans', Arial, sans-serif;
+    --font-h1: 600;
+    --font-h2: 500;
+    --font-title: 700;
+    --font-nav: 600;
+    --font-btn: 400;
+    --font-body: 300;
+    --letter-tight: -0.03em;
+
+    /* Layout Constants */
+    --radius-lg: 32px;
+    --radius-md: 18px;
+    --radius-bubbly: 999px;
+    --shadow-soft: 0 12px 24px rgba(147, 98, 199, 0.08);
+}
+/* recipe generator clock */
+.clock-icon {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    top: -2px;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+
+/* Center the RecipeGenerator and results */
+.rg-generator-center {
+    min-height: 100vh;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding-top: 32px;
+    box-sizing: border-box;
+    font-family: var(--font-heading) !important;
+}
+
+.rg-glass-card {
+    /* The Glass Base */
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+
+    /* The "Edge" - This makes it look like real glass */
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 42px;
+
+    /* Modern Depth Shadow */
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        0 20px 50px rgba(0, 0, 0, 0.08);
+
+    /* Layout */
+    padding: 3rem;
+    max-width: 700px;
+    width: 90%;
+    margin: 0.8rem auto;
+    text-align: center;
+
+    /* Transition for when content (like ingredients) is added */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Optional: Slight hover effect to make it feel interactive */
+.rg-glass-card:hover {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 10px 15px rgba(0, 0, 0, 0.03),
+        0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-generator-hook {
+    font-family: var(--font-primary) !important;
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: var(--letter-tight);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Container to keep title and grid aligned */
+.rg-results-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1px;
+}
+
+/* Elegant Title Styling */
+.rg-chefs-picks-title {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin-bottom: -2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    letter-spacing: var(--letter-tight);
+}
+/* Grid layout for recipe results */
+.rg-recipe-grid {
+    display: grid;
+    /* Keeps cards at a nice readable width */
+    grid-template-columns: repeat(3, 1fr); /* SPACE ADJUSTMENT */
+    gap: 2rem; /* Increased from 4rem for significantly more air between cards */
+
+    width: 100%;
+    max-width: 1800px; /* Slightly wider to accommodate larger gaps */
+    margin: 0 auto !important; /* Adds space between the generator and the results */
+    justify-content: center;
+
+    padding: 4rem 4rem; /* Extra padding on sides for mobile responsiveness */
+}
+
+/* Individual recipe card */
+
+.rg-recipe-card {
+    position: relative; /* VERY important */
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 550px;
+    justify-self: center;
+    margin: 0;
+
+    box-sizing: border-box;
+    font-family: var(--font-heading) !important;
+
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+
+    /* The "Edge" - This makes it look like real glass */
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 42px;
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        0 20px 50px rgba(0, 0, 0, 0.08);
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease,
+        background 0.4s ease;
+}
+/* Subtle hover lift */
+.rg-recipe-card:hover {
+    transform: scale(1.03);
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow:
+        0 0 30px 5px rgba(255, 255, 255, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.4),
+        0 15px 40px rgba(0, 0, 0, 0.1) !important;
+}
+@media (max-width: 1600px) {
+    .rg-recipe-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        padding: 4rem 4rem;
+    }
+}
+@media (max-width: 1200px) {
+    .rg-recipe-grid {
+        /* Only drop to 2 or 1 column when the screen physically can't fit them */
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+}
+.ingredient-question,
+.time-question {
+    font-family: var(--font-heading) !important;
+    font-weight: 300 !important;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+/* Card title */
+.rg-recipe-title {
+    font-family: var(--font-heading) !important;
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* Ingredients list inside card */
+.rg-ai-ingredients {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+    line-height: 1.4;
+}
+
+/* Instructions spacing */
+.rg-recipe-instructions {
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
 /* Increase line spacing in instructions list */
 .ingredients-section ol li {
     line-height: 1.4;
@@ -9,17 +217,12 @@
 .recipe-details-content-col h3 {
     color: #525252;
     font-family: var(--font-heading) !important;
-    font-weight: 200 !important;
+    font-weight: 400 !important;
 }
 
 /* Left-aligned header and image for RecipeDetails */
 .recipe-details-header-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-width: 220px;
-    margin-right: 20px;
+    flex: 0 0 300px; /* Prevents the image column from shrinking */
 }
 
 /* recipe title */
@@ -29,7 +232,7 @@
     margin-left: 24px;
     color: #525252;
     font-family: var(--font-heading) !important;
-    font-weight: 100 !important;
+    font-weight: 400 !important;
 }
 
 /* Reduce space under recipe title */
@@ -54,6 +257,7 @@
 .total-time-text {
     margin-bottom: 4px;
     color: #9b9b99;
+    font-weight: 400;
 }
 
 /* Header for RecipeDetails */
@@ -62,38 +266,51 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
+    /* font-weight: 600 !important; */
 }
 
 /* Flex row for RecipeDetails main layout */
 .recipe-details-flex-row {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+
     width: 100%;
     max-width: 800px;
     /* Adjust this to fit your content's total width */
     margin: 0 auto;
+
+    gap: 40px; /* Adds breathing room between image and text */
+    align-items: flex-start;
+    margin-top: 20px;
 }
 
-.image-container {
-    width: 220px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 38px;
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
-}
+@media (max-width: 850px) {
+    .recipe-details-flex-row {
+        flex-direction: column;
+        align-items: center; /* Centers everything on mobile */
+    }
 
+    .recipe-details-header-left {
+        flex: none;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .recipe-details-image-container {
+        max-width: 100%; /* Let it fill the width of the phone */
+        height: auto;
+    }
+}
 /* Flex column for RecipeDetails content */
 .recipe-details-content-col {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1;
-    max-width: 600px;
+    flex: 1; /* Allows the instructions to take up the remaining width */
+    min-width: 300px;
     /* Limits text width so it doesn't drift too far right */
     text-align: left;
     color: #525252;
@@ -129,54 +346,50 @@
     display: block;
 }
 
-/* Error message for Add to Cookbook */
+/* Button spacing */
 .rg-add-cookbook-btn {
-    margin: 16px auto 0 auto;
-    width: auto;
-    background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
-    color: #fff;
-    border: 2px solid #1976d2;
-    border-radius: 8px;
-    font-size: 0.98rem;
-    font-weight: 600;
-    padding: 8px 18px;
-    cursor: pointer;
-    transition:
-        background 0.2s,
-        box-shadow 0.2s;
-    display: inline-block;
-    box-shadow:
-        0 2px 8px rgba(25, 118, 210, 0.1),
-        0 1px 3px rgba(66, 165, 245, 0.08);
-    letter-spacing: 0.01em;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-    text-align: center;
-
-    transition:
-        background 0.2s,
-        box-shadow 0.2s;
-    display: block;
-    letter-spacing: 0.03em;
-    box-shadow: none !important;
+    font-size: medium;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%) !important;
+    color: #fff !important;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+    border: none;
+    width: 80%;
+    height: 40px;
+    align-self: center;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
 .rg-add-cookbook-btn:disabled {
-    background: #bdbdbd;
+    background: #faa6a6;
     color: #fff;
-    border: 2px solid #bdbdbd;
+    border: white;
     cursor: not-allowed;
     box-shadow: none;
 }
 
 .rg-add-cookbook-btn:hover:not(:disabled) {
-    background: #1251a3;
-    border-color: #1251a3;
+    background: #d9efaa !important;
+    color: #00aa5b !important;
+    border-color: white;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
 }
-
+.rg-add-cookbook-btn.added {
+    background: #d9efaa !important;
+    color: #00aa5b !important;
+    border-color: white;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+}
 /* Ensure RecipeGenerator uses app font */
 .rg-root-font {
     font-family: 'Inter', 'Google Sans', Arial, sans-serif !important;
-    font-weight: 200 !important;
+    font-weight: 300 !important;
     color: #525252;
 }
 
@@ -185,23 +398,149 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-top: 3.5rem;
+}
+.rg-btn-row button {
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.rg-btn-row .rg-btn,
+.rg-btn-row .rg-generate-btn {
+    margin: 0;
+}
 /* Reset button style */
-/* Dedicated blue reset button */
+
 .rg-reset-btn {
-    background: #efefec !important;
-    color: #a4a4a4 !important;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5em 1.5em;
+    background: rgba(243, 237, 237, 0.2) !important;
+    backdrop-filter: blur(10px);
+
+    color: #5f5e5e !important;
+    border: 1px solid rgba(245, 224, 224, 0.5) !important;
+    border-radius: 999px !important;
+    padding: 12px 24px;
     font-weight: 500 !important;
-    transition: background 0.2s;
-    box-shadow: none;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .rg-reset-btn:hover {
-    background: #efefec;
+    box-shadow: 0 6px 20px rgba(255, 101, 96, 0.23);
+    transform: translateY(-5px);
+    background: #d9efaa !important ; /* Soft green tint on hover */
+    color: #00aa5b !important;
+}
+.rg-generate-btn {
+    background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%) !important;
+    color: #fff !important;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        transform 0.2s;
+    border-radius: 999px !important;
+}
+
+.rg-generate-btn.loading {
+    background: linear-gradient(
+        -45deg,
+        #adea9c,
+        #95f78c,
+        #7ff12d,
+        #d1f18c,
+        #a6ff70
+    ) !important;
+    background-size: 600% 600%;
+    animation:
+        livelyGradient 3s linear infinite,
+        glowPulse 1.5s ease-in-out infinite;
+    color: #006f2d !important;
+    border: none;
+    transform: scale(1); /* start scale */
+    transition: transform 0.3s ease;
+    text-shadow:
+        0 0 5px #d9efaa,
+        0 0 10px #a6ff70; /* subtle glow */
+}
+
+/* Gradient animation */
+@keyframes livelyGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Glow + scale pulse */
+@keyframes glowPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        text-shadow:
+            0 0 5px #d9efaa,
+            0 0 10px #a6ff70;
+    }
+    50% {
+        transform: scale(1.05); /* slight “pop” */
+        text-shadow:
+            0 0 10px #d9efaa,
+            0 0 20px #a6ff70; /* stronger glow */
+    }
+}
+
+.rg-generate-btn:disabled {
+    background: #d1d1d1;
+    color: #fff;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.rg-generate-btn:hover {
+    box-shadow: 0 6px 20px rgba(255, 101, 96, 0.23);
+    transform: translateY(-5px);
+    background: #d9efaa !important;
+    border-color: #d9efaa !important;
+    color: #00aa5b !important;
+}
+
+.rg-generate-btn:hover:not(.loading) {
+    background: #d9efaa !important;
+    border-color: #d9efaa !important;
+    color: #00aa5b !important;
+}
+.rg-generate-btn:active:not(.loading) {
+    background: #d9efaa !important;
+    border-color: #d9efaa !important;
+    color: #00aa5b !important;
+}
+
+.rotating-emoji {
+    margin-left: 12px;
+    display: inline-block; /* needed for transform */
+    animation: rotateEmoji 1s linear infinite;
+    transform-origin: 50% 50%; /* rotate around center */
+}
+
+@keyframes rotateEmoji {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Recipe ingredient item in results */
@@ -319,7 +658,7 @@ div.register-card .register-file-btn:active {
 }
 
 .login-form-row,
-.register-form>div {
+.register-form > div {
     display: flex;
     flex-direction: column;
     /* margin-bottom: 10px; */
@@ -468,6 +807,8 @@ div.register-card .register-file-btn:active {
     background: #fff;
     border-radius: 28px;
     margin-bottom: 14px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
 
 .recipe-card-image {
@@ -508,38 +849,38 @@ div.register-card .register-file-btn:active {
     list-style: none;
 }
 
-:root {
-    --font-primary: 'Inter', 'Google Sans', Arial, sans-serif;
-    --font-heading: 'Inter', 'Google Sans', Arial, sans-serif;
-    --font-h1: 800;
-    --font-h2: 800;
-    --font-title: 700;
-    --font-nav: 600;
-    --font-btn: 600;
-    --font-body: 200;
-    --letter-tight: -0.03em;
-
-    /* Layout Constants */
-    --radius-lg: 32px;
-    --radius-md: 18px;
-    --radius-bubbly: 999px;
-    --shadow-soft: 0 12px 24px rgba(147, 98, 199, 0.08);
-}
-
 body {
     font-family: var(--font-heading);
     font-weight: 200;
-    background-color: #f7f7f9;
+    background: radial-gradient(
+        circle at top right,
+        #ffffff 0%,
+        /* Pure white at the start */ #fdfbf7 50%,
+        /* Very soft cream in the middle */ #f5eee6 100%
+            /* Lightest possible latte/cream at the end */
+    );
+    background-attachment: fixed; /* Keeps the gradient smooth as you scroll */
     color: var(--text-dark);
     margin: 0;
     padding: 20px;
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
 }
 
 /* --- Navigation Bar --- */
 nav {
-    background: #efefec;
+    position: sticky; /* Keeps it visible or at least on top of the flow */
+    z-index: 9999; /* Ensure this is higher than any card */
+    background: rgba(
+        239,
+        239,
+        236,
+        0.8
+    ); /* Added transparency to match glass theme */
+    backdrop-filter: blur(10px);
+    /* border: 1px solid rgba(255, 255, 255, 0.5); */
     border-radius: var(--radius-bubbly);
+    background: #efefec;
     margin: 16px auto 20px auto;
     padding: 2px 19px;
     display: flex;
@@ -611,44 +952,69 @@ nav .active {
 
 /* --- Consolidated Styles --- */
 
+/* Subtle hover lift */
+.recipe-card:hover {
+    transform: scale(1.03);
+    box-shadow:
+        0 0 30px rgba(252, 170, 159, 0.45),
+        0 14px 36px rgba(252, 170, 159, 0.25);
+}
+
 .recipe-card {
-    width: 210px;
+    width: 280px;
     height: 280px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     background: #fff;
     border-radius: var(--radius-lg);
-    box-shadow: 0 8px 64px #fcaa9f !important;
-    padding: 24px;
+    box-shadow: 0 12px 30px rgba(252, 170, 159, 0.35) !important;
+    padding: 18px;
     margin-bottom: 0;
-    min-height: 370px;
+    transition:
+        transform 1s ease,
+        box-shadow 1s ease;
 }
 
-.image-container {
-    background-color: var(--light-purple);
-    border-radius: var(--radius-md);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 320px;
-    height: 420px;
-    max-width: 100%;
-    padding: 16px;
-    margin-top: 32px;
-    margin-bottom: 15px;
-    max-width: 320px;
-    max-height: 640px;
+/* --- SHARED STYLES (Keep these synced) --- */
+.image-container,
+.recipe-details-image-container {
+    background-color: none;
+    border-radius: 28px;
+    padding: 12px;
     overflow: hidden;
+    display: block;
+    width: 100%;
+    max-width: 300px; /* Standardized width */
+    aspect-ratio: 2 / 3; /* Changed to 2/3 for a noticeably 'longer' look */
 }
 
-.image-container img {
+.image-container img,
+.recipe-details-image-container img {
     width: 100%;
-    height: auto;
-    max-width: 280px;
-    max-height: 200px;
-    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.1));
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+}
+
+/* --- PAGE SPECIFIC SPACING --- */
+
+/* Cookbook Page: Keeps your right-alignment */
+.image-container {
+    margin: 32px 0 15px auto;
+}
+
+/* Recipe Details Page: Standard top/bottom margin */
+.recipe-details-image-container {
+    margin: 15px 0;
+}
+
+/* Ensure the title doesn't get squeezed */
+.recipe-details-header-left h2 {
+    margin-bottom: 20px;
+    word-wrap: break-word;
 }
 
 .logo-chefgpt {
@@ -664,7 +1030,8 @@ nav .active {
 }
 
 .logo-chefgpt img {
-    filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(0deg) saturate(0) opacity(1) drop-shadow(0 0 0 #9f9f9f);
+    filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(0deg) saturate(0)
+        opacity(1) drop-shadow(0 0 0 #9f9f9f);
     /* If SVG, use fill: #9f9f9f; */
     margin-left: 2px;
 }
@@ -816,15 +1183,6 @@ button,
 }
 
 /* --- Recipe Card Adjustments --- */
-.recipe-card {
-    display: flex;
-    background: #fff !important;
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    margin-bottom: 24px;
-    min-height: 370px;
-    box-shadow: 0 3px 12px #edbebb !important;
-}
 
 .recipe-card-time {
     display: inline-block;
@@ -969,7 +1327,7 @@ button,
 .cookbook-title {
     font-family: var(--font-heading) !important;
     font-size: 1.4rem;
-    font-weight: 100 !important;
+    font-weight: 300 !important;
     text-align: center;
     margin-left: 0;
     color: #525252;
@@ -987,74 +1345,112 @@ button,
 
 .rg-form {
     margin-bottom: 24px;
+    font-size: 1.3rem;
 }
 
 .rg-form-row {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
 .rg-input {
-    margin-left: 8px;
-    padding: 4px;
+    background-color: #faf4f4;
+    backdrop-filter: blur(5px);
+    margin-left: 12px;
+    margin-right: 10px;
+    font-size: 1.1rem;
+    padding: 12px 14px;
+    border-radius: 29px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    height: 10px;
+    transition: all 0.8s;
 }
-
+.rg-input:focus {
+    border-color: #ff9666 !important;
+    /* box-shadow: 0 0 0 4px #ff6560(255, 150, 102, 0.1); */
+    outline: none;
+}
+.rg-add-ingredient-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: -12px;
+}
 .rg-input-ingredients {
-    width: 250px;
+    width: 150px;
+    color: #5f5e5e;
+    font-size: 1.1rem;
 }
 
 .rg-input-time {
-    width: 100px;
+    width: 80px;
+    padding-left: 12px;
+    padding-right: 5px;
+    color: #5f5e5e;
+    font-size: 1.1rem;
+    margin-top: 28px;
+}
+.rg-minutes-label {
+    margin-left: 1px;
+    font-size: 1.2rem;
+    color: #5f5e5e;
+    margin-top: 28px;
 }
 
 .rg-btn {
-    margin-bottom: 16px;
-    padding: 8px 9px;
+    font-family: var(--font-heading) !important;
+    font-weight: 400 !important;
+    /* margin-bottom: 16px;
+    margin-top: 12px; */
+    padding: 12px 29px;
     font-size: 16px;
     background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 29px;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .rg-btn:disabled {
     cursor: not-allowed;
+    background-color: #fffefc;
 }
 
 .rg-add-btn {
-    margin-left: -8px;
+    margin-left: -6px;
+    margin-top: 14px;
+    margin-bottom: 16px;
     font-size: 15px;
-    background: #f7f7f9;
-    color: #f7f7f9;
+    background: #fffefc;
+    color: #fffefc;
     border: none;
     border-radius: 50%;
-    /* circle */
     width: 22px;
-    /* fixed width */
     height: 32px;
-    /* same as width */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* center the + inside */
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
     transition: background 0.2s;
     padding: 0;
-    /* remove extra padding */
     line-height: 1;
-    /* prevents emoji/font stretching */
     box-sizing: border-box;
-    /* ensures border/padding included in width */
     flex-shrink: 0;
     flex-grow: 0;
     align-self: center;
     box-shadow: none !important;
-    /* remove box-shadow */
+    transition:
+        transform 0.5s ease,
+        background-color 0.5s ease;
+}
+
+.rg-add-btn:hover {
+    background: #fffefc;
+    transform: scale(1.35);
 }
 
 .rg-add-btn:disabled {
-    background: #f7f7f9;
+    background: #fffefc;
     cursor: not-allowed;
 }
 
@@ -1074,7 +1470,7 @@ button,
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f7f7f9;
+    background-color: #fefefd;
     color: #525252;
     border: none;
     cursor: pointer;
@@ -1082,29 +1478,19 @@ button,
     padding: 0;
     /* remove extra padding */
     box-sizing: border-box;
+    transition:
+        transform 0.5s ease,
+        background-color 0.5s ease;
 }
 
 .rg-remove-btn:hover {
-    background: #f7f7f9;
+    background: #fefefd;
+    transform: scale(1.25);
 }
-
-/* .rg-remove-btn:active {
-    background: #d32f2f;
-} */
 
 /* Remove box-shadow from .rg-remove-btn */
 .rg-remove-btn {
     box-shadow: none !important;
-}
-
-/* Make RecipeGenerator buttons narrower */
-.rg-btn,
-.rg-add-btn,
-.rg-remove-btn {
-    padding-left: 10px;
-    padding-right: 10px;
-    min-width: 60px;
-    width: auto;
 }
 
 /* Ingredient list as grid for column alignment */
@@ -1112,24 +1498,20 @@ button,
     list-style: none;
     padding-left: 0;
     margin: 0;
+    line-height: 1.4;
+    margin-top: 10px;
 }
 
 .rg-ingredient-list-item {
-    display: flex;
-    /* make each row a flex container */
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #eee;
+    padding: 6px 14px;
+    border-radius: 22px;
+    display: inline-flex;
     align-items: center;
-    /* vertically center button and text */
-    gap: 0.5rem;
-    /* space between button and text */
-    margin-bottom: 0.2rem;
-    /* row spacing */
-}
-
-.rg-remove-btn {
-    order: -1;
-    /* move button to the left */
-    flex-shrink: 0;
-    /* prevent button from shrinking */
+    gap: 8px;
+    font-size: 0.9rem;
+    margin: 4px;
 }
 
 .rg-ingredient-list-item span {
@@ -1162,13 +1544,13 @@ button,
     background: linear-gradient(90deg, #ff9666 0%, #ff6560 100%) !important;
     color: #fff !important;
     border: none;
-    border-radius: 4px;
+    border-radius: 24px !important;
     font-weight: 700;
     min-width: 90px;
     cursor: pointer;
 }
 
-.edit-profile-btn-row .rg-reset-btn {
+.edit-profile-btn-row {
     background: #efefec !important;
     color: #a4a4a4 !important;
     border: none;
@@ -1240,20 +1622,15 @@ button,
     font-weight: 400 !important;
 }
 
-.image-container {
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 56px;
-    object-fit: cover;
-}
-
 .ingredients-section {
-    background: #f7f7f7;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
     border-radius: 16px;
     padding: 24px 32px;
     margin: 10px 0 24px 0;
     box-shadow: 0 1px 9px #fcaa9f;
-    max-width: 320px;
+    max-width: 540px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1264,7 +1641,7 @@ button,
 }
 
 /* Reduce space between h3 and ingredients-section */
-h3+.ingredients-section {
+h3 + .ingredients-section {
     margin-top: 1px;
     margin-bottom: 1px;
 }
@@ -1348,9 +1725,10 @@ h3+.ingredients-section {
 }
 
 .recipe-edit-input-title-recipe {
-    margin-top: 0;
+    margin-top: 18px;
     font-family: var(--font-heading) !important;
     font-weight: 400 !important;
+    margin-bottom: 2px;
 }
 
 .recipe-edit-section {
