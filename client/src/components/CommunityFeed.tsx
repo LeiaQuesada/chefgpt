@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import '../App.css'
-import RecipeCard from '../components/RecipeCard' // import new component
+import CommunityRecipeCard from '../components/CommunityRecipeCard' // import new component
 import type { Recipe } from '../../types/recipe'
-import { useUser } from '../authentication/useUser'
 
-const Cookbook = () => {
+const CommunityFeed = () => {
     const [recipes, setRecipes] = useState<Recipe[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<Error | null>(null)
     const [showScrollTop, setShowScrollTop] = useState(false)
-    const { user } = useUser()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,24 +21,9 @@ const Cookbook = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    async function handleDeleteButton(id: number) {
-        try {
-            if (!window.confirm('Delete this recipe?')) return
-
-            const response = await fetch(`/api/recipes/${id}`, {
-                method: 'DELETE',
-            })
-            if (!response.ok) throw new Error(`${response.status}`)
-
-            setRecipes((prev) => prev.filter((recipe) => recipe.id !== id))
-        } catch (error) {
-            console.error('Failed to delete recipe:', error)
-        }
-    }
-
     async function fetchRecipes() {
         try {
-            const response = await fetch(`/api/recipes/user/${user?.id}`)
+            const response = await fetch('http://localhost:8000/api/recipes')
             const data = await response.json()
             if (!response.ok)
                 throw new Error(`Failed to fetch recipes: ${response.status}`)
@@ -52,9 +35,6 @@ const Cookbook = () => {
                 totalTime: r.total_time,
                 imageUrl: r.image_url ?? null,
             }))
-
-            // Debug: log mapped camelData
-            console.log('Mapped recipes:', camelData)
 
             setRecipes(camelData)
             setLoading(false)
@@ -75,19 +55,17 @@ const Cookbook = () => {
 
     return (
         <div className="cookbook-container">
-            <h1 className="cookbook-title">My Cookbook</h1>
+            <h1 className="cookbook-title">The Community Table</h1>
             <p className="title-description">
-                Your favorite AI recipes in one place.
+                AI recipes brought to life by real cooks.
             </p>
             <div className="cookbook-list">
-                {recipes.length === 0 && (
-                    <p>You don’t have any saved recipes yet.</p>
-                )}
+                {recipes.length === 0 && <p>No saved recipes yet.</p>}
                 {recipes.map((recipe) => (
-                    <RecipeCard
+                    <CommunityRecipeCard
                         key={recipe.id}
                         recipe={recipe}
-                        onDelete={handleDeleteButton}
+                        onDelete={() => {}}
                     />
                 ))}
             </div>
@@ -103,4 +81,4 @@ const Cookbook = () => {
     )
 }
 
-export default Cookbook
+export default CommunityFeed

@@ -8,6 +8,7 @@ from .recipes_db import (
     get_recipe_by_id,
     update_recipe,
     delete_recipe,
+    get_recipes_by_user,
 )
 from .recipes_schemas import RecipeCreate, RecipeOut, RecipeUpdate
 from .ai_schemas import (
@@ -132,3 +133,14 @@ async def endpoint_delete_recipe_by_id(
         print("[ERROR] Exception in delete_recipe endpoint:", e)
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# Get all recipes for a specific user
+@recipes_router.get("/user/{user_id}", response_model=list[RecipeOut])
+def endpoint_get_recipes_by_user(
+    user_id: int,
+    session: Session = Depends(get_session),
+    auth_user: AuthenticatedUser = Depends(require_auth),
+):
+
+    return get_recipes_by_user(session, user_id)
