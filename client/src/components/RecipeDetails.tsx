@@ -1,4 +1,4 @@
-import clockIcon from '../assets/clock.svg';
+import clockIcon from '../assets/clock.svg'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { RecipeDetailsProps } from '../../types/recipe'
@@ -92,6 +92,13 @@ export default function RecipeDetails() {
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error}</div>
     if (!recipe) return <div>Recipe not found</div>
+
+    const imageBaseURL = 'https://placeholders.io/400/400/'
+    const imgParams = new URLSearchParams({
+        style: 'photographic',
+        seed: recipe.id.toString(),
+    })
+    const defaultRecipeURL = `${imageBaseURL}${recipe.title}?${imgParams}`
     const isOwner = user && recipe.user_id === Number(user.id)
 
     async function handleDelete() {
@@ -114,24 +121,34 @@ export default function RecipeDetails() {
             <div className="recipe-details-flex-row">
                 <div className="recipe-details-header-left">
                     <h2>{recipe.title}</h2>
-                    {recipe.imageUrl && (
+                    <div className="recipe-details-image-container">
                         <img
-                            src={recipe.imageUrl}
+                            src={recipe.imageUrl || defaultRecipeURL}
                             alt={recipe.title}
-                            className="image-container"
+                            onError={(e) => {
+                                // If the original URL is broken/expired, swap to placeholder
+                                e.currentTarget.src = defaultRecipeURL
+                            }}
                         />
-                    )}
+                    </div>
                 </div>
                 <div className="recipe-details-content-col">
                     <p className="total-time-text">
-                        <img src={clockIcon} alt="clock" className="clock-icon" /> {recipe.totalTime} min
+                        <img
+                            src={clockIcon}
+                            alt="clock"
+                            className="clock-icon"
+                        />{' '}
+                        {recipe.totalTime} min
                     </p>
                     <h3>Ingredients</h3>
                     <div className="ingredients-section">
                         <ul>
-                            {(recipe.ingredients || []).map((ingredient, idx) => (
-                                <li key={idx}>{ingredient}</li>
-                            ))}
+                            {(recipe.ingredients || []).map(
+                                (ingredient, idx) => (
+                                    <li key={idx}>{ingredient}</li>
+                                )
+                            )}
                         </ul>
                     </div>
                     <h3>Instructions</h3>
