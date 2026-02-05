@@ -216,7 +216,7 @@ def update_recipe(
 
     session.commit()
     session.refresh(recipe)
-    return get_recipe_by_id(session, recipe_id, user_id)
+    return get_recipe_by_id(session, recipe_id)
 
 
 # Delete a recipe by ID

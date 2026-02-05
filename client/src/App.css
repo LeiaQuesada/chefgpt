@@ -222,12 +222,7 @@
 
 /* Left-aligned header and image for RecipeDetails */
 .recipe-details-header-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-width: 220px;
-    margin-right: 20px;
+    flex: 0 0 300px; /* Prevents the image column from shrinking */
 }
 
 /* recipe title */
@@ -278,32 +273,44 @@
 .recipe-details-flex-row {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+
     width: 100%;
     max-width: 800px;
     /* Adjust this to fit your content's total width */
     margin: 0 auto;
+
+    gap: 40px; /* Adds breathing room between image and text */
+    align-items: flex-start;
+    margin-top: 20px;
 }
 
-.image-container {
-    width: 220px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 38px;
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
-}
+@media (max-width: 850px) {
+    .recipe-details-flex-row {
+        flex-direction: column;
+        align-items: center; /* Centers everything on mobile */
+    }
 
+    .recipe-details-header-left {
+        flex: none;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .recipe-details-image-container {
+        max-width: 100%; /* Let it fill the width of the phone */
+        height: auto;
+    }
+}
 /* Flex column for RecipeDetails content */
 .recipe-details-content-col {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1;
-    max-width: 600px;
+    flex: 1; /* Allows the instructions to take up the remaining width */
+    min-width: 300px;
     /* Limits text width so it doesn't drift too far right */
     text-align: left;
     color: #525252;
@@ -945,56 +952,69 @@ nav .active {
 
 /* --- Consolidated Styles --- */
 
-.recipe-card {
-    width: 210px;
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    background: #fff;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 12px 30px rgba(252, 170, 159, 0.35) !important;
-    padding: 24px;
-    margin-bottom: 0;
-    min-height: 370px;
-    transition:
-        transform 1s ease,
-        box-shadow 1s ease;
-}
-
 /* Subtle hover lift */
 .recipe-card:hover {
     transform: scale(1.03);
     box-shadow:
         0 0 30px rgba(252, 170, 159, 0.45),
         0 14px 36px rgba(252, 170, 159, 0.25);
-    /* border: 2px solid #fcaa9f; */
 }
 
-.image-container {
-    background-color: var(--light-purple);
-    border-radius: var(--radius-md);
+.recipe-card {
+    width: 280px;
+    height: 280px;
+    min-height: 400px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 320px;
-    height: 420px;
-    max-width: 100%;
-    padding: 16px;
-    margin-top: 32px;
-    margin-bottom: 15px;
-    max-width: 320px;
-    max-height: 640px;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: stretch;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 30px rgba(252, 170, 159, 0.35) !important;
+    padding: 18px;
+    margin-bottom: 0;
+    transition:
+        transform 1s ease,
+        box-shadow 1s ease;
 }
 
-.image-container img {
+/* --- SHARED STYLES (Keep these synced) --- */
+.image-container,
+.recipe-details-image-container {
+    background-color: none;
+    border-radius: 28px;
+    padding: 12px;
+    overflow: hidden;
+    display: block;
     width: 100%;
-    height: auto;
-    max-width: 280px;
-    max-height: 200px;
-    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.1));
-    object-fit: contain;
+    max-width: 300px; /* Standardized width */
+    aspect-ratio: 2 / 3; /* Changed to 2/3 for a noticeably 'longer' look */
+}
+
+.image-container img,
+.recipe-details-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+}
+
+/* --- PAGE SPECIFIC SPACING --- */
+
+/* Cookbook Page: Keeps your right-alignment */
+.image-container {
+    margin: 32px 0 15px auto;
+}
+
+/* Recipe Details Page: Standard top/bottom margin */
+.recipe-details-image-container {
+    margin: 15px 0;
+}
+
+/* Ensure the title doesn't get squeezed */
+.recipe-details-header-left h2 {
+    margin-bottom: 20px;
+    word-wrap: break-word;
 }
 
 .logo-chefgpt {
@@ -1163,15 +1183,6 @@ button,
 }
 
 /* --- Recipe Card Adjustments --- */
-.recipe-card {
-    display: flex;
-    background: #fff !important;
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    margin-bottom: 24px;
-    min-height: 370px;
-    box-shadow: 0 3px 12px #edbebb !important;
-}
 
 .recipe-card-time {
     display: inline-block;
@@ -1611,13 +1622,6 @@ button,
     font-weight: 400 !important;
 }
 
-.image-container {
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 56px;
-    object-fit: cover;
-}
-
 .ingredients-section {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(30px) saturate(160%);
@@ -1626,7 +1630,7 @@ button,
     padding: 24px 32px;
     margin: 10px 0 24px 0;
     box-shadow: 0 1px 9px #fcaa9f;
-    max-width: 320px;
+    max-width: 540px;
     width: 100%;
     display: flex;
     flex-direction: column;
