@@ -1,36 +1,33 @@
 # pydantic models
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 from typing import List, Optional
+from shared.base_schema import BaseSchema
 
 
 # help validate nested objects in recipes
-class IngredientCreate(BaseModel):
+class IngredientCreate(BaseSchema):
     name: str
 
 
-class IngredientOut(BaseModel):
+class IngredientOut(BaseSchema):
     id: int
     name: str
 
-    model_config = ConfigDict(from_attributes=True)
-
 
 # help validate nested objects in recipes
-class InstructionCreate(BaseModel):
+class InstructionCreate(BaseSchema):
     step_text: str
     step_number: int
 
 
-class InstructionOut(BaseModel):
+class InstructionOut(BaseSchema):
     id: int
     step_text: str
     step_number: int
-
-    model_config = ConfigDict(from_attributes=True)
 
 
 # when user adds a new recipe
-class RecipeCreate(BaseModel):
+class RecipeCreate(BaseSchema):
     title: str
     total_time: int = Field(..., gt=0)
     ingredients: List[IngredientCreate]
@@ -38,7 +35,7 @@ class RecipeCreate(BaseModel):
 
 
 # when user updates an existing recipe
-class RecipeUpdate(BaseModel):
+class RecipeUpdate(BaseSchema):
     title: Optional[str] = None
     image_url: Optional[str] = None
     total_time: Optional[int] = Field(None, gt=0)
@@ -47,7 +44,7 @@ class RecipeUpdate(BaseModel):
 
 
 # returning recipe data back to client
-class RecipeOut(BaseModel):
+class RecipeOut(BaseSchema):
     id: int
     user_id: int
     title: str
@@ -55,8 +52,6 @@ class RecipeOut(BaseModel):
     total_time: int
     ingredients: List[IngredientOut]
     instructions: List[InstructionOut]
-
-    model_config = ConfigDict(from_attributes=True)
 
 
 # RecipeCreate:

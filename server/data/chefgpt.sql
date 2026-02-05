@@ -1,8 +1,8 @@
+DROP TABLE IF EXISTS recipe_photos;
 DROP TABLE IF EXISTS instructions;
 DROP TABLE IF EXISTS ingredients;
 DROP TABLE IF EXISTS recipes;
 DROP TABLE IF EXISTS users;
-
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -45,6 +45,10 @@ CREATE TABLE instructions (
     FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
 
+CREATE TABLE recipe_photos (
+    id SERIAL PRIMARY KEY,
+    photo_name TEXT NOT NULL
+)
 
 INSERT INTO users (username, hashed_password, image_url) VALUES
     ('leiaquesada143', '$2b$12$ZIYIBOy3u66cLJNF5cMbquGPnY1ZE4x4Zb6NRFr0yIGCmA5VdB9q.', 'https://example.com/leia.jpg'),

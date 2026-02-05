@@ -1,10 +1,16 @@
+# import early to ensure environment vars are loaded first
+import os
+
+# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
 from starlette.middleware.sessions import SessionMiddleware
-from dotenv import load_dotenv
 from authentication.auth_router import auth_router
 from recipes.recipes_router import recipes_router, ai_router
+from photos.photos_router import photos_router
+
+# from rich import print
 from rich import print
 
 # load environment variable from .env file
@@ -14,6 +20,7 @@ RENDER = os.getenv("RENDER")
 
 app = FastAPI(redirect_slashes=False)
 
+RENDER = os.getenv("RENDER")
 # TODO, add production-ready origins,
 # Get CORS origins from environment variable
 cors_origins_str = os.getenv(
@@ -50,3 +57,4 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(recipes_router)
 app.include_router(ai_router)
+app.include_router(photos_router)
