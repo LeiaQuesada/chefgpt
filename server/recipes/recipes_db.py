@@ -236,3 +236,41 @@ def delete_recipe(session: Session, recipe_id: int, user_id: int) -> None:
         session.delete(instruction)
     session.delete(recipe)
     session.commit()
+
+
+# Get all recipes for a specific user
+def get_recipes_by_user(session: Session, user_id: int) -> list[RecipeOut]:
+    stmt = (
+        select(DBRecipe)
+        .where(DBRecipe.user_id == user_id)
+        .options(
+            joinedload(DBRecipe.ingredients), joinedload(DBRecipe.instructions)
+        )
+    )
+    recipe_objects = session.scalars(stmt).unique().all()
+    recipes = []
+    for recipe in recipe_objects:
+        ingredients = [
+            IngredientOut(id=ingredient.id, name=ingredient.name)
+            for ingredient in recipe.ingredients
+        ]
+        instructions = [
+            InstructionOut(
+                id=instruction.id,
+                step_text=instruction.step_text,
+                step_number=instruction.step_number,
+            )
+            for instruction in recipe.instructions
+        ]
+        recipes.append(
+            RecipeOut(
+                id=recipe.id,
+                user_id=recipe.user_id,
+                title=recipe.title,
+                image_url=recipe.image_url,
+                total_time=recipe.total_time,
+                ingredients=ingredients,
+                instructions=instructions,
+            )
+        )
+    return recipes
