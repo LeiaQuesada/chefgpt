@@ -9,8 +9,7 @@ import RecipeGenerator from './components/RecipeGenerator.tsx'
 import ProtectedRoute from './authentication/ProtectedRoute'
 import EditProfile from './components/EditProfile.tsx'
 import HomePage from './components/HomePage.tsx'
-
-
+import CommunityFeed from './components/CommunityFeed.tsx'
 
 function NotFound() {
     return <div>Page Not Found</div>
@@ -28,8 +27,8 @@ export default function App() {
                         path="recipe-generator"
                         element={<RecipeGenerator />}
                     />
-
                     <Route path="cookbook" element={<Cookbook />} />
+                    <Route path="feed" element={<CommunityFeed />} />
                     <Route path="profile/edit" element={<EditProfile />} />
                     <Route path="recipe/:id" element={<RecipeDetails />} />
                     <Route

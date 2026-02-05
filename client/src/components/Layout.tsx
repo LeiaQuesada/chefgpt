@@ -47,7 +47,7 @@ export default function Layout() {
                                         to="/recipe-generator"
                                         className="nav-link"
                                     >
-                                        Recipe Generator
+                                        AI Chef
                                     </NavLink>
                                 </li>
                                 <li>
@@ -55,7 +55,12 @@ export default function Layout() {
                                         to="/cookbook"
                                         className="nav-link"
                                     >
-                                        Cookbook
+                                        My Cookbook
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/feed" className="nav-link">
+                                        The Table
                                     </NavLink>
                                 </li>
                                 <li>
