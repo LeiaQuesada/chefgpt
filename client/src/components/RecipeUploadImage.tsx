@@ -176,6 +176,7 @@ export default function RecipeUploadImage({
                     {updating ? 'Uploading...' : 'Update Image'}
                 </button>{' '}
             </div>
+            {imageURL && <p className={styles.successMsg}>✨ Image updated!</p>}
             {error && <p className={styles.errorMsg}>⚠️ {error}</p>}
         </form>
     )
