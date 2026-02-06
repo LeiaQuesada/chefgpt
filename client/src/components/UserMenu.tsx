@@ -39,7 +39,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ onEditProfile, userName }) => {
                 onClick={() => setOpen((o) => !o)}
             >
                 {userName || 'User'}
-                <span className="user-menu-arrow">▼</span>
+                <span className="user-menu-icon"> ▾ </span>
             </button>
             {open && (
                 <div className="user-menu-dropdown">

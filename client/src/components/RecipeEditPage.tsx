@@ -199,39 +199,35 @@ export default function RecipeEditPage() {
 
             <div className="recipe-edit-section">
                 <label>
-                    <h3 className="recipe-edit-input-title">Image:</h3>
-
-                    <img
-                        src={form.imageUrl}
-                        alt={form.title}
-                        style={{
-                            width: '200px',
-                            height: '200px',
-                            objectFit: 'cover',
-                        }}
-                    />
-                    {recipeId && (
-                        <RecipeUploadImage
-                            recipeId={recipeId}
-                            onImageUrlChange={(url) => {
-                                if (form) setForm({ ...form, imageUrl: url })
-                            }}
+                    <h3 className="edit-image-title">Image:</h3>
+                    <div className="image-flex-container">
+                        <img
+                            src={form.imageUrl}
+                            alt={form.title}
+                            className="edit-page-img"
                         />
-                    )}
+                        {recipeId && (
+                            <RecipeUploadImage
+                                recipeId={recipeId}
+                                onImageUrlChange={(url) => {
+                                    if (form)
+                                        setForm({ ...form, imageUrl: url })
+                                }}
+                            />
+                        )}
+                    </div>
                 </label>
             </div>
 
             <div className="recipe-edit-section">
                 <label>
-                    <h3 className="recipe-edit-input-title">
-                        Total Time (min):
-                    </h3>
+                    <h3 className="edit-time-title">Total Time (min):</h3>
                     <input
                         id="totalTime"
                         type="number"
                         value={form.totalTime}
                         onChange={(e) => handleChange(e, 'totalTime')}
-                        className="recipe-edit-input"
+                        className="recipe-edit-time-input"
                         placeholder="Total Time (min)"
                     />
                 </label>{' '}
@@ -254,9 +250,7 @@ export default function RecipeEditPage() {
                 </ul>
             </div>
             <div className="recipe-edit-section">
-                <h3 className="recipe-edit-input-title instructions-title">
-                    Instructions:
-                </h3>
+                <h3 className="recipe-edit-input-title">Instructions:</h3>
                 <ol>
                     {(form.instructions || []).map((step, idx) => (
                         <li key={idx}>
@@ -271,7 +265,7 @@ export default function RecipeEditPage() {
                     ))}
                 </ol>
             </div>
-            <div className="recipe-card-actions btn-row">
+            <div className="edit-page-btns">
                 <button
                     onClick={handleSave}
                     disabled={loading}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import type { ChangeEvent, FormEvent } from 'react'
+import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signup } from '../authentication/auth-api'
 import type { SignupData } from '../authentication/auth-schemas'
@@ -9,18 +9,10 @@ const Register: React.FC = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirm, setConfirm] = useState('')
-    const [fileName, setFileName] = useState('')
+
     const [error, setError] = useState('')
     const [focus, setFocus] = useState<{ [k: string]: boolean }>({})
     const navigate = useNavigate()
-
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setFileName(e.target.files[0].name)
-        } else {
-            setFileName('')
-        }
-    }
 
     /**
      * Handles the registration form submission.
@@ -138,51 +130,12 @@ const Register: React.FC = () => {
                             required
                         />
                     </div>
-                    <div className="register-file-row">
-                        <label
-                            htmlFor="register-file"
-                            className="register-label"
-                            style={{ marginBottom: 0 }}
-                        >
-                            Profile Picture (optional):
-                        </label>
-                        <input
-                            id="register-file"
-                            name="profilePic"
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleFileChange}
-                        />
-                        <button
-                            type="button"
-                            className={`register-file-btn${focus.file ? ' register-file-btn-focus' : ''}`}
-                            onClick={() =>
-                                document
-                                    .getElementById('register-file')
-                                    ?.click()
-                            }
-                            onFocus={() =>
-                                setFocus((f) => ({ ...f, file: true }))
-                            }
-                            onBlur={() =>
-                                setFocus((f) => ({ ...f, file: false }))
-                            }
-                            aria-label="Upload profile picture"
-                        >
-                            Upload Image
-                        </button>
-                        {fileName && (
-                            <span className="register-file-name">
-                                {fileName}
-                            </span>
-                        )}
-                    </div>
+
                     {error && <div className="register-error">{error}</div>}
-                    <div className="register-actions">
+                    <div className="register-btn-col">
                         <button
                             type="submit"
-                            className={`register-submit${focus.submit ? ' register-submit-focus' : ''}`}
+                            className={`register-submit-btn${focus.submit ? ' register-submit-btn-focus' : ''}`}
                             onFocus={() =>
                                 setFocus((f) => ({ ...f, submit: true }))
                             }
@@ -190,19 +143,14 @@ const Register: React.FC = () => {
                                 setFocus((f) => ({ ...f, submit: false }))
                             }
                         >
-                            Create Account
+                            Sign Up
                         </button>
                     </div>
                 </form>
-                <div className="register-secondary">
-                    Already have an account?
-                    <span>
-                        {' '}
-                        <Link to="/login" className="register-link">
-                            Login Here.
-                        </Link>
-                    </span>
-                </div>
+
+                <Link to="/login" className="register-link">
+                    Already have an account? Login Here.
+                </Link>
             </div>
         </div>
     )

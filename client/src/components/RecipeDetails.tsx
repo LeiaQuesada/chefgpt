@@ -161,7 +161,7 @@ export default function RecipeDetails() {
                     </div>
                     {isOwner && (
                         <>
-                            <div className="recipe-card-actions btn-row">
+                            <div className="detail-page-btns">
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation()

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import type { RecipeUploadImageProps } from '../../types/recipe'
 import { uploadPhoto } from './recipe-upload-image-api.ts'
+import styles from './RecipeUploadImage.module.css'
 
 export default function RecipeUploadImage({
     recipeId,
@@ -13,12 +14,9 @@ export default function RecipeUploadImage({
     const [updating, setUpdating] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
-    // Clean up object URL to prevent memory leaks
     useEffect(() => {
         return () => {
-            if (preview) {
-                URL.revokeObjectURL(preview)
-            }
+            if (preview) URL.revokeObjectURL(preview)
         }
     }, [preview])
 
@@ -28,10 +26,12 @@ export default function RecipeUploadImage({
         const file = formData.get('photo')
         if (file instanceof File) {
             if (
-                file.type !== 'image/jpeg' &&
-                file.type !== 'image/png' &&
-                file.type !== 'image/gif' &&
-                file.type !== 'image/webp'
+                ![
+                    'image/jpeg',
+                    'image/png',
+                    'image/gif',
+                    'image/webp',
+                ].includes(file.type)
             ) {
                 setError('Unsupported Image Type')
                 setUpdating(false)
@@ -45,7 +45,6 @@ export default function RecipeUploadImage({
             }
             setImageURL(url)
             if (onImageUrlChange) onImageUrlChange(url)
-            // Update the recipe's image_url in the backend
             try {
                 const response = await fetch(`/api/recipes/${recipeId}`, {
                     method: 'PUT',
@@ -54,10 +53,8 @@ export default function RecipeUploadImage({
                     credentials: 'include',
                 })
                 if (!response.ok) {
-                    let msg = 'Failed to update recipe image'
                     const data = await response.json()
-                    msg = data.detail || msg
-                    setError(msg)
+                    setError(data.detail || 'Failed to update recipe image')
                 }
             } catch (err) {
                 setError(
@@ -73,46 +70,52 @@ export default function RecipeUploadImage({
         const file = e.target.files?.[0]
         if (file) {
             if (
-                file.type !== 'image/jpeg' &&
-                file.type !== 'image/png' &&
-                file.type !== 'image/gif' &&
-                file.type !== 'image/webp'
+                ![
+                    'image/jpeg',
+                    'image/png',
+                    'image/gif',
+                    'image/webp',
+                ].includes(file.type)
             ) {
                 setError('Unsupported Image Type')
                 setPreview(null)
                 return
             }
             setError('')
-            // Clean up the previous preview URL to prevent memory leaks
-            if (preview) {
-                URL.revokeObjectURL(preview)
-            }
+            if (preview) URL.revokeObjectURL(preview)
             setPreview(URL.createObjectURL(file))
         }
     }
 
-    function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    // Drag handlers
+    const handleDrag = (e: React.DragEvent) => {
         e.preventDefault()
+        e.stopPropagation()
+        if (e.type === 'dragenter' || e.type === 'dragover') setDragActive(true)
+        else if (e.type === 'dragleave') setDragActive(false)
+    }
+
+    function handleDrop(e: React.DragEvent) {
+        e.preventDefault()
+        e.stopPropagation()
         setDragActive(false)
         const file = e.dataTransfer.files?.[0]
         if (file) {
             if (
-                file.type !== 'image/jpeg' &&
-                file.type !== 'image/png' &&
-                file.type !== 'image/gif' &&
-                file.type !== 'image/webp'
+                ![
+                    'image/jpeg',
+                    'image/png',
+                    'image/gif',
+                    'image/webp',
+                ].includes(file.type)
             ) {
                 setError('Unsupported Image Type')
                 setPreview(null)
                 return
             }
             setError('')
-            // Clean up the previous preview URL to prevent memory leaks
-            if (preview) {
-                URL.revokeObjectURL(preview)
-            }
+            if (preview) URL.revokeObjectURL(preview)
             setPreview(URL.createObjectURL(file))
-            // Set file in input for form submission
             if (fileInputRef.current) {
                 const dt = new DataTransfer()
                 dt.items.add(file)
@@ -121,91 +124,68 @@ export default function RecipeUploadImage({
         }
     }
 
-    function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
-        e.preventDefault()
-        setDragActive(true)
-    }
-
-    function handleDragLeave(e: React.DragEvent<HTMLDivElement>) {
-        e.preventDefault()
-        setDragActive(false)
-    }
-
     return (
-        <>
-            <form
-                className="bg-white p-8 rounded-xl shadow-lg border border-slate-200 grid grid-rows-2 gap-6 max-w-md"
-                action={handleSubmit}
-            >
-                {imageURL && (
-                    <div className="mb-4">
-                        <p className="text-green-600 font-medium mb-2">
-                            ✅ Recipe Image updated successfully!
-                        </p>
-                    </div>
-                )}
-                {error ? (
-                    <p className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg font-medium">
-                        ⚠️ {error}
-                    </p>
-                ) : (
-                    ''
-                )}
-                <div
-                    className={`p-8 border-2 border-dashed rounded-xl transition-all duration-300 cursor-pointer text-center ${
-                        dragActive
-                            ? 'border-blue-500 bg-blue-50 scale-[1.02] shadow-lg'
-                            : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50'
-                    }`}
+        <form className={styles.uploadContainer} action={handleSubmit}>
+            {/* <h3 className={styles.uploadTitle}>Update Image</h3> */}
+            <div className={styles.uploadMain}>
+                <label
+                    className={`${styles.dropZone} ${dragActive ? styles.dragActive : ''}`}
+                    onDragEnter={handleDrag}
+                    onDragOver={handleDrag}
+                    onDragLeave={handleDrag}
                     onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onClick={() => fileInputRef.current?.click()}
-                    style={{ cursor: 'pointer' }}
+                    // onClick={() => fileInputRef.current?.click()}
                 >
-                    <p
-                        className={`font-medium mb-2 transition-colors duration-200 ${
-                            dragActive ? 'text-blue-700' : 'text-slate-700'
-                        }`}
-                    >
-                        {dragActive
-                            ? '🎯 Drop it here!'
-                            : '📁 Drag & drop an image here, or click to select'}
-                    </p>
-                    <p className="text-sm text-slate-500">
-                        Supports: JPEG, PNG, GIF, WebP
-                    </p>
+                    <div className={styles.previewWrapper}>
+                        {preview ? (
+                            <>
+                                <img
+                                    src={preview}
+                                    alt="Preview"
+                                    className={styles.previewImg}
+                                />
+
+                                <div className={styles.overlayText}>
+                                    Click to change image.
+                                </div>
+                            </>
+                        ) : (
+                            <div className={styles.uploadPrompt}>
+                                <span className={styles.uploadIcon}>📸</span>
+                                <p>Drag & drop or click to upload.</p>
+                                <span className={styles.subtext}>
+                                    JPEG, PNG, WebP
+                                </span>
+                            </div>
+                        )}
+                    </div>
+
                     <input
-                        ref={fileInputRef}
-                        className="hidden"
+                        // ref={fileInputRef}
+                        // className="hidden"
+                        className={styles.visuallyHidden}
                         type="file"
                         name="photo"
-                        accept="image/jpeg,image/png,image/gif,image/webp"
+                        accept="image/*"
                         onChange={handleFileChange}
-                        onClick={(e) => e.stopPropagation()} // Prevents double opening
+                        // onClick={(e) => e.stopPropagation()}
                         disabled={updating}
                     />
-                    {preview && (
-                        <img
-                            src={preview}
-                            alt="Preview"
-                            className="mt-4 mx-auto rounded-lg shadow-md border-2 border-green-200"
-                            style={{
-                                width: '200px',
-                                height: '200px',
-                                objectFit: 'cover',
-                            }}
-                        />
-                    )}
-                </div>
+                </label>
                 <button
-                    className="rg-generate-btn"
+                    className={styles.btnPrimary}
                     type="submit"
                     disabled={updating}
                 >
-                    {updating ? 'Uploading...' : 'Save Image'}
-                </button>
-            </form>
-        </>
+                    {updating ? 'Uploading...' : 'Update Image'}
+                </button>{' '}
+            </div>
+            <div className={styles.messageRow}>
+                {imageURL && (
+                    <p className={styles.successMsg}>✨ Image updated!</p>
+                )}
+                {error && <p className={styles.errorMsg}>⚠️ {error}</p>}
+            </div>
+        </form>
     )
 }

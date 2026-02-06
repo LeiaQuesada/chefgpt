@@ -79,7 +79,7 @@ const Cookbook = () => {
             <p className="title-description">
                 Your favorite AI recipes in one place.
             </p>
-            <div className="cookbook-list">
+            <div className="cookbook-grid">
                 {recipes.length === 0 && (
                     <p>You don’t have any saved recipes yet.</p>
                 )}

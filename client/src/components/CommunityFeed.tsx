@@ -59,7 +59,7 @@ const CommunityFeed = () => {
             <p className="title-description">
                 AI recipes brought to life by real cooks.
             </p>
-            <div className="cookbook-list">
+            <div className="cookbook-grid">
                 {recipes.length === 0 && <p>No saved recipes yet.</p>}
                 {recipes.map((recipe) => (
                     <CommunityRecipeCard
