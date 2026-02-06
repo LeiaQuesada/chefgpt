@@ -1,4 +1,3 @@
-
 ### To run the backend
 
 Ensure you are in the root of the server directory,
@@ -49,3 +48,10 @@ tips: Run sql queries here to check data injection into the database, Test reque
 ## In your browser, go to
 
 http://localhost:8000/docs
+
+minio s3 image store
+Make sure you login at http://localhost:9001/ using minioadmin as both username and password
+
+Current photo buckets:
+profile-photos
+recipes-photos
