@@ -13,12 +13,12 @@ export default function Layout() {
 
     return (
         <>
-            <img
-                src={logoImg}
-                alt="ChefGPT Logo"
-                className="nav-logo-img-fixed"
-            />
             <nav className="main-nav">
+                <img
+                    src={logoImg}
+                    alt="ChefGPT Logo"
+                    className="nav-logo-img-fixed"
+                />
                 <div className="nav-left">
                     <NavLink to="/" className="nav-link">
                         Home

@@ -59,16 +59,16 @@ const HomePage = () => {
 
                     <div className={styles.middleWrapper}>
                         <img
-                            src={avocadoImg}
+                            src={baguetteImg}
                             alt="Monster"
-                            className={`${styles.cookie} ${styles.middle} ${styles.avocado}`}
+                            className={`${styles.cookie} ${styles.middle} ${styles.baguette}`}
                         />
                     </div>
 
                     <img
-                        src={baguetteImg}
+                        src={avocadoImg}
                         alt="Drizzled"
-                        className={`${styles.cookie} ${styles.bottom} ${styles.baguette}`}
+                        className={`${styles.cookie} ${styles.bottom} ${styles.avocado}`}
                     />
                     <img
                         src={tomatoImg}

@@ -1,7 +1,8 @@
 .heroContainer {
-    transform: translateY(20px);
+    /* transform: translateY(0px); */
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,40 +10,40 @@
     background-color: transparent !important; /* Removes the grey block */
     background: none !important;
     box-sizing: border-box;
-    max-width: 100vw;
+    /* overflow: hidden; */
 }
 
 .contentWrapper {
     max-width: 1200px;
+    max-height: 900px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    align-items: flex-start;
     gap: 0;
 }
-
-.homeNavLogoImgFixed {
-    position: absolute;
-    top: -250px;
-    left: 0px;
-    height: 240px;
-    z-index: 10;
+.contentWrapper > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    padding-top: 40vh; /* Increase this number to lower it, decrease to raise it */
 }
 
 /* Typography Styles */
 .title {
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.5rem, 10vh, 5rem);
     font-weight: 300;
-    line-height: 0.9;
+    line-height: 1;
     letter-spacing: -2px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0;
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    font-weight: 00;
+    font-size: 1.2rem;
+    font-weight: 300;
     color: #333;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .buttonGroup {
@@ -85,26 +86,32 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    align-self: center;
 }
 
 .cookie {
     width: 100%;
-    max-width: 350px;
+    /* max-width: 20vh; */
+    /* max-height: 22vh; */
     object-fit: contain;
     /* Use filter: drop-shadow for irregular shapes like cookies */
     /* filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15)); */
 }
-
+/* steak */
 .top {
-    transform: translateY(100px);
+    margin-top: -150px;
     width: 280px;
 }
+/* avocado & orange */
 .middle {
+    margin-top: -290px;
+
     width: 400px;
     z-index: 2;
 }
+/* baguette & salad */
 .bottom {
-    transform: translateY(-10px);
+    margin-top: -290px;
     width: 280px;
 }
 
@@ -112,6 +119,60 @@
     position: relative;
     display: flex;
     align-items: center;
+}
+
+.overlapBottom {
+    margin-top: -40px;
+    z-index: 2;
+    position: relative;
+}
+
+/* .top,
+.middle,
+.bottom,
+.tomato {
+    transform: none;
+} */
+/* .tomato {
+    transform: translateX(-90px);
+} */
+
+.steak {
+    width: 350px;
+    max-width: 100%;
+    z-index: -1;
+    position: relative;
+    margin-bottom: -50px;
+    margin-top: -160px;
+}
+
+.baguette {
+    width: 450px;
+    max-width: 100%;
+    z-index: 0;
+    position: relative;
+    margin-top: -130px;
+    transform: translateX(20px);
+}
+.avocado {
+    width: 380px;
+    max-width: 100%;
+    z-index: 2;
+    position: relative;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    transform: translateX(30px);
+    transform: rotate(10deg);
+}
+.tomato {
+    width: 390px;
+    max-width: 100%;
+    transform: translateX(90px);
+    margin-top: -90px;
+    margin-left: 150px;
+    /* margin-bottom: -180px; */
+    z-index: 3;
+    transform: rotate(-10deg);
 }
 
 /* Responsive Breakpoint */
@@ -127,42 +188,4 @@
     .annotation {
         display: none;
     } /* Hide labels on mobile for space */
-}
-
-.overlapBottom {
-    margin-top: -40px;
-    z-index: 2;
-    position: relative;
-}
-
-.tomato {
-    width: 450px;
-    max-width: 100%;
-    transform: translateX(30px);
-    margin-top: -50px;
-}
-
-.steak {
-    width: 410px;
-    max-width: 100%;
-    z-index: 1;
-    position: relative;
-    margin-bottom: -50px;
-    margin-top: -10px;
-}
-
-.baguette {
-    width: 550px;
-    max-width: 100%;
-    z-index: 1;
-    position: relative;
-    margin-top: -100px;
-}
-.avocado {
-    width: 450px;
-    max-width: 100%;
-    z-index: 2;
-    position: relative;
-    margin-top: 50px;
-    margin-bottom: -80px;
 }
