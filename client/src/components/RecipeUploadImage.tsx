@@ -151,7 +151,7 @@ export default function RecipeUploadImage({
                         ) : (
                             <div className={styles.uploadPrompt}>
                                 <span className={styles.uploadIcon}>📸</span>
-                                <p>Drag & drop or click to upload.</p>
+                                <p>Click to upload.</p>
                                 <span className={styles.subtext}>
                                     JPEG, PNG, WebP
                                 </span>
