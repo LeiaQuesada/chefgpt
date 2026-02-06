@@ -14,6 +14,7 @@ export default function RecipeUploadImage({
     const [updating, setUpdating] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
+    // Clean up obj URL to prevent memory leaks
     useEffect(() => {
         return () => {
             if (preview) URL.revokeObjectURL(preview)
@@ -24,45 +25,44 @@ export default function RecipeUploadImage({
         setError('')
         setUpdating(true)
         const file = formData.get('photo')
-        if (file instanceof File) {
-            if (
-                ![
-                    'image/jpeg',
-                    'image/png',
-                    'image/gif',
-                    'image/webp',
-                ].includes(file.type)
-            ) {
-                setError('Unsupported Image Type')
-                setUpdating(false)
-                return
+        if (!file || !(file instanceof File) || file.size === 0) {
+            setError('Select a file by dragging, dropping, or clicking the box')
+            setUpdating(false)
+            return
+        }
+        if (
+            !['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(
+                file.type
+            )
+        ) {
+            setError('Unsupported Image Type')
+            setUpdating(false)
+            return
+        }
+        const url = await uploadPhoto(formData)
+        if (url instanceof Error) {
+            setError(url.message)
+            setUpdating(false)
+            return
+        }
+        setImageURL(url)
+        if (onImageUrlChange) onImageUrlChange(url)
+        try {
+            const response = await fetch(`/api/recipes/${recipeId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_url: url }),
+                credentials: 'include',
+            })
+            if (!response.ok) {
+                const data = await response.json()
+                setError(data.detail || 'Failed to update recipe image')
             }
-            const url = await uploadPhoto(formData)
-            if (url instanceof Error) {
-                setError(url.message)
-                setUpdating(false)
-                return
-            }
-            setImageURL(url)
-            if (onImageUrlChange) onImageUrlChange(url)
-            try {
-                const response = await fetch(`/api/recipes/${recipeId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ image_url: url }),
-                    credentials: 'include',
-                })
-                if (!response.ok) {
-                    const data = await response.json()
-                    setError(data.detail || 'Failed to update recipe image')
-                }
-            } catch (err) {
-                setError(
-                    (err as Error).message || 'Failed to update recipe image'
-                )
-            } finally {
-                setUpdating(false)
-            }
+        } catch (err) {
+            setError((err as Error).message || 'Failed to update recipe image')
+        } finally {
+            setUpdating(false)
+            setPreview(null)
         }
     }
 
@@ -97,7 +97,6 @@ export default function RecipeUploadImage({
 
     function handleDrop(e: React.DragEvent) {
         e.preventDefault()
-        e.stopPropagation()
         setDragActive(false)
         const file = e.dataTransfer.files?.[0]
         if (file) {
@@ -114,8 +113,10 @@ export default function RecipeUploadImage({
                 return
             }
             setError('')
+            //  Clean up the previous preview URL to prevent memory leaks
             if (preview) URL.revokeObjectURL(preview)
             setPreview(URL.createObjectURL(file))
+            // Set file in input for form
             if (fileInputRef.current) {
                 const dt = new DataTransfer()
                 dt.items.add(file)
@@ -126,7 +127,6 @@ export default function RecipeUploadImage({
 
     return (
         <form className={styles.uploadContainer} action={handleSubmit}>
-            {/* <h3 className={styles.uploadTitle}>Update Image</h3> */}
             <div className={styles.uploadMain}>
                 <label
                     className={`${styles.dropZone} ${dragActive ? styles.dragActive : ''}`}
@@ -134,7 +134,6 @@ export default function RecipeUploadImage({
                     onDragOver={handleDrag}
                     onDragLeave={handleDrag}
                     onDrop={handleDrop}
-                    // onClick={() => fileInputRef.current?.click()}
                 >
                     <div className={styles.previewWrapper}>
                         {preview ? (
@@ -161,14 +160,11 @@ export default function RecipeUploadImage({
                     </div>
 
                     <input
-                        // ref={fileInputRef}
-                        // className="hidden"
                         className={styles.visuallyHidden}
                         type="file"
                         name="photo"
                         accept="image/*"
                         onChange={handleFileChange}
-                        // onClick={(e) => e.stopPropagation()}
                         disabled={updating}
                     />
                 </label>
@@ -180,12 +176,7 @@ export default function RecipeUploadImage({
                     {updating ? 'Uploading...' : 'Update Image'}
                 </button>{' '}
             </div>
-            <div className={styles.messageRow}>
-                {imageURL && (
-                    <p className={styles.successMsg}>✨ Image updated!</p>
-                )}
-                {error && <p className={styles.errorMsg}>⚠️ {error}</p>}
-            </div>
+            {error && <p className={styles.errorMsg}>⚠️ {error}</p>}
         </form>
     )
 }
