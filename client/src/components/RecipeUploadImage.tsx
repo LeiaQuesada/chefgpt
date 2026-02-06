@@ -140,7 +140,7 @@ export default function RecipeUploadImage({
                 {imageURL && (
                     <div className="mb-4">
                         <p className="text-green-600 font-medium mb-2">
-                            ✅ Image uploaded successfully!
+                            ✅ Recipe Image updated successfully!
                         </p>
                     </div>
                 )}
