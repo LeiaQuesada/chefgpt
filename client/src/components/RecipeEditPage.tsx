@@ -178,7 +178,12 @@ export default function RecipeEditPage() {
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error}</div>
     if (!form) return <div>Recipe not found</div>
-
+    const imageBaseURL = 'https://placeholders.io/400/400/'
+    const imgParams = new URLSearchParams({
+        style: 'photographic',
+        seed: form.id.toString(),
+    })
+    const defaultRecipeURL = `${imageBaseURL}${form.title}?${imgParams}`
     return (
         <div className="recipe-edit-wrapper">
             <h2 className="recipe-edit-input-title-recipe">{form.title}</h2>
@@ -202,7 +207,7 @@ export default function RecipeEditPage() {
                     <h3 className="edit-image-title">Image:</h3>
                     <div className="image-flex-container">
                         <img
-                            src={form.imageUrl}
+                            src={form.imageUrl || defaultRecipeURL}
                             alt={form.title}
                             className="edit-page-img"
                         />
