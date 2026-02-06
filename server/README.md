@@ -52,6 +52,6 @@ http://localhost:8000/docs
 minio s3 image store
 Make sure you login at http://localhost:9001/ using minioadmin as both username and password
 
-Current photo buckets:
+Create photo buckets:
 profile-photos
 recipes-photos
