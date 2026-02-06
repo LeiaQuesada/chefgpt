@@ -4,6 +4,7 @@ import type { RecipeDetailsProps, RecipeEditPayload } from '../../types/recipe'
 import { useUser } from '../authentication/useUser'
 import saveIcon from '../assets/save.png'
 import cancelIcon from '../assets/cancelbutton.png'
+import RecipeUploadImage from './RecipeUploadImage.tsx'
 
 function mapStringArray(
     arr: unknown[],
@@ -199,14 +200,24 @@ export default function RecipeEditPage() {
             <div className="recipe-edit-section">
                 <label>
                     <h3 className="recipe-edit-input-title">Image:</h3>
-                    <input
-                        id="image"
-                        type="text"
-                        value={form.imageUrl}
-                        onChange={(e) => handleChange(e, 'imageUrl')}
-                        className="recipe-edit-input"
-                        placeholder="Image URL"
+
+                    <img
+                        src={form.imageUrl}
+                        alt={form.title}
+                        style={{
+                            width: '200px',
+                            height: '200px',
+                            objectFit: 'cover',
+                        }}
                     />
+                    {recipeId && (
+                        <RecipeUploadImage
+                            recipeId={recipeId}
+                            onImageUrlChange={(url) => {
+                                if (form) setForm({ ...form, imageUrl: url })
+                            }}
+                        />
+                    )}
                 </label>
             </div>
 

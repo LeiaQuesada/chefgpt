@@ -43,3 +43,13 @@ export interface AIRecipe {
     instructions: string[]
     total_time: number
 }
+
+export interface PhotoResponse {
+    id: number
+    photo_url: string
+}
+
+export type RecipeUploadImageProps = {
+    recipeId: number
+    onImageUrlChange?: (url: string) => void
+}
