@@ -204,7 +204,6 @@ export default function RecipeEditPage() {
 
             <div className="recipe-edit-section">
                 <label>
-                    <h3 className="edit-image-title">Image:</h3>
                     <div className="image-flex-container">
                         <img
                             src={form.imageUrl || defaultRecipeURL}
