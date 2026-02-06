@@ -1238,18 +1238,13 @@ nav .active {
     width: 260px;
     height: 290px;
     border-radius: 44px;
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
-    display: block;
-    margin: 0 auto;
     object-fit: cover;
 }
 .image-flex-container {
     display: flex;
-    height: 325px; /* Set a fixed height for the container */
-    /* flex-direction: row; */
-    align-items: center; /* Vertically centers the circle and the upload box */
+    align-items: start;
+    justify-content: space-evenly;
     gap: 40px; /* Space between the image and the upload box */
-    /* margin-top: 15px; */
 }
 .recipe-card-btn.edit,
 .recipe-card-btn.delete {
@@ -1792,9 +1787,9 @@ nav .active {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1em;
     text-align: center;
     width: 100%;
-    margin: 0 auto;
     color: #525252;
     font-family: var(--font-heading) !important;
     font-weight: 400 !important;
@@ -1927,7 +1922,7 @@ h3 + .ingredients-section {
     font-size: 1.1rem;
     font-weight: 400 !important;
     margin-bottom: 20px;
-    margin-top: 8em;
+    margin-top: 20px;
     display: block;
     text-align: left;
     align-self: flex-start;
@@ -1963,7 +1958,6 @@ h3 + .ingredients-section {
     /* keep section centered */
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 12px;
 }
 
 .recipe-edit-section ol {
