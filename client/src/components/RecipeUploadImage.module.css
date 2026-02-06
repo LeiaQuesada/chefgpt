@@ -1,18 +1,16 @@
 .uploadContainer {
     display: flex;
     flex-direction: column;
+    gap: 1em;
     justify-content: center; /* centers content vertically */
-    height: 290px; /* match .previewWrapper height */
-    max-width: 260px;
-    margin-top: 30px;
-    transform: translateY(19%);
-    margin-bottom: 32px;
 }
+
 .uploadMain {
     display: flex;
     flex-direction: column;
     gap: 1rem; /* space between drop zone and button */
 }
+
 .previewWrapper {
     width: 260px;
     height: 290px;
@@ -24,12 +22,14 @@
     position: relative;
     border: #525252 1px dashed;
 }
+
 .upload-preview {
     width: 100%;
     height: 100%;
     object-fit: contain; /* or contain if you prefer */
     display: block;
 }
+
 .previewImg {
     width: 100%;
     height: 100%;
@@ -46,6 +46,7 @@
     margin: 0;
     margin-bottom: 0.1rem;
 }
+
 .uploadPrompt {
     position: absolute;
     inset: 0; /* 👈 fills preview */
@@ -86,6 +87,7 @@
     color: #888;
     margin-top: 0.5rem;
 }
+
 .overlayText {
     position: absolute;
     inset: 0;
@@ -117,6 +119,7 @@
         transform 0.2s;
     border-radius: 999px !important;
 }
+
 .btnPrimary:hover:not(:disabled) {
     box-shadow: 0 6px 20px rgba(255, 101, 96, 0.23);
     transform: translateY(-5px);
@@ -137,25 +140,7 @@
     border-radius: 55px;
     font-size: 0.8rem;
     margin: 0;
-    margin-top: 0.5rem;
-}
-
-.successMsg {
-    background: #fff5f5;
-    border-radius: 55px;
-
-    color: #2ecc71;
-    font-weight: 600;
-    font-size: 0.8rem;
-    margin-top: 0.2rem;
-}
-
-.messageRow {
-    min-height: 1.5rem; /* reserve enough space for one line of text */
-    margin-top: 0.1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    max-width: 260px;
 }
 
 .visuallyHidden {
