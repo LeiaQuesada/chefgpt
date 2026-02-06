@@ -29,7 +29,7 @@ export default function Login() {
                 return
             }
             await refreshUser()
-            navigate('/cookbook')
+            navigate('/recipe-generator')
         } catch {
             setError('Login failed. Please try again.')
         } finally {
@@ -40,7 +40,7 @@ export default function Login() {
     return (
         <div className="login-page">
             <div className="login-panel">
-                <div className="login-title">ChefGPT</div>
+                <div className="login-title">Welcome!</div>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="login-col">
                         <div className="login-form-row">
@@ -54,7 +54,6 @@ export default function Login() {
                                 id="login-username"
                                 name="username"
                                 type="text"
-                                placeholder="Enter your username"
                                 autoComplete="username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
@@ -79,7 +78,6 @@ export default function Login() {
                                 id="login-password"
                                 name="password"
                                 type="password"
-                                placeholder="Enter your password"
                                 autoComplete="current-password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -98,7 +96,7 @@ export default function Login() {
                     <div className="login-btn-col">
                         <button
                             type="submit"
-                            className={`login-btn${focus.login ? ' login-btn-focus' : ''}`}
+                            className={`login-submit-btn${focus.login ? ' login-submit-focus' : ''}`}
                             onFocus={() =>
                                 setFocus((f) => ({ ...f, login: true }))
                             }
@@ -111,15 +109,10 @@ export default function Login() {
                         </button>
                     </div>
                 </form>
-                <div className="login-bottom">
-                    Don’t have an account?
-                    <span>
-                        {' '}
-                        <Link to="/register" className="login-link">
-                            Sign Up Here.
-                        </Link>
-                    </span>
-                </div>
+
+                <Link to="/register" className="login-link">
+                    Don’t have an account? Sign Up Here.
+                </Link>
             </div>
         </div>
     )
