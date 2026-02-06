@@ -10,6 +10,7 @@ interface UserProfile {
 
 export default function EditProfile() {
     const [username, setUsername] = useState('')
+    const [originalUsername, setOriginalUsername] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -25,6 +26,7 @@ export default function EditProfile() {
             })
             .then((data: UserProfile) => {
                 setUsername(data.username)
+                setOriginalUsername(data.username)
             })
             .catch(() => setError('Could not load profile'))
     }, [])
@@ -59,6 +61,7 @@ export default function EditProfile() {
             setSuccess(true)
             setNewPassword('')
             setConfirmPassword('')
+            navigate('/')
         } catch (err: any) {
             setError(err.message)
         } finally {
@@ -69,6 +72,16 @@ export default function EditProfile() {
     const handleCancel = () => {
         navigate('/')
     }
+
+    // Disable save if no changes or only confirmPassword is filled
+    const noChanges =
+        username === originalUsername &&
+        newPassword === '' &&
+        confirmPassword === ''
+    const onlyConfirmFilled =
+        username === originalUsername &&
+        newPassword === '' &&
+        confirmPassword !== ''
 
     return (
         <div
@@ -129,7 +142,7 @@ export default function EditProfile() {
                     <button
                         type="submit"
                         className="edit-profile-save-btn"
-                        disabled={loading}
+                        disabled={loading || noChanges || onlyConfirmFilled}
                     >
                         {loading ? 'Saving...' : 'Save'}
                     </button>

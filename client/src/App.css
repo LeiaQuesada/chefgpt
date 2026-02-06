@@ -1269,7 +1269,7 @@ nav .active {
 }
 .recipe-card-btn.edit:hover,
 .recipe-card-btn.delete:hover {
-    transform: scale(1.35);
+    transform: scale(1.1);
 }
 
 .recipe-card-btn.edit:active,
@@ -1303,7 +1303,7 @@ nav .active {
 .recipe-edit-btn-save:hover,
 .recipe-edit-btn-cancel:hover {
     color: #fefefe !important;
-    transform: scale(1.15);
+    transform: scale(1.1);
 }
 
 .recipe-edit-btn-save:active,
@@ -1772,14 +1772,25 @@ nav .active {
     /* fade behavior */
     opacity: 0;
     pointer-events: none;
-    transform: translateY(10px);
-    transition: opacity 0.5s ease;
+    transform: translateY(10px) scale(1); /* include scale here */
+
+    /* combined transition */
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease,
+        color 0.3s ease;
 }
 
+/* Visible state */
 .scroll-to-top-btn.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+}
+
+/* Hover state */
+.scroll-to-top-btn.visible:hover {
+    transform: translateY(0) scale(1.1);
 }
 
 .recipe-edit-wrapper {

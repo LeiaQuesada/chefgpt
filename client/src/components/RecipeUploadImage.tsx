@@ -26,7 +26,7 @@ export default function RecipeUploadImage({
         setUpdating(true)
         const file = formData.get('photo')
         if (!file || !(file instanceof File) || file.size === 0) {
-            setError('Select a file by dragging, dropping, or clicking the box')
+            setError('Select a file by clicking the box')
             setUpdating(false)
             return
         }
