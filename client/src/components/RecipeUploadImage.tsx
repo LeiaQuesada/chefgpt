@@ -26,7 +26,7 @@ export default function RecipeUploadImage({
         setUpdating(true)
         const file = formData.get('photo')
         if (!file || !(file instanceof File) || file.size === 0) {
-            setError('Select a file by clicking the box')
+            setError('Select a file by dragging, dropping, or clicking the box')
             setUpdating(false)
             return
         }
@@ -60,10 +60,9 @@ export default function RecipeUploadImage({
             }
         } catch (err) {
             setError((err as Error).message || 'Failed to update recipe image')
-        } finally {
-            setUpdating(false)
-            setPreview(null)
         }
+        setUpdating(false)
+        setPreview(null)
     }
 
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -95,7 +94,7 @@ export default function RecipeUploadImage({
         else if (e.type === 'dragleave') setDragActive(false)
     }
 
-    function handleDrop(e: React.DragEvent) {
+    const handleDrop = async (e: React.DragEvent<HTMLLabelElement>) => {
         e.preventDefault()
         setDragActive(false)
         const file = e.dataTransfer.files?.[0]
@@ -113,7 +112,7 @@ export default function RecipeUploadImage({
                 return
             }
             setError('')
-            //  Clean up the previous preview URL to prevent memory leaks
+            // Clean up the previous preview URL to prevent memory leaks
             if (preview) URL.revokeObjectURL(preview)
             setPreview(URL.createObjectURL(file))
             // Set file in input for form
@@ -122,11 +121,22 @@ export default function RecipeUploadImage({
                 dt.items.add(file)
                 fileInputRef.current.files = dt.files
             }
+            // // Immediately upload the dropped image
+            // const formData = new FormData()
+            // formData.append('photo', file)
+            // await handleSubmit(formData)
         }
     }
 
     return (
-        <form className={styles.uploadContainer} action={handleSubmit}>
+        <form
+            className={styles.uploadContainer}
+            onSubmit={async (e) => {
+                e.preventDefault()
+                const formData = new FormData(e.currentTarget)
+                await handleSubmit(formData)
+            }}
+        >
             <div className={styles.uploadMain}>
                 <label
                     className={`${styles.dropZone} ${dragActive ? styles.dragActive : ''}`}
@@ -151,7 +161,7 @@ export default function RecipeUploadImage({
                         ) : (
                             <div className={styles.uploadPrompt}>
                                 <span className={styles.uploadIcon}>📸</span>
-                                <p>Click to upload.</p>
+                                <p>Drag, Drop or Click to upload.</p>
                                 <span className={styles.subtext}>
                                     JPEG, PNG, WebP
                                 </span>
@@ -166,6 +176,7 @@ export default function RecipeUploadImage({
                         accept="image/*"
                         onChange={handleFileChange}
                         disabled={updating}
+                        ref={fileInputRef}
                     />
                 </label>
                 <button
