@@ -8,7 +8,6 @@ export default function RecipeUploadImage({
     onImageUrlChange,
 }: RecipeUploadImageProps) {
     const [error, setError] = useState('')
-    const [imageURL, setImageURL] = useState('')
     const [preview, setPreview] = useState<string | null>(null)
     const [dragActive, setDragActive] = useState(false)
     const [updating, setUpdating] = useState(false)
@@ -45,7 +44,6 @@ export default function RecipeUploadImage({
             setUpdating(false)
             return
         }
-        setImageURL(url)
         if (onImageUrlChange) onImageUrlChange(url)
         try {
             const response = await fetch(`/api/recipes/${recipeId}`, {
@@ -63,6 +61,10 @@ export default function RecipeUploadImage({
         }
         setUpdating(false)
         setPreview(null)
+        setError('')
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''
+        }
     }
 
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -187,7 +189,6 @@ export default function RecipeUploadImage({
                     {updating ? 'Uploading...' : 'Update Image'}
                 </button>{' '}
             </div>
-            {imageURL && <p className={styles.successMsg}>✨ Image updated!</p>}
             {error && <p className={styles.errorMsg}>⚠️ {error}</p>}
         </form>
     )
