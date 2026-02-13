@@ -57,7 +57,7 @@ const CommunityFeed = () => {
         <div className="cookbook-container">
             <h1 className="cookbook-title">The Community Table</h1>
             <p className="title-description">
-                AI recipes brought to life by real cooks.
+                Saved generated recipes brought to life by real cooks.
             </p>
             <div className="cookbook-grid">
                 {recipes.length === 0 && <p>No saved recipes yet.</p>}

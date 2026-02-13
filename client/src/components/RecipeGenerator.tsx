@@ -36,6 +36,13 @@ const RecipeGenerator = () => {
             if (!res.ok) throw new Error('Failed to add recipe')
             setAddStatus((prev) => ({ ...prev, [idx]: 'saved' }))
         } catch (err) {
+            setError(
+                typeof err == 'string'
+                    ? err
+                    : err instanceof Error
+                      ? err.message
+                      : `Error ${err}`
+            )
             setAddStatus((prev) => ({ ...prev, [idx]: 'error' }))
         }
     }
@@ -103,9 +110,7 @@ const RecipeGenerator = () => {
     return (
         <div className="rg-root-font rg-generator-center">
             <div className="rg-glass-card">
-                <h1 className="recipe-generator-hook">
-                    Hungry? Your AI chef is ready!
-                </h1>
+                <h1 className="recipe-generator-hook">Let's cook</h1>
                 {error && (
                     <div className="rg-error">
                         <strong>Error:</strong> {error}
@@ -114,7 +119,7 @@ const RecipeGenerator = () => {
                 <form onSubmit={fetchAI} className="rg-form">
                     <div className="rg-form-row">
                         <label className="ingredient-question">
-                            What’s in your fridge?
+                            What ingredients are available?
                             <span className="rg-add-ingredient-row">
                                 <input
                                     type="text"
@@ -144,7 +149,6 @@ const RecipeGenerator = () => {
                     </div>
                     {ingredients.length > 0 && (
                         <div className="rg-form-row">
-                            {/* <strong>Ingredients List:</strong> */}
                             <ul className="rg-recipe-list">
                                 {ingredients.map((ing, idx) => (
                                     <li

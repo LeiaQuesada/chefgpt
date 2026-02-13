@@ -77,11 +77,14 @@ const Cookbook = () => {
         <div className="cookbook-container">
             <h1 className="cookbook-title">My Cookbook</h1>
             <p className="title-description">
-                Your favorite AI recipes in one place.
+                Your saved ChefGPT recipes in one place.
             </p>
             <div className="cookbook-grid">
                 {recipes.length === 0 && (
-                    <p>You don’t have any saved recipes yet.</p>
+                    <p>
+                        You don’t have any saved recipes yet. Use the AI Chef to
+                        generate and save your custom recipes.
+                    </p>
                 )}
                 {recipes.map((recipe) => (
                     <RecipeCard

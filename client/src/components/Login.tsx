@@ -40,7 +40,7 @@ export default function Login() {
     return (
         <div className="login-page">
             <div className="login-panel">
-                <div className="login-title">Welcome!</div>
+                <div className="login-title">What's cooking, good looking?</div>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="login-col">
                         <div className="login-form-row">
@@ -111,7 +111,7 @@ export default function Login() {
                 </form>
 
                 <Link to="/register" className="login-link">
-                    Don’t have an account? Sign Up Here.
+                    Don’t have an account, yet? Sign Up Here.
                 </Link>
             </div>
         </div>

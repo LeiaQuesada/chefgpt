@@ -12,21 +12,10 @@ const HomePage = () => {
         <section className={styles.heroContainer}>
             <div className={styles.contentWrapper}>
                 <div>
-                    {/* <div>
-                        <img
-                            src={logoImg}
-                            alt="ChefGPT Logo"
-                            className={styles.homeNavLogoImgFixed}
-                        />
-                    </div> */}
-
-                    <h1 className={styles.title}>
-                        LESS THINKING, <br /> MORE EATING.
-                    </h1>
+                    <h1 className={styles.title}>What's on the menu, Chef?</h1>
                     <p className={styles.subtitle}>
-                        AI-powered meals, fit for you.
+                        Custom AI-inspired meals, just for you.
                     </p>
-                    {/* this button section should only show if a user is not logged in.  */}
                     {!user && (
                         <div className={styles.buttonGroup}>
                             <NavLink to="/login" className={styles.btnPrimary}>
@@ -41,15 +30,6 @@ const HomePage = () => {
                         </div>
                     )}
                 </div>
-                {/* <div className={styles.annotation}>
-                    <span className={styles.arrow}>⤴</span>
-                    <h3>MONSTER</h3>
-                    <p>
-                        Gluten-friendly peanut butter oatmeal cookie with
-                        semi-sweet chocolate chips & M&M's
-                    </p>
-                </div> */}
-                {/* Right Side: Cookie Stack */}
                 <div className={styles.imageSide}>
                     <img
                         src={steakImg}
