@@ -1,82 +1,134 @@
 # ChefGPT
 
+ChefGPT is a full-stack AI-powered web application that transforms user-provided ingredients into personalized, natural-language recipes using the Gemini API. Designed to simulate a personal chef experience, the app combiines scalable backend services, structured database design, and a responsive React frontend to deliver tailored culinary inspiration.
 
+![homepage](./assets/home.png)
 
-## Entity Relationship Diagram
+## Features:
 
-![Diagram of table relationships](assets/image.png)
+- AI - generated recipes powered by Gemini
+- User authentication (Login/Signup)
+- Personal recipe storage in My Cookbook
+- Community recipe sharing via The Table
+- Drag-and-Drop image uploads (MinIO S3 storage)
+- PostgreSQL database with seeded schema
+- FastAPI backend
+- React (Vite) frontend
 
-## Set up instructions
+## Tech Stack
 
-### To run the frontend
+### Frontend
 
-In a terminal or command prompt, ensure you are in the root of the client directory,
-Then run the following commands in the terminal:
+- React (Vite)
+- JavaScript / CSS
 
-#### Run the web server:
+### Backend
 
-`npm install` \
-`npm run dev`
+- FastAPI
+- Python
+- PostgreSQL
+- Docker
+- MinIO (S3 compatible storage)
 
-#### In your browser, navigate to:
+### AI Integration
 
+- Gemini API
+
+## Local Setup
+
+### Prerequisites:
+
+- Docker
+- Node.js
+- Python 3.10+
+- Gemini API key.
+
+### Frontend Setup
+
+```
+cd client
+npm install
+npm run dev
+```
+
+Visit:
 http://localhost:5173/
 
-### To run the backend
+Optional AI image placeholders: \
+https://placeholders.io/ \
+(Allow insecure connection if prompted)
 
-Ensure you are in the root of the server directory,
-Then run the following commands in the terminal:
+### Backend Setup
 
-#### Start the python virtual environment:
+```
+cd server
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-`python -m venv .venv` \
-`source .venv/bin/activate` \
-`pip install -r requirements.txt`
+#### Start PostgreSQL (Docker)
 
-#### To run postgres inside a Docker container/start the database server:
+```
+docker compose up -d
+```
 
-`docker compose up -d`
+#### Enter database:
 
-#### connect and enter into the database server:
+```
+docker compose exec postgres psql -U postgres chefgpt
+```
 
-`docker compose exec postgres psql -U postgres chefgpt`
+#### Inside psql:
 
-Once you are logged into psql. Use the following commands to create a database for this project, make it your current database, and then load in our table and sample data:
+```
+\i data/chefgpt.sql;    -- seed database
+\dt                     -- list all tables
+exit
+```
 
-#### List all databases
+#### Start FastAPI Server:
 
-postgres=# `\l`
+```
+fastapi dev
+```
 
-#### Load the database schema and any sql commands in the file data injection aka seed the database
-
-<database name>=# `\i data/chefgpt.sql;`
-
-#### list all tables
-
-`\dt`
-
-#### You can log out of your database with
-
-`exit`
-
-# Run the web server:
-
-`fastapi dev`
-
-## In your browser, go to
+#### Swagger Docs:
 
 http://localhost:8000/docs
 
-## For access to the minio s3 photo store, navigate to 
+## MinIO Image Storage
 
-http://localhost:9001
+Access MinIO console:
 
-username: minioadmin
+http://localhost:9001 \
+username: minioadmin \
 password: minioadmin
 
-**Tips**: 
-- Run sql queries to check the data in the database, 
-- Test requests in the fastapi docs, Swagger UI 
-- Watch the FastAPI server in the terminal for error logs.
-- Watch the vite React server for any logs
+## Developer Tips
 
+- Test endpoints via Swagger UI
+- Monitor FastAPI logs in backend terminal
+- Watch Vite console for frontend logs
+- Run SQL queries directly in psql to inspect data
+
+## Architecture Hightlights
+
+- RESTful API design with FastAPI
+- Structured Postgres schema with seed data
+- Containerized database using Docker
+- Modular frontend component structure
+- Clean separation of concerns
+
+## Screenshots:
+
+![login screen](./assets/login.png)
+![ai form](./assets/ai-chef.png)
+![ai form with inputs](./assets/ai-chef-inputs.png)
+![ai generated recipes](./assets/recipe-generation.png)
+![personal saved recipes in "My Cookbook"](./assets/cookbook.png)
+![community saved recipes in "The Table"](./assets/community-table.png)
+
+### drag and drop feature: \
+
+![drag and drop image upload](./assets/drag-photo.png)
