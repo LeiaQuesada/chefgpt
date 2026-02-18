@@ -1,57 +1,132 @@
-### To run the backend
+# ChefGPT Backend 🍳⚙️
 
-Ensure you are in the root of the server directory,
-Then run the following commands in the terminal:
+The ChefGPT backend is a FastAPI-powered REST API that handles authentication, AI integration (Gemini), recipe persistence, and object storage coordination using PostgreSQL and MinIO.
 
-#### Start the python virtual environment:
+## Responsibilities
 
-`python -m venv .venv` \
-`source .venv/bin/activate` \
-`pip install -r requirements.txt`
+- RESTful API endpoints
 
-#### to run postgres inside the Docker container/start the database server:
+- User authentication & authorization
 
-`docker compose up -d`
+- AI prompt construction & response parsing
 
-#### connect and enter into the database server:
+- PostgreSQL data persistence
 
-`docker compose exec postgres psql -U postgres`
+- Image upload & retrieval via MinIO
 
-Once you are logged into psql. Use the following commands to create a database for this project, make it your current database, and then load in our table and sample data:
+- usiness logic validation
 
-#### List all databases
+## Tech Stack
 
-postgres=# `\l`
+- FastAPI
 
-#### Connect to our database
+- Python
 
-postgres=# `\c chefgpt`
+- PostgreSQL
 
-#### Load the database schema and any sql commands in the file data injection aka seed the database
+- Docker
 
-<database name>=# `\i data/chefgpt.sql;`
+- MinIO (S3-compatible storage)
 
-#### list all tables
+- Gemini API
 
-`\dt`
+## Local Setup
 
-tips: Run sql queries here to check data injection into the database, Test requests in the fastapi docs UI, and watch the FastAPI server in the terminal for error logs.
+### Prerequisites
 
-#### You can log out of your database with
+- Python 3.10+
 
-`exit`
+- Docker
 
-# Run the web server:
+- Gemini API Key
 
-`fastapi dev main.py`
+### Create Virtual Environment
 
-## In your browser, go to
+```
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-http://localhost:8000/docs
+### Start PostgreSQL (Docker)
 
-minio s3 image store
-Make sure you login at http://localhost:9001/ using minioadmin as both username and password
+```
+docker compose up -d
+```
 
-Create photo buckets:
-profile-photos
-recipes-photos
+Enter database:
+
+```
+docker compose exec postgres psql -U postgres chefgpt
+```
+
+Seed database:
+
+```
+\i data/chefgpt.sql
+```
+
+Exit:
+
+```
+exit
+```
+
+### Start API Server
+
+```
+fastapi dev
+```
+
+## Access Swagger Docs:
+
+👉 http://localhost:8000/docs
+
+## Database
+
+ChefGPT uses a relational PostgreSQL schema that includes:
+
+- Users
+
+- Recipes
+
+- Relationships between users and saved recipes
+
+The schema is initialized via:
+
+`data/chefgpt.sql`
+
+## Gemini Integration
+
+Accepts structured ingredient input
+
+- Constructs AI prompt
+
+- Parses and formats AI response
+
+- Returns structured recipe object to client
+
+## Environment variable required:
+
+GEMINI_API_KEY=your_key_here
+
+## MinIO Object Storage
+
+MinIO runs locally for S3-compatible image storage.
+
+Access console:
+
+👉 http://localhost:9001
+
+Username: minioadmin \
+Password: minioadmin
+
+## Development Tips
+
+- Use /docs to test endpoints
+
+- Monitor server logs for validation errors
+
+- Use psql to inspect database tables
+
+- Watch Docker container logs if DB issues arise

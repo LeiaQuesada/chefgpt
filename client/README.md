@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# ChefGPT Frontend 🍽✨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The ChefGPT frontend is a React + Vite single-page application that allows users to generate AI-powered recipes, save them, upload images, and interact with a community recipe feed.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User authentication (Login / Signup)
 
-## React Compiler
+- AI recipe generation form
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- Recipe display with formatted output
 
-## Expanding the ESLint configuration
+- Personal cookbook management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Community recipe sharing feed
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Drag-and-drop image upload
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Responsive UI design
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech Stack
+
+- React
+
+- Vite
+
+- JavaScript
+
+- CSS
+
+- REST API integration
+
+## Local Setup
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+
+### Install Dependencies
+
+```
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm run dev
+```
+
+Visit:
+
+👉 http://localhost:5173/
+
+### API Configuration
+
+Ensure backend is running at:
+
+👉 http://localhost:8000
+
+If using environment variables, configure:
+
+VITE_API_BASE_URL=http://localhost:8000
+
+### Image Handling
+
+- Drag-and-drop upload interface
+
+- Images stored via backend → MinIO
+
+- Optional placeholder images
+    - disable security warning: 👉 https://placeholders.io/
+
+## Development Tips
+
+- Monitor browser console for API errors
+
+- Ensure backend is running before generating recipes
+
+- Inspect network tab for request/response debugging
+
+- Use React DevTools for component inspection
